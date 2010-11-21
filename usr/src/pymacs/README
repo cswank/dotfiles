@@ -1,0 +1,43 @@
+.. role:: code(strong)
+.. role:: file(emphasis)
+
+======================
+README file for Pymacs
+======================
+
+Pymacs is a powerful tool which, once started from Emacs, allows
+both-way communication between Emacs Lisp and Python.  Pymacs aims
+Python as an extension language for Emacs rather than the other way
+around, and this asymmetry is reflected in some design choices.  Within
+Emacs Lisp code, one may load and use Python modules.  Python functions
+may themselves use Emacs services, and handle Emacs Lisp objects kept in
+Emacs Lisp space.
+
+The Pymacs manual (either the `HTML one`__ or the `PDF one`__) has
+installation instructions, a full description of the API, pointers
+to documented examples, to resources, and to other Pymacs sites or
+projects.
+
+__ http://pymacs.progiciels-bpi.ca/pymacs.html
+__ http://pymacs.progiciels-bpi.ca/pymacs.pdf
+
+The official distribution (read the `release notice`__) is available at:
+
+  + http://pymacs.progiciels-bpi.ca/archives/Pymacs.tar.gz
+
+__ http://pymacs.progiciels-bpi.ca/courriel/latest/1
+
+Some older distributions, and maybe beta pre-releases for testers,
+*might* be available in this directory:
+
+  + http://pymacs.progiciels-bpi.ca/archives/
+
+There is a reachable copy of my own sandbox repository for Pymacs.  To
+get your own copy, use::
+
+  git clone git://github.com/pinard/Pymacs.git
+
+Please report problems, comments and suggestions to `François Pinard`__
+at ``pinard@iro.umontreal.ca``.
+
+__ mailto:pinard@iro.umontreal.ca
