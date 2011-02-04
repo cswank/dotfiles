@@ -35,13 +35,12 @@
 ;;Dired Ignores
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'dired-load-hook                                                                                                                                                                                        
-(lambda ()
+(lambda ()                                                                                                                                                                                                        
 (load "dired-x")))                                                                                                                                                                                                
 (add-hook 'dired-mode-hook                                                                                                                                                                                        
 (lambda ()                                                                                                                                                                                                        
 (setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")                                                                                                                                                              
 (setq dired-omit-extensions '(".pyc" "~" ".bak" ".pt.cache" ".svn"))                                                                                                                                              
-
 (dired-omit-mode 1))) 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -53,6 +52,9 @@
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("os.path.abspath(os.path.dirname(__file__))" 0 "%d")) arg)))
 (fset 'stars
    "print '*' * 80\C-m")
+(fset 'jq
+   "$('#')\C-b\C-b")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;define modes for file extensions
@@ -77,6 +79,15 @@
 (setq-default truncate-lines t)
 (put 'dired-find-alternate-file 'disabled nil)
 (require 'psvn)
+(require 'git)
+(require 'pretty-mode)
+
+(autoload 'multi-mode
+  "multi-mode"
+  "Allowing multiple major modes in a buffer."
+  t)
+
+(iswitchb-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Custom Set Variables
@@ -87,6 +98,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(desktop-clear-preserve-buffers (quote ("\\*scratch\\*" "\\*Messages\\*" "\\*server\\*" "\\*tramp/.+\\*" "\\*Pymacs\\*")))
  '(desktop-save t)
  '(desktop-save-mode t)
  '(scroll-bar-mode nil))
@@ -97,3 +109,4 @@
   ;; If there is more than one, they won't work right.
  )
 
+(put 'downcase-region 'disabled nil)
