@@ -34,14 +34,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Dired Ignores
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook 'dired-load-hook                                                                                                                                                                                        
-(lambda ()                                                                                                                                                                                                        
-(load "dired-x")))                                                                                                                                                                                                
-(add-hook 'dired-mode-hook                                                                                                                                                                                        
-(lambda ()                                                                                                                                                                                                        
-(setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")                                                                                                                                                              
-(setq dired-omit-extensions '(".pyc" "~" ".bak" ".pt.cache" ".svn"))                                                                                                                                              
-(dired-omit-mode 1))) 
+(add-hook 'dired-load-hook
+(lambda ()
+(load "dired-x")))
+(add-hook 'dired-mode-hook
+(lambda ()
+(setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
+(setq dired-omit-extensions '(".pyc" "~" ".bak" ".pt.cache" ".svn"))
+(dired-omit-mode 1)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;My Macros
@@ -88,6 +88,7 @@
   t)
 
 (iswitchb-mode 1)
+(global-auto-revert-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Custom Set Variables
