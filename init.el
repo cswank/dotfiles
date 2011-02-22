@@ -79,7 +79,6 @@
 (setq-default truncate-lines t)
 (put 'dired-find-alternate-file 'disabled nil)
 (require 'psvn)
-(require 'git)
 (require 'pretty-mode)
 
 (autoload 'multi-mode
