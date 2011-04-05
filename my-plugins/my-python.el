@@ -2,9 +2,10 @@
 (require 'yasnippet)
 (require 'pymacs)
 (require 'pysmell)
-(require 'python-mode)
-(require 'ipython)
-(add-hook 'py-mode-hook (lambda () (pysmell-mode 1)))
+(require 'doctest-mode)
+;;(require 'python-mode)
+(require 'python)
+;;(require 'ipython)
 (add-hook 'py-mode-hook '(lambda () (require 'virtualenv)))
 
 (setq yas/trigger-key (kbd "C-c 8"))

@@ -5,6 +5,13 @@
 (add-to-list 'load-path "~/.emacs.d/color")
 (add-to-list 'load-path "~/.emacs.d/my-plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/company")
+(add-to-list 'load-path "~/.emacs.d/plugins/share/emacs/site-lisp")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;MMM mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'mmm-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -29,7 +36,8 @@
 ;;Load Libraries
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
-(load-library "my-python")
+;;(load-library "my-python")
+(load-file "/Users/cswank/.emacs.d/emacs-for-python/epy-init.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Dired Ignores
@@ -64,7 +72,10 @@
 (add-to-list 'auto-mode-alist '("\\.mxml\\'" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.zcml\\'" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . doctest-mode))
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
+(setq interpreter-mode-alist (cons '("python" . python-mode)
+                                   interpreter-mode-alist))
+(autoload 'python-mode "python-mode" "Python editing mode." t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Other stuff
