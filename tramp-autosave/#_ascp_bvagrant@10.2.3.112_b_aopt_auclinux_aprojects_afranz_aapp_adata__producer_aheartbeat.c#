@@ -1,0 +1,54 @@
+#include <string.h>
+#include <zmq.h>
+#include <stdlib.h>
+#include "zhelpers.h"
+#include "pickle.h"
+#include "heartbeat.h"
+#include "response.h"
+
+void start_heartbeat_init(void *context, void *pusher, char *json);
+
+int heartbeat(char *json) {
+  int start_length = 5;
+  char *start = "START";
+  
+  void *context = zmq_init(1);
+  void *pusher = zmq_socket(context, ZMQ_PUSH);
+  zmq_connect(pusher, PULL_SOCKET);
+  
+  start_heartbeat_init(context, pusher, json);
+  return 0;
+  while (1) {
+    zmq_send(pusher, start, start_length, 0);
+    s_sleep(1000);
+  }
+  zmq_close(pusher);
+  zmq_term(context);
+  return 0;
+}
+
+void start_heartbeat_init(void *context, void *pusher, char *json) {
+  struct init initialization_data;
+  int normal_mode = 0;
+  int i;
+
+  get_empty_init(&initialization_data, json);
+  printf("init json: %s\n", json);
+  zmq_send(pusher, json, strlen(json), 0);
+  
+  /* void *subscriber = zmq_socket(context, ZMQ_SUB); */
+  /* zmq_connect(subscriber, PUBLISH_SOCKET); */
+  /* zmq_setsockopt(subscriber, ZMQ_SUBSCRIBE, "INIT", 4); */
+  //s_send(pusher, json);
+
+  /* while (normal_mode == 0) { */
+  /*   s_recv(subscriber, json, 0, BUFSIZE); */
+  /*   load_init(&initialization_data, json); */
+  /*   if (initialization_data.state == 3) //see pickle.h for state description */
+  /*     normal_mode = 1; //exit loop */
+  /* } */
+  /* zmq_close(subscriber); */
+}
+
+
+

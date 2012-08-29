@@ -1,0 +1,29 @@
+#include <string.h>
+#include <zmq.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include "sd_commands.h"
+#include "response.h"
+#include "sd_card.h"
+
+
+void get_sd_data(char *command) {
+  char *SD_DATE_RANGE_FORMAT = "%llu,%llu,%[^,]";
+  char *SD_UPLOAD_FORMAT = "upload.sh %s %s %s";
+  struct sd_info si;
+
+  char sd_command[200];
+  uint64_t start, end, ts;
+  char url[200];
+  printf("command: %s\n", command);
+  sscanf(command, SD_DATE_RANGE_FORMAT, &start, &end, url);
+  printf("start: %llu\n", start);
+  for (ts = start; ts <= end; ts += 300) {
+    si.current_time = get_date_from_timestamp(ts, &si);
+    get_name_from_time(&si);
+    memset(sd_command, 0, 200);
+     sprintf(sd_command, SD_UPLOAD_FORMAT, url, si.new_path, si.new_name);
+    printf("command: %s\n", sd_command);
+    system(sd_command);
+  }
+}

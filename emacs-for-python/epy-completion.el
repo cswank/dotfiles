@@ -1,18 +1,18 @@
 ;;; epy-completion.el --- A few common completion tricks
 
-;; Matching parentheses for all languages and so on
-(require 'autopair)
-(autopair-global-mode t)
-(setq autopair-autowrap t)
-;; Fix for triple quotes in python
-(add-hook 'python-mode-hook
-          #'(lambda ()
-              (setq autopair-handle-action-fns
-                    (list #'autopair-default-handle-action
-                          #'autopair-python-triple-quote-action))))
+;; Pairing parentheses
 
-(defun ac-eshell-mode-setup ()
-  (add-to-list 'ac-sources 'ac-source-files-in-current-dir))
+;; All languages:
+(setq skeleton-pair t)
+(global-set-key "(" 'skeleton-pair-insert-maybe)
+(global-set-key "[" 'skeleton-pair-insert-maybe)
+(global-set-key "{" 'skeleton-pair-insert-maybe)
+(global-set-key "\"" 'skeleton-pair-insert-maybe)
+
+;; Just python
+(add-hook 'python-mode-hook 
+	  (lambda () 
+	    (define-key python-mode-map "'" 'skeleton-pair-insert-maybe)))
 
 ;; Live completion with auto-complete
 ;; (see http://cx4a.org/software/auto-complete/)
@@ -22,8 +22,6 @@
 (setq ac-dwim t)
 (ac-config-default)
 
-;; set also the completion for eshell
-(add-hook 'eshell-mode-hook 'ac-eshell-mode-setup)
 ;; custom keybindings to use tab, enter and up and down arrows
 (define-key ac-complete-mode-map "\t" 'ac-expand)
 (define-key ac-complete-mode-map "\r" 'ac-complete)
@@ -51,7 +49,7 @@
     (apply 'append candidates))
   )
 
-(setq ac-ignores (concatenate 'list ac-ignores (epy-get-all-snips)))
+;;(setq ac-ignores (concatenate 'list ac-ignores (epy-get-all-snips)))
 
 ;; ropemacs Integration with auto-completion
 (defun ac-ropemacs-candidates ()

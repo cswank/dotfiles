@@ -37,6 +37,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
 (load-file "~/.emacs.d/emacs-for-python/epy-init.el")
+(require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Dired Ignores
@@ -79,13 +80,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-auto-revert-mode t)
 (add-hook 'python-mode-hook (lambda () (show-paren-mode 1)))
 (defalias 'qrr 'query-replace-regexp)
-(add-to-list 'load-path "~/emacs/plugins/tramp/")
-(require 'tramp)
-(setq tramp-default-method "scp")
-(setq tramp-auto-save-directory "~/.emacs.d/tramp-autosave")
-(add-to-list 'tramp-default-method-alist '(nil "\\`sccdata10\\'" "\\`zope\\'"))
+;;(add-to-list 'load-path "~/emacs/plugins/tramp/")
+;;(require 'tramp)
+;;(setq tramp-default-method "scp")
+;;(setq tramp-auto-save-directory "~/.emacs.d/tramp-autosave")
 (setq-default truncate-lines t)
 (put 'dired-find-alternate-file 'disabled nil)
 (require 'psvn)

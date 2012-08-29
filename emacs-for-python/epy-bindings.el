@@ -8,4 +8,17 @@
 
 ; Ctrl+tab mapped to Alt+tab
 (define-key function-key-map [(control tab)] [?\M-\t])
- (provide 'epy-bindings)
+
+(global-set-key [f10] 'flymake-goto-prev-error)
+(global-set-key [f11] 'flymake-goto-next-error)
+
+;; Rope bindings
+(add-hook 'python-mode-hook
+	  (lambda ()
+	    (define-key python-mode-map "\C-ci" 'rope-auto-import)
+	    (define-key python-mode-map "\C-c\C-d" 'rope-show-calltip)
+	    )
+)
+
+
+(provide 'epy-bindings)

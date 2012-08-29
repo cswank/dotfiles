@@ -1,0 +1,58 @@
+
+/* Navy: 143E59 */
+/* Blue: 0378AD */
+/* Yellow/Green: BFD73B */
+/* Grey: 465560 */
+
+html{
+    font-family:Helvetica;
+    color:#0378AD;
+}
+
+#header{
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+}
+
+hr{
+    height:5px;
+    border: 
+    color:#BFD73B;
+}
+
+#header img{
+    
+}
+
+#sites{
+    width:400px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#values-holder a{
+    color:black;
+}
+
+#fields {
+    width:1200px;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+#nav{
+    width:400px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.data-points{
+    width:400px;
+    margin-right:auto;
+    margin-left:auto;
+    text-align:center;
+}
+
+
+
