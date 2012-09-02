@@ -7,7 +7,6 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/company")
 (add-to-list 'load-path "~/.emacs.d/plugins/share/emacs/site-lisp")
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;MMM mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -99,6 +98,16 @@
 
 (global-auto-revert-mode t)
 
+(defadvice desktop-restore-file-buffer
+  (around my-desktop-restore-file-buffer-advice)
+  "Be non-interactive while starting a daemon."
+  (if (and (daemonp)
+           (not server-process))
+      (let ((noninteractive t))
+        ad-do-it)
+    ad-do-it))
+(ad-activate 'desktop-restore-file-buffer)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Custom Set Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -111,6 +120,7 @@
  '(desktop-clear-preserve-buffers (quote ("\\*scratch\\*" "\\*Messages\\*" "\\*server\\*" "\\*tramp/.+\\*" "\\*Pymacs\\*")))
  '(desktop-save t)
  '(desktop-save-mode t)
+ '(global-linum-mode nil)
  '(scroll-bar-mode nil))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.

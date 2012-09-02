@@ -3,11 +3,11 @@
 ;; Pairing parentheses
 
 ;; All languages:
-(setq skeleton-pair t)
-(global-set-key "(" 'skeleton-pair-insert-maybe)
-(global-set-key "[" 'skeleton-pair-insert-maybe)
-(global-set-key "{" 'skeleton-pair-insert-maybe)
-(global-set-key "\"" 'skeleton-pair-insert-maybe)
+;; (setq skeleton-pair t)
+;; (global-set-key "(" 'skeleton-pair-insert-maybe)
+;; (global-set-key "[" 'skeleton-pair-insert-maybe)
+;; (global-set-key "{" 'skeleton-pair-insert-maybe)
+;; (global-set-key "\"" 'skeleton-pair-insert-maybe)
 
 ;; Just python
 (add-hook 'python-mode-hook 
