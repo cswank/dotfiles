@@ -2,6 +2,7 @@
 ;;Load Paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path "~/.emacs.d/plugins")
+(add-to-list 'load-path "~/.emacs.d/plugins/el-get")
 (add-to-list 'load-path "~/.emacs.d/color")
 (add-to-list 'load-path "~/.emacs.d/my-plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/company")
@@ -11,7 +12,6 @@
 ;;MMM mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(require 'mmm-mode)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Auto Complete Mode
@@ -31,11 +31,26 @@
 (global-set-key "\M-s" 'svn-status)
 (setq-default indent-tabs-mode nil)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;el-get
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (let (el-get-master-branch)
+      (goto-char (point-max))
+      (eval-print-last-sexp))))
+(el-get 'sync)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Load Libraries
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
-(load-file "~/.emacs.d/emacs-for-python/epy-init.el")
+;;(load-file "~/.emacs.d/emacs-for-python/epy-init.el")
+(load-file "~/.emacs.d/my-plugins/my-python.el")
 (require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -47,8 +62,8 @@
 (add-hook 'dired-mode-hook
 (lambda ()
 (setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
-(setq dired-omit-extensions '(".pyc" "~" ".bak" ".pt.cache" ".svn"))
-(dired-omit-mode 1)))
+(setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn"))))
+;;(dired-omit-mode 1)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;My Macros
@@ -70,6 +85,7 @@
 (add-to-list 'auto-mode-alist '("\\.pde\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.mxml\\'" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.zcml\\'" . nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.pt\\'" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . doctest-mode))
 (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
 (setq interpreter-mode-alist (cons '("python" . python-mode)
@@ -79,7 +95,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-auto-revert-mode t)
+(global-auto-revert-mode 1)
 (add-hook 'python-mode-hook (lambda () (show-paren-mode 1)))
 (defalias 'qrr 'query-replace-regexp)
 ;;(add-to-list 'load-path "~/emacs/plugins/tramp/")
@@ -96,18 +112,6 @@
   "Allowing multiple major modes in a buffer."
   t)
 
-(global-auto-revert-mode t)
-
-(defadvice desktop-restore-file-buffer
-  (around my-desktop-restore-file-buffer-advice)
-  "Be non-interactive while starting a daemon."
-  (if (and (daemonp)
-           (not server-process))
-      (let ((noninteractive t))
-        ad-do-it)
-    ad-do-it))
-(ad-activate 'desktop-restore-file-buffer)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Custom Set Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -117,11 +121,10 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(desktop-clear-preserve-buffers (quote ("\\*scratch\\*" "\\*Messages\\*" "\\*server\\*" "\\*tramp/.+\\*" "\\*Pymacs\\*")))
- '(desktop-save t)
- '(desktop-save-mode t)
  '(global-linum-mode nil)
- '(scroll-bar-mode nil))
+ '(scroll-bar-mode nil)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -130,3 +133,4 @@
  )
 
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
