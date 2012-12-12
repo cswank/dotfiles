@@ -11,11 +11,11 @@
 (add-to-list 'load-path epy-install-dir)
 (require 'epy-setup)
 (require 'epy-python)
-(require 'epy-completion)
+;;(require 'epy-completion)
 (require 'epy-editing)
 (require 'epy-nose)
 (require 'epy-bindings)
-
+(add-hook 'python-mode-hook 'jedi:setup)
 
 
 (provide 'epy-init)

@@ -49,21 +49,17 @@
 ;;Load Libraries
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
-;;(load-file "~/.emacs.d/emacs-for-python/epy-init.el")
-(load-file "~/.emacs.d/my-plugins/my-python.el")
+(load-file "~/.emacs.d/emacs-for-python/epy-init.el")
+;;(load-file "~/.emacs.d/my-plugins/my-python.el")
 (require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Dired Ignores
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook 'dired-load-hook
-(lambda ()
-(load "dired-x")))
-(add-hook 'dired-mode-hook
-(lambda ()
-(setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
-(setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn"))))
-;;(dired-omit-mode 1)))
+(require 'dired-x)
+    (setq-default dired-omit-files-p t) ; this is buffer-local variable
+    (setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
+    (setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;My Macros
