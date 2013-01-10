@@ -163,4 +163,5 @@ original" (interactive)
 (setq linum-format "%4d")
 (global-linum-mode 1)
 
+(require 'doctest-mode)
 (provide 'epy-editing)

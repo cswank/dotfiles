@@ -59,7 +59,7 @@
 (require 'dired-x)
     (setq-default dired-omit-files-p t) ; this is buffer-local variable
     (setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
-    (setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn"))
+    (setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn" ".egg-info" ".git" ".gitignore"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;My Macros
