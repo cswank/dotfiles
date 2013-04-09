@@ -15,7 +15,7 @@
 (require 'epy-editing)
 (require 'epy-nose)
 (require 'epy-bindings)
-(add-hook 'python-mode-hook 'jedi:setup)
+
 
 
 (provide 'epy-init)

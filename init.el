@@ -3,6 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/el-get")
+(add-to-list 'load-path "/home/craig/.emacs.d/plugins/emacs-jedi")
 (add-to-list 'load-path "~/.emacs.d/color")
 (add-to-list 'load-path "~/.emacs.d/my-plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/company")
@@ -25,12 +26,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
-(global-set-key "\C-w" 'backward-kill-word)
-(global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
-(global-set-key "\M-s" 'svn-status)
 (setq-default indent-tabs-mode nil)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;el-get
@@ -49,8 +45,7 @@
 ;;Load Libraries
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
-(load-file "~/.emacs.d/emacs-for-python/epy-init.el")
-;;(load-file "~/.emacs.d/my-plugins/my-python.el")
+(load-file "~/.emacs.d/my-plugins/my-python.el")
 (require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -86,27 +81,20 @@
 (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
 (setq interpreter-mode-alist (cons '("python" . python-mode)
                                    interpreter-mode-alist))
-(autoload 'python-mode "python-mode" "Python editing mode." t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Other stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-auto-revert-mode 1)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'go-mode)
+(require 'epc)
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
 (add-hook 'python-mode-hook (lambda () (show-paren-mode 1)))
+
+(global-auto-revert-mode 1)
 (defalias 'qrr 'query-replace-regexp)
-;;(add-to-list 'load-path "~/emacs/plugins/tramp/")
-;;(require 'tramp)
-;;(setq tramp-default-method "scp")
-;;(setq tramp-auto-save-directory "~/.emacs.d/tramp-autosave")
 (setq-default truncate-lines t)
 (put 'dired-find-alternate-file 'disabled nil)
-(require 'psvn)
-(require 'pretty-mode)
-
-(autoload 'multi-mode
-  "multi-mode"
-  "Allowing multiple major modes in a buffer."
-  t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Custom Set Variables
@@ -130,3 +118,4 @@
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+(ido-mode)
