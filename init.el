@@ -18,6 +18,7 @@
 ;;Auto Complete Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'auto-complete-config)
+(add-to-list 'ac-modes 'go-mode)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
 (ac-config-default)
 
@@ -95,6 +96,11 @@
 (defalias 'qrr 'query-replace-regexp)
 (setq-default truncate-lines t)
 (put 'dired-find-alternate-file 'disabled nil)
+
+(setq jabber-account-list '(("craig.swank@spark.westower.com"
+			     (:password . "wtc@1435")
+			     (:connection-type . starttls)
+			     (:port . 5223))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Custom Set Variables
