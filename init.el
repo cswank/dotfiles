@@ -3,6 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/el-get")
+(add-to-list 'load-path "~/.emacs.d/plugins/groovy-mode")
 (add-to-list 'load-path "/home/craig/.emacs.d/plugins/emacs-jedi")
 (add-to-list 'load-path "~/.emacs.d/color")
 (add-to-list 'load-path "~/.emacs.d/my-plugins")
@@ -92,6 +93,7 @@
 (autoload 'jedi:setup "jedi" nil t)
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-hook 'python-mode-hook (lambda () (show-paren-mode 1)))
+(menu-bar-mode -1)
 
 (global-auto-revert-mode 1)
 (defalias 'qrr 'query-replace-regexp)
@@ -102,6 +104,21 @@
 			     (:password . "wtc@1435")
 			     (:connection-type . starttls)
 			     (:port . 5223))))
+
+
+;;; turn on syntax highlighting
+(global-font-lock-mode 1)
+
+;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
+(autoload 'groovy-mode "groovy-mode" "Major mode for editing Groovy code." t)
+(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
+(add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
+
+;;; make Groovy mode electric by default.
+(add-hook 'groovy-mode-hook
+          '(lambda ()
+             (require 'groovy-electric)
+             (groovy-electric-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Custom Set Variables
