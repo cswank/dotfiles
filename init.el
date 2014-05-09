@@ -10,6 +10,7 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/company")
 (add-to-list 'load-path "~/.emacs.d/plugins/share/emacs/site-lisp")
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;MMM mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -19,6 +20,7 @@
 ;;Auto Complete Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'auto-complete-config)
+(require 'go-autocomplete)
 (add-to-list 'ac-modes 'go-mode)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
 (ac-config-default)
@@ -84,15 +86,30 @@
 (setq interpreter-mode-alist (cons '("python" . python-mode)
                                    interpreter-mode-alist))
 
+
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;old style full screen
+(setq ns-use-native-fullscreen nil)
+
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
 (require 'go-mode)
+(require 'go-errcheck)
 (require 'csv-mode)
 (require 'epc)
 (autoload 'jedi:setup "jedi" nil t)
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-hook 'python-mode-hook (lambda () (show-paren-mode 1)))
+(defun set-newline-and-indent ()
+  "Map C-j with `newline-and-indent'"
+  (local-set-key (kbd "C-j") 'newline-and-indent))
+(add-hook 'python-mode-hook 'set-newline-and-indent)
+(add-hook 'python-mode-hook (lambda () (electric-indent-local-mode -1)))
 (menu-bar-mode -1)
 
 (global-auto-revert-mode 1)
