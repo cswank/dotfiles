@@ -50,6 +50,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
 (load-file "~/.emacs.d/my-plugins/my-python.el")
+(load-file "~/.emacs.d/my-plugins/my-go.el")
 (require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -121,7 +122,12 @@
 			     (:password . "wtc@1435")
 			     (:connection-type . starttls)
 			     (:port . 5223))))
-
+(defun beautify-json ()
+  (interactive)
+  (let ((b (if mark-active (min (point) (mark)) (point-min)))
+        (e (if mark-active (max (point) (mark)) (point-max))))
+    (shell-command-on-region b e
+      "python -mjson.tool" (current-buffer) t)))
 
 ;;; turn on syntax highlighting
 (global-font-lock-mode 1)
