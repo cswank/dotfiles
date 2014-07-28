@@ -1,3 +1,0 @@
-/usr/local/bin/gnutls-cli: illegal option -- protocols
-Usage: gnutls-cli [options] hostname
-gnutls-cli --help for usage instructions.
