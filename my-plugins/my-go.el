@@ -15,3 +15,7 @@
   ; Go Oracle
   ;;(go-oracle-mode)
 ;;(add-hook 'go-mode-hook 'my-go-mode-hook)
+
+
+(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
+  (require 'golint)
