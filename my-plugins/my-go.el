@@ -1,5 +1,5 @@
 ; Go Oracle
-;;(load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+(load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
 
 (defun my-go-mode-hook ()
   ; Use goimports instead of go-fmt
@@ -13,9 +13,14 @@
   ; Godef jump key binding
   (local-set-key (kbd "M-.") 'godef-jump))
   ; Go Oracle
-  ;;(go-oracle-mode)
-;;(add-hook 'go-mode-hook 'my-go-mode-hook)
+  (go-oracle-mode)
+(add-hook 'go-mode-hook 'my-go-mode-hook)
 
+(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
+  (require 'go-flymake)
 
-(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
-  (require 'golint)
+(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
+  (require 'go-flycheck)
+
+;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
+;;  (require 'golint)
