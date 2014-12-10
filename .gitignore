@@ -22,3 +22,4 @@ plugins/auto-complete-config.el
 ac-comphist.dat
 .emacs.desktop
 usr/src/pysmell-0.7.3/build
+plugins/change_case.el
