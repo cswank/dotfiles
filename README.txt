@@ -14,6 +14,7 @@ each of them and doing python setup.py install
 For go development I use one $GOPATH for everything and install these tools:
 
     $ go get -u -v github.com/nsf/gocode
+    $ go get code.google.com/p/rog-go/exp/cmd/godef
     $ go get code.google.com/p/go.tools/cmd/goimports
     $ go get code.google.com/p/go.tools/cmd/oracle
     $ sudo mv $GOPATH/bin/oracle $GOROOT/bin/
