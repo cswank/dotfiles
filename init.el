@@ -61,6 +61,19 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;Render markdown in eww
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun gk-markdown-preview-buffer ()
+  (interactive)
+  (let* ((buf-this (buffer-name (current-buffer)))
+         (buf-html (get-buffer-create
+                    (format "*gk-md-html (%s)*" buf-this))))
+    (markdown-other-window (buffer-name buf-html))
+    (shr-render-buffer buf-html)
+    (eww-mode)
+    (kill-buffer buf-html)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;multiple-cursors mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -195,7 +208,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(coffee-tab-width 4)
+ '(coffee-tab-width 2)
  '(column-number-mode t)
  '(global-linum-mode nil)
  '(scroll-bar-mode nil)

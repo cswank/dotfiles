@@ -1,5 +1,5 @@
 ; Go Oracle
-(load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+;(load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
 
 (defun my-go-mode-hook ()
   ; Use goimports instead of go-fmt
@@ -13,7 +13,7 @@
   ; Godef jump key binding
   (local-set-key (kbd "M-.") 'godef-jump))
   ; Go Oracle
-  (go-oracle-mode)
+  ;(go-oracle-mode)
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 
 (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
@@ -48,3 +48,9 @@
  
 (global-set-key (kbd "C-c C-g p") 'go-switch-to-playground)
 (global-set-key (kbd "C-c C-g n") 'go-create-playground)
+
+(add-hook 'go-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'gofmt-before-save)
+            (setq tab-width 4)
+            (setq indent-tabs-mode 1)))
