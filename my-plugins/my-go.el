@@ -1,13 +1,13 @@
 ; Go Oracle
 ;(load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
-(if (not (string= (getenv "GOPATH") ""))
-    (defun my-go-mode-hook ()
-      (setq gofmt-command "goimports")
-      (add-hook 'before-save-hook 'gofmt-before-save)
-      (if (not (string-match "go" compile-command))
-          (set (make-local-variable 'compile-command)
-               "go build -v && go test -v && go vet"))
-      (local-set-key (kbd "M-.") 'godef-jump))
+(when (> (length (getenv "GOPATH")) 0)
+  (defun my-go-mode-hook ()
+    (setq gofmt-command "goimports")
+    (add-hook 'before-save-hook 'gofmt-before-save)
+    (if (not (string-match "go" compile-command))
+        (set (make-local-variable 'compile-command)
+             "go build -v && go test -v && go vet"))
+    (local-set-key (kbd "M-.") 'godef-jump))
   (add-hook 'go-mode-hook 'my-go-mode-hook)
 
   (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
@@ -49,3 +49,4 @@
               (setq tab-width 4)
               (setq indent-tabs-mode 1)))
   )
+
