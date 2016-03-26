@@ -13,10 +13,10 @@ each of them and doing python setup.py install
 For go development I use one $GOPATH for everything and install these tools:
 
     $ go get -u -v github.com/nsf/gocode
-    $ go get code.google.com/p/rog-go/exp/cmd/godef
-    $ go get code.google.com/p/go.tools/cmd/goimports
+    $ go get github.com/rogpeppe/godef
+    $ go get golang.org/x/tools/cmd/goimports
     $ go get golang.org/x/tools/oracle
     $ sudo mv $GOPATH/bin/oracle $GOROOT/bin/
     $ go get -u github.com/dougm/goflymake
 
-And, in your emacs M-x package-install flymake
+And, in your emacs M-x package-install flycheck
