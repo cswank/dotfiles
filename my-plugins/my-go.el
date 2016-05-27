@@ -10,11 +10,11 @@
     (local-set-key (kbd "M-.") 'godef-jump))
   (add-hook 'go-mode-hook 'my-go-mode-hook)
 
-  (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
-  (require 'go-flymake)
+  ;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
+  ;;(require 'go-flymake)
 
-  (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
-  (require 'go-flycheck)
+  ;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
+  ;;(require 'go-flycheck)
 
   ;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
   ;;  (require 'golint)
@@ -48,5 +48,14 @@
               (add-hook 'before-save-hook 'gofmt-before-save)
               (setq tab-width 4)
               (setq indent-tabs-mode 1)))
+  (add-hook 'go-mode-hook 'flycheck-mode)
   )
 
+;; (eval-after-load "go-mode"
+;;   '(progn
+;;      (flycheck-define-checker go-gofmt
+;;        "A Go syntax and style checker using the gofmt utility."
+;;        :command '("gofmt" source-inplace)
+;;        :error-patterns '(("^\\(?1:.*\\):\\(?2:[0-9]+\\):\\(?3:[0-9]+\\): \\(?4:.*\\)$" error))
+;;        :modes 'go-mode)
+;;      (add-to-list 'flycheck-checkers 'go-gofmt)))
