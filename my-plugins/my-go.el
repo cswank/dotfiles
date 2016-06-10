@@ -1,5 +1,9 @@
 ; Go Oracle
 ;(load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+
+(defun auto-complete-for-go ()
+    (auto-complete-mode 1))
+
 (when (> (length (getenv "GOPATH")) 0)
   (defun my-go-mode-hook ()
     (setq gofmt-command "goimports")
@@ -9,6 +13,7 @@
              "go build -v && go test -v && go vet"))
     (local-set-key (kbd "M-.") 'godef-jump))
   (add-hook 'go-mode-hook 'my-go-mode-hook)
+  
 
   ;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/dougm/goflymake"))
   ;;(require 'go-flymake)
@@ -49,7 +54,9 @@
               (setq tab-width 4)
               (setq indent-tabs-mode 1)))
   (add-hook 'go-mode-hook 'flycheck-mode)
+  (add-hook 'go-mode-hook 'auto-complete-for-go)
   )
+
 
 ;; (eval-after-load "go-mode"
 ;;   '(progn
