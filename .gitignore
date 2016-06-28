@@ -25,3 +25,5 @@ usr/src/pysmell-0.7.3/build
 plugins/change_case.el
 ido.last
 
+.mc-lists.el
+projectile-bookmarks.eld

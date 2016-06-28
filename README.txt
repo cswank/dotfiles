@@ -19,4 +19,27 @@ For go development I use one $GOPATH for everything and install these tools:
     $ sudo mv $GOPATH/bin/oracle $GOROOT/bin/
     $ go get -u github.com/dougm/goflymake
 
-And, in your emacs M-x package-install flycheck
+Then figure out how to run all this to install the required packages:
+
+    (setq package-list '(go-mode
+                         auto-complete
+                         flycheck
+                         flymake-cursor
+                         projectile))
+
+    ; list the repositories containing them
+    (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
+                             ("gnu" . "http://elpa.gnu.org/packages/")
+                             ("marmalade" . "http://marmalade-repo.org/packages/")))
+
+    ; activate all the packages (in particular autoloads)
+    (package-initialize)
+
+    ; fetch the list of packages available 
+    (unless package-archive-contents
+      (package-refresh-contents))
+
+    ; install the missing packages
+    (dolist (package package-list)
+      (unless (package-installed-p package)
+        (package-install package)))
