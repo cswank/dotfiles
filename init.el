@@ -127,7 +127,9 @@
 (load-library "my-color-theme")
 (load-file "~/.emacs.d/my-plugins/my-python.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")
+(load-file "~/.emacs.d/my-plugins/my-email.el")
 (load-file "~/.emacs.d/my-plugins/my-lisp.el")
+(load-file "~/.emacs.d/my-plugins/my-jira.el")
 (require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -234,6 +236,9 @@
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(global-linum-mode nil)
+ '(package-selected-packages
+   (quote
+    (org-jira jira yaml-mode org-gcal multiple-cursors magit go-projectile go-errcheck go-dlv go-autocomplete flycheck calfw-gcal calfw)))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
