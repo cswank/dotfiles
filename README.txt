@@ -19,17 +19,23 @@ For go development I use one $GOPATH for everything and install these tools:
     $ sudo mv $GOPATH/bin/oracle $GOROOT/bin/
     $ go get -u github.com/dougm/goflymake
 
-Then figure out how to run all this to install the required packages:
+Install mu:
+
+    $ yaourt -S mu (or apt-get install mu)
+
+Then run the following (put cursor at end of each block in *scratch* and C-j it).
 
     (setq package-list '(go-mode
                          auto-complete
                          flycheck
                          flymake-cursor
+                         org-gcal
                          projectile))
 
     ; list the repositories containing them
     (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
                              ("gnu" . "http://elpa.gnu.org/packages/")
+                             ("melpa" . "http://melpa.org/packages/")
                              ("marmalade" . "http://marmalade-repo.org/packages/")))
 
     ; activate all the packages (in particular autoloads)
