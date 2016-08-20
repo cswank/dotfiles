@@ -35,12 +35,7 @@
    user-full-name  "Craig Swank"
    mu4e-compose-signature
     (concat
-      "Craig Swank\n"
-      "Sr. Software Engineer\n"))
-
-;; sending mail -- replace USERNAME with your gmail username
-;; also, make sure the gnutls command line utils are installed
-;; package 'gnutls-bin' in Debian/Ubuntu
+      "Craig\n"))
 
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
@@ -54,21 +49,8 @@
       smtpmail-smtp-service 587
       smtpmail-debug-info t)
 
-;; alternatively, for emacs-24 you can use:
-;;(setq message-send-mail-function 'smtpmail-send-it
-;;     smtpmail-stream-type 'starttls
-;;     smtpmail-default-smtp-server "smtp.gmail.com"
-;;     smtpmail-smtp-server "smtp.gmail.com"
-;;     smtpmail-smtp-service 587)
-
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
-
-(require 'org-gcal)
-(setq org-gcal-client-id "1075485236013-4q5cfjgcar2n7ij9abeg2iqok0sjgk44.apps.googleusercontent.com"
-      org-gcal-client-secret "9vsz7GzBXB8NDfVGZdGQ6QvQ"
-      org-gcal-file-alist '(("craig.swank@sendgrid.com" .  "~/Calendars/schedule.org")
-                            ))
 
 ;; general emacs mail settings; used when composing e-mail
 ;; the non-mu4e-* stuff is inherited from emacs/message-mode

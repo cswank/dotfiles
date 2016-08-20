@@ -236,7 +236,7 @@
  '(global-linum-mode nil)
  '(package-selected-packages
    (quote
-    (org-jira jira yaml-mode org-gcal multiple-cursors magit go-projectile go-errcheck go-dlv go-autocomplete flycheck calfw-gcal calfw)))
+    (sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))

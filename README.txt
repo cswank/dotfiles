@@ -21,7 +21,7 @@ For go development I use one $GOPATH for everything and install these tools:
 
 Install mu:
 
-    $ yaourt -S mu (or apt-get install mu)
+    $ yaourt -S mu (or apt-get install mu, or brew install --with-emacs mu)
 
 Then run the following (put cursor at end of each block in *scratch* and C-j it).
 
@@ -29,7 +29,6 @@ Then run the following (put cursor at end of each block in *scratch* and C-j it)
                          auto-complete
                          flycheck
                          flymake-cursor
-                         org-gcal
                          projectile))
 
     ; list the repositories containing them
