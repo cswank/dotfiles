@@ -19,10 +19,6 @@ For go development I use one $GOPATH for everything and install these tools:
     $ sudo mv $GOPATH/bin/oracle $GOROOT/bin/
     $ go get -u github.com/dougm/goflymake
 
-Install mu:
-
-    $ yaourt -S mu (or apt-get install mu, or brew install --with-emacs mu)
-
 Then run the following (put cursor at end of each block in *scratch* and C-j it).
 
     (setq package-list '(go-mode
@@ -48,3 +44,13 @@ Then run the following (put cursor at end of each block in *scratch* and C-j it)
     (dolist (package package-list)
       (unless (package-installed-p package)
         (package-install package)))
+
+Install mu4e:
+
+    $ yaourt -S mu (or apt-get install mu, or brew install --with-emacs mu)
+
+Then set up your .offlineimaprc file, then:
+
+    $ brew install gnutls
+    $ offlineimap
+    $ mu index
