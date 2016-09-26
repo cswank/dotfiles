@@ -64,12 +64,6 @@
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
 
-(require 'org-gcal)
-(setq org-gcal-client-id "1075485236013-4q5cfjgcar2n7ij9abeg2iqok0sjgk44.apps.googleusercontent.com"
-      org-gcal-client-secret "9vsz7GzBXB8NDfVGZdGQ6QvQ"
-      org-gcal-file-alist '(("craig.swank@sendgrid.com" .  "~/Calendars/schedule.org")
-                            ))
-
 ;; general emacs mail settings; used when composing e-mail
 ;; the non-mu4e-* stuff is inherited from emacs/message-mode
 (setq mu4e-reply-to-address "craig.swank@sendgrid.com"

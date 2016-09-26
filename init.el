@@ -128,7 +128,6 @@
 (load-file "~/.emacs.d/my-plugins/my-go.el")
 (load-file "~/.emacs.d/my-plugins/my-email.el")
 (load-file "~/.emacs.d/my-plugins/my-lisp.el")
-(load-file "~/.emacs.d/my-plugins/my-jira.el")
 (require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
