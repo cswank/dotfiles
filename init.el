@@ -70,7 +70,7 @@
 ;; ansi-term
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq explicit-shell-file-name "/bin/bash")
-(global-set-key (kbd "C-c t") 'ansi-term)
+(global-set-key (kbd "C-x t") 'ansi-term)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;MELPA packages
