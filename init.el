@@ -65,7 +65,18 @@
 ;; magit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key (kbd "C-x g") 'magit-status)
-(setq magit-display-buffer-function 'switch-to-buffer)
+
+(defun display-buffer-full-screen (buffer alist)
+  (delete-other-windows)
+  (set-window-dedicated-p nil nil)
+  (set-window-buffer nil buffer)
+  (get-buffer-window buffer))
+
+(setq magit-display-buffer-function
+      (lambda (buffer)
+        (if magit-display-buffer-noselect
+            (magit-display-buffer-traditional buffer)
+          (display-buffer buffer '(display-buffer-full-screen)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ansi-term
