@@ -35,12 +35,7 @@
    user-full-name  "Craig Swank"
    mu4e-compose-signature
     (concat
-      "Craig Swank\n"
-      "Sr. Software Engineer\n"))
-
-;; sending mail -- replace USERNAME with your gmail username
-;; also, make sure the gnutls command line utils are installed
-;; package 'gnutls-bin' in Debian/Ubuntu
+      "Craig\n"))
 
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
@@ -53,13 +48,6 @@
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587
       smtpmail-debug-info t)
-
-;; alternatively, for emacs-24 you can use:
-;;(setq message-send-mail-function 'smtpmail-send-it
-;;     smtpmail-stream-type 'starttls
-;;     smtpmail-default-smtp-server "smtp.gmail.com"
-;;     smtpmail-smtp-server "smtp.gmail.com"
-;;     smtpmail-smtp-service 587)
 
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)

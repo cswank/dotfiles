@@ -19,7 +19,7 @@ For go development I use one $GOPATH for everything and install these tools:
     $ sudo mv $GOPATH/bin/oracle $GOROOT/bin/
     $ go get -u github.com/dougm/goflymake
 
-Then figure out how to run all this to install the required packages:
+Then run the following (put cursor at end of each block in *scratch* and C-j it).
 
     (setq package-list '(go-mode
                          auto-complete
@@ -30,6 +30,7 @@ Then figure out how to run all this to install the required packages:
     ; list the repositories containing them
     (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
                              ("gnu" . "http://elpa.gnu.org/packages/")
+                             ("melpa" . "http://melpa.org/packages/")
                              ("marmalade" . "http://marmalade-repo.org/packages/")))
 
     ; activate all the packages (in particular autoloads)
@@ -43,3 +44,13 @@ Then figure out how to run all this to install the required packages:
     (dolist (package package-list)
       (unless (package-installed-p package)
         (package-install package)))
+
+Install mu4e:
+
+    $ yaourt -S mu (or apt-get install mu, or brew install --with-emacs mu)
+
+Then set up your .offlineimaprc file, then:
+
+    $ brew install gnutls
+    $ offlineimap
+    $ mu index
