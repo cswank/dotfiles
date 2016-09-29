@@ -61,6 +61,10 @@
 ;; don't save message to Sent Messages, IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
 
+(require 'mu4e-contrib)
+(setq mu4e-html2text-command 'mu4e-shr2text)
+(setq shr-color-visible-luminance-min 90)
+
 (provide 'my-email)
 ;;; my-email.el ends here
 
