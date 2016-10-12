@@ -25,7 +25,11 @@ Then run the following (put cursor at end of each block in *scratch* and C-j it)
                          auto-complete
                          flycheck
                          flymake-cursor
-                         projectile))
+                         projectile
+                         magit
+                         magit-gh-pulls
+                         go-projectile
+                         multiple-cursors))
 
     ; list the repositories containing them
     (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
