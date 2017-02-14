@@ -14,7 +14,7 @@
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
   ; Go oracle
-  (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+  ;(load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
   ; Godef jump key binding
   (local-set-key (kbd "M-.") 'godef-jump))
 (add-hook 'go-mode-hook 'my-go-mode-hook)

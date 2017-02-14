@@ -29,6 +29,7 @@ Then run the following (put cursor at end of each block in *scratch* and C-j it)
                          magit
                          magit-gh-pulls
                          go-projectile
+                         swiper
                          multiple-cursors))
 
     ; list the repositories containing them

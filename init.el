@@ -148,7 +148,7 @@
 (load-library "my-color-theme")
 (load-file "~/.emacs.d/my-plugins/my-python.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")
-(load-file "~/.emacs.d/my-plugins/my-email.el")
+;;(load-file "~/.emacs.d/my-plugins/my-email.el")
 (load-file "~/.emacs.d/my-plugins/my-lisp.el")
 (require 'xcscope)
 
@@ -193,6 +193,12 @@
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;swiper (replace isearch)
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+
 ;;old style full screen
 (setq ns-use-native-fullscreen nil)
 
@@ -200,7 +206,6 @@
    "Major mode for editing Markdown files" t)
 (require 'go-mode)
 (require 'go-errcheck)
-(require 'csv-mode)
 (require 'epc)
 (autoload 'jedi:setup "jedi" nil t)
 (add-hook 'python-mode-hook 'jedi:setup)
@@ -258,7 +263,7 @@
  '(global-linum-mode nil)
  '(package-selected-packages
    (quote
-    (hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
+    (swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
