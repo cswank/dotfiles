@@ -148,7 +148,8 @@
 (load-library "my-color-theme")
 (load-file "~/.emacs.d/my-plugins/my-python.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")
-;;(load-file "~/.emacs.d/my-plugins/my-email.el")
+(when (string= (getenv "EMACS_MAIL") "true")
+  (load-file "~/.emacs.d/my-plugins/my-email.el"))
 (load-file "~/.emacs.d/my-plugins/my-lisp.el")
 (require 'xcscope)
 
