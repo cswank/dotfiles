@@ -30,6 +30,8 @@ Then run the following (put cursor at end of each block in *scratch* and C-j it)
                          magit-gh-pulls
                          go-projectile
                          swiper
+                         org-bullets
+                         ox-reveal
                          multiple-cursors))
 
     ; list the repositories containing them

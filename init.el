@@ -12,7 +12,7 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/share/emacs/site-lisp")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Org mode languages
+;;Org mode stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -20,6 +20,9 @@
     (sql . t)
     ))
 (setq org-src-fontify-natively t)
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Undo tree (make sure it is installed with 
@@ -264,7 +267,7 @@
  '(global-linum-mode nil)
  '(package-selected-packages
    (quote
-    (flymd swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
+    (ox-reveal org-bullets flymd swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
