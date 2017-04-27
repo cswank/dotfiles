@@ -12,17 +12,32 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/share/emacs/site-lisp")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;MELPA packages
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   '("melpa" . "http://melpa.org/packages/")
+   t)
+    (package-initialize))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Org mode stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (org-babel-do-load-languages
  'org-babel-load-languages
  '( (python . t)
     (sql . t)
+    (ditaa . t)
+    (shell . t)
+    (go . t)
     ))
 (setq org-src-fontify-natively t)
+(setq org-confirm-babel-evaluate nil)
 
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;;(require 'org-bullets)
+;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Undo tree (make sure it is installed with 
@@ -86,17 +101,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq explicit-shell-file-name "/bin/bash")
 (global-set-key (kbd "C-x t") 'ansi-term)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;MELPA packages
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list
-   'package-archives
-   '("melpa" . "http://melpa.org/packages/")
-   t)
-    (package-initialize))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Projectile mode (der)
@@ -265,9 +269,10 @@
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(global-linum-mode nil)
+ '(org-export-backends (quote (ascii html icalendar latex md)))
  '(package-selected-packages
    (quote
-    (ox-reveal org-bullets flymd swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
+    (ob-go ox-reveal org-bullets swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
