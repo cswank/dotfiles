@@ -36,9 +36,6 @@
 (setq org-src-fontify-natively t)
 (setq org-confirm-babel-evaluate nil)
 
-;;(require 'org-bullets)
-;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Undo tree (make sure it is installed with 
 ;;package-list-packages)
