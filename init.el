@@ -263,14 +263,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ag-ignore-list (quote ("*~")))
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(global-linum-mode nil)
+ '(jiralib-url "https://jira.sendgrid.net")
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(osx-clipboard-mode t)
  '(package-selected-packages
    (quote
-    (osx-clipboard ob-go ox-reveal org-bullets swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
+    (org-jira github-modern-theme ag go-complete osx-clipboard ob-go ox-reveal org-bullets swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))

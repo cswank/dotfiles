@@ -31,7 +31,7 @@
 
 ;; something about ourselves
 (setq
-   user-mail-address "craig.swank@sendgrid.com.com"
+   user-mail-address "craig.swank@sendgrid.com"
    user-full-name  "Craig Swank"
    mu4e-compose-signature
     (concat
