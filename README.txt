@@ -61,3 +61,28 @@ Then set up your .offlineimaprc file, then:
     $ brew install gnutls
     $ offlineimap
     $ mu index
+
+Homebrew mu seems broken at the moment.  After installing mu with
+the --with-emacs the /usr/local/Cellar/mu/0.9.18_1/share/ directory
+was empty (didn't include emacs/site-lisp).
+
+I had to:
+
+    $ cd /tmp
+    $ cp /Users/craig/Library/Caches/Homebrew/mu--gmime-2.6.23.tar.xz .
+    $ tar xf mu--gmime-2.6.23.tar.xz
+    $ cd mu--gmime-2.6.23
+    $ ./configure --prefix=/usr/local/Cellar/mu/HEAD-cb0025b_1/gmime --disable-introspection
+    $ make install
+    $ autoreconf -ivf #dunno what this is
+    $ cd ..
+    $ cp /Users/craig/Library/Caches/Homebrew/mu-0.9.18.tar.gz .
+    $ tar xf mu-0.9.18.tar.gz
+    $ cd mu-0.9.18
+    $ EMACS=/usr/local/Cellar/emacs/25.3/bin/emacs ./configure --prefix=/usr/local/Cellar/mu/0.9.18_1 --with-lispdir=/usr/local/Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu
+    $ make install
+    $ cd /usr/local/share
+    $ ln -s ../Cellar/mu/0.9.18_1/bin/mu .
+    $ cd emacs site-lisp
+    $ ln -s ../../../Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu .
+    

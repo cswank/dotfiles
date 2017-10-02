@@ -1,27 +1,27 @@
-; Go Oracle
+;;; my-go --- Summary
+;;; setup go development
+;;; Commentary:
 
+;;; Code:
 (defun auto-complete-for-go ()
     (auto-complete-mode 1))
 
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GOPATH"))
 
 (defun my-go-mode-hook ()
-  ; Use goimports instead of go-fmt
   (setq gofmt-command "goimports")
-  ; Call Gofmt before saving
   (add-hook 'before-save-hook 'gofmt-before-save)
-  ; Customize compile command to run go build
   (if (not (string-match "go" compile-command))
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
-  ; Go oracle
-  ;(load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
-  ; Godef jump key binding
   (local-set-key (kbd "M-.") 'godef-jump))
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 
 
 (defun go-create-playground ()
-  "Creates a new temporary file with a skeletal Go application"
+  "Create a new temporary file with a skeletal Go application"
   (interactive)
   (let ((filename (make-temp-file "go-play-" nil ".go")))
     (find-file filename)
