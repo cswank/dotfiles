@@ -1,7 +1,16 @@
+;;; my-email --- Summary
+;;; setup for email via mu4e
+;;; Commentary:
+
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 (require 'mu4e)
 
 ;; default
 ;; (setq mu4e-maildir "~/Maildir")
+(setq mail-addr (getenv "EMACS_MAIL_ADDRESS"))
+(setq mail-full-name (getenv "EMACS_MAIL_FULL_NAME"))
+(setq mail-auth (getenv "EMACS_MAIL_AUTH"))
+(setq home (file-name-as-directory (getenv "HOME")))
 
 ;;; Code:
 (setq mu4e-drafts-folder "/[Gmail].Drafts")
@@ -31,8 +40,8 @@
 
 ;; something about ourselves
 (setq
-   user-mail-address "craig.swank@sendgrid.com"
-   user-full-name  "Craig Swank"
+   user-mail-address mail-addr
+   user-full-name  mail-full-name
    mu4e-compose-signature
     (concat
       "Craig\n"))
@@ -40,10 +49,8 @@
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
       starttls-use-gnutls t
-      smtpmail-starttls-credentials
-      '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials
-      (expand-file-name "/Users/craigswank/.authinfo.gpg")
+      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials (expand-file-name (concat home ".authinfo.gpg"))
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587
@@ -54,9 +61,9 @@
 
 ;; general emacs mail settings; used when composing e-mail
 ;; the non-mu4e-* stuff is inherited from emacs/message-mode
-(setq mu4e-reply-to-address "craig.swank@sendgrid.com"
-    user-mail-address "craig.swank@sendgrid.com"
-    user-full-name  "Craig Swank")
+(setq mu4e-reply-to-address mail-addr
+    user-mail-address mail-addr
+    user-full-name  mail-full-name)
 
 ;; don't save message to Sent Messages, IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
