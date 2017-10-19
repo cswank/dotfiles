@@ -27,3 +27,11 @@ ido.last
 
 .mc-lists.el
 projectile-bookmarks.eld
+
+.org-id-locations
+games/
+plugins/go-bimenu.el
+recentf
+request/
+var/
+workbench.xmi
