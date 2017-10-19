@@ -32,6 +32,7 @@
     (ditaa . t)
     (shell . t)
     (go . t)
+	(gnuplot . t)
     ))
 (setq org-src-fontify-natively t)
 (setq org-confirm-babel-evaluate nil)
@@ -152,6 +153,7 @@
 (load-library "my-color-theme")
 (load-file "~/.emacs.d/my-plugins/my-python.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")
+(load-file "~/.emacs.d/my-plugins/my-c.el")
 (when (string= (getenv "EMACS_MAIL") "true")
   (load-file "~/.emacs.d/my-plugins/my-email.el"))
 (load-file "~/.emacs.d/my-plugins/my-lisp.el")
@@ -263,14 +265,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ag-ignore-list (quote ("*~")))
  '(coffee-tab-width 2)
  '(column-number-mode t)
+ '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
+ '(eclimd-executable "/Applications/Eclipse.app/Contents/Eclipse/eclimd")
  '(global-linum-mode nil)
+ '(jiralib-url "https://jira.sendgrid.net")
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(osx-clipboard-mode t)
  '(package-selected-packages
    (quote
-    (browse-kill-ring ag free-keys restclient osx-clipboard ob-go ox-reveal org-bullets swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
+	(browse-kill-ring company-emacs-eclim company eclim gnuplot-mode chess org-jira github-modern-theme ag go-complete osx-clipboard ob-go ox-reveal org-bullets swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))

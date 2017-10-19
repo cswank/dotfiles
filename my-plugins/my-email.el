@@ -7,9 +7,8 @@
 
 ;; default
 ;; (setq mu4e-maildir "~/Maildir")
-(setq mail-addr (getenv "EMACS_MAIL_ADDRESS"))
-(setq mail-full-name (getenv "EMACS_MAIL_FULL_NAME"))
-(setq mail-auth (getenv "EMACS_MAIL_AUTH"))
+(setq mail-addr (getenv "EMACS_EMAIL_ADDRESS"))
+(setq mail-full-name (getenv "EMACS_EMAIL_FULL_NAME"))
 (setq home (file-name-as-directory (getenv "HOME")))
 
 ;;; Code:
@@ -49,8 +48,10 @@
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
       starttls-use-gnutls t
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials (expand-file-name (concat home ".authinfo.gpg"))
+      smtpmail-starttls-credentials
+      '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials
+      (expand-file-name (concat home ".authinfo.gpg"))
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587

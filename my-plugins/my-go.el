@@ -3,6 +3,8 @@
 ;;; Commentary:
 
 ;;; Code:
+;; which one??
+;;(require 'go-complete)
 (defun auto-complete-for-go ()
     (auto-complete-mode 1))
 
@@ -47,7 +49,10 @@
 (add-hook 'go-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'gofmt-before-save)
+            (add-hook 'completion-at-point-functions 'go-complete-at-point)
             (setq tab-width 4)
             (setq indent-tabs-mode 1)))
+
 (add-hook 'go-mode-hook 'flycheck-mode)
-(add-hook 'go-mode-hook 'auto-complete-for-go)
+
+;;(add-hook 'go-mode-hook 'auto-complete-for-go)
