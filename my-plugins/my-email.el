@@ -9,7 +9,6 @@
 ;; (setq mu4e-maildir "~/Maildir")
 (setq mail-addr (getenv "EMACS_MAIL_ADDRESS"))
 (setq mail-full-name (getenv "EMACS_MAIL_FULL_NAME"))
-(setq mail-auth (getenv "EMACS_MAIL_AUTH"))
 (setq home (file-name-as-directory (getenv "HOME")))
 
 ;;; Code:
