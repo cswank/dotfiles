@@ -154,7 +154,7 @@
 (load-file "~/.emacs.d/my-plugins/my-python.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")
 (load-file "~/.emacs.d/my-plugins/my-c.el")
-(when (string= (getenv "EMACS_MAIL") "true")
+(when (string= (getenv "EMACS_EMAIL") "true")
   (load-file "~/.emacs.d/my-plugins/my-email.el"))
 (load-file "~/.emacs.d/my-plugins/my-lisp.el")
 (require 'xcscope)
@@ -165,7 +165,7 @@
 (require 'dired-x)
     (setq-default dired-omit-files-p t) ; this is buffer-local variable
     (setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
-    (setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn" ".egg-info" ".git" ".gitignore"))
+    (setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn" ".egg-info" ".git" ".gitignore" ".coverprofile"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;My Macros

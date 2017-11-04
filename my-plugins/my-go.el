@@ -6,13 +6,15 @@
 ;; which one??
 ;;(require 'go-complete)
 (defun auto-complete-for-go ()
-    (auto-complete-mode 1))
+  "Come on, I don't want to document this."
+  (auto-complete-mode 1))
 
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "GOPATH"))
+;;(when (memq window-system '(mac ns))
+;;  (exec-path-from-shell-initialize)
+;;  (exec-path-from-shell-copy-env "GOPATH"))
 
 (defun my-go-mode-hook ()
+  "Come on, I don't want to document this."
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save)
   (if (not (string-match "go" compile-command))
@@ -23,7 +25,7 @@
 
 
 (defun go-create-playground ()
-  "Create a new temporary file with a skeletal Go application"
+  "Create a new temporary file with a skeletal Go application."
   (interactive)
   (let ((filename (make-temp-file "go-play-" nil ".go")))
     (find-file filename)
@@ -36,7 +38,7 @@
     (go-mode)))
 
 (defun go-switch-to-playground ()
-  "Switch to Go Playground buffer, creating if necessary"
+  "Switch to Go Playground buffer, creating if necessary."
   (interactive)
   (let ((playground (get-buffer "Go Playground")))
     (if playground
@@ -56,3 +58,5 @@
 (add-hook 'go-mode-hook 'flycheck-mode)
 
 ;;(add-hook 'go-mode-hook 'auto-complete-for-go)
+(provide 'my-go)
+;;; my-go.el ends here
