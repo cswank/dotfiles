@@ -163,9 +163,9 @@
 ;;Dired Ignores
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'dired-x)
-    (setq-default dired-omit-files-p t) ; this is buffer-local variable
-    (setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
-    (setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn" ".egg-info" ".git" ".gitignore"))
+(setq-default dired-omit-files-p t) ; this is buffer-local variable
+(setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
+(setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn" ".egg-info" ".git" ".gitignore" ".coverprofile"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;My Macros
@@ -268,15 +268,13 @@
  '(ag-ignore-list (quote ("*~")))
  '(coffee-tab-width 2)
  '(column-number-mode t)
- '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
- '(eclimd-executable "/Applications/Eclipse.app/Contents/Eclipse/eclimd")
  '(global-linum-mode nil)
  '(jiralib-url "https://jira.sendgrid.net")
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(osx-clipboard-mode t)
  '(package-selected-packages
    (quote
-	(browse-kill-ring company-emacs-eclim company eclim gnuplot-mode chess org-jira github-modern-theme ag go-complete osx-clipboard ob-go ox-reveal org-bullets swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
+	(terraform-mode test-c meghanada browse-kill-ring company gnuplot-mode chess org-jira github-modern-theme ag go-complete osx-clipboard ob-go ox-reveal org-bullets swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
