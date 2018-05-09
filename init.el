@@ -270,11 +270,12 @@
  '(column-number-mode t)
  '(global-linum-mode nil)
  '(jiralib-url "https://jira.sendgrid.net")
+ '(magit-commit-arguments (quote ("--gpg-sign=E6AE4728A721466C")))
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(osx-clipboard-mode t)
  '(package-selected-packages
    (quote
-	(terraform-mode test-c meghanada browse-kill-ring company gnuplot-mode chess org-jira github-modern-theme ag go-complete osx-clipboard ob-go ox-reveal org-bullets swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
+	(hide-lines csv-mode terraform-mode test-c meghanada browse-kill-ring company gnuplot-mode chess org-jira github-modern-theme ag go-complete osx-clipboard ob-go ox-reveal org-bullets swiper hackernews magit-gh-pulls helm-google go-snippets go-playground-cli go-stacktracer go-add-tags sqlup-mode popup-kill-ring multiple-cursors magit go-projectile go-dlv go-autocomplete flymake-cursor flycheck)))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
