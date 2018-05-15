@@ -164,9 +164,9 @@
 ;;Dired Ignores
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'dired-x)
-    (setq-default dired-omit-files-p t) ; this is buffer-local variable
-    (setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
-    (setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn" ".egg-info" ".git" ".gitignore" ".coverprofile"))
+(setq-default dired-omit-files-p t) ; this is buffer-local variable
+(setq dired-omit-files "^\.[a-z|A-Z]+\|^\.?#\|^\.$")
+(setq dired-omit-extensions '(".pyo" ".pyc" "~" ".bak" ".pt.cache" ".svn" ".egg-info" ".git" ".gitignore" ".coverprofile"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;My Macros
@@ -269,11 +269,10 @@
  '(ag-ignore-list (quote ("*~")))
  '(coffee-tab-width 2)
  '(column-number-mode t)
- '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
- '(eclimd-executable "/Applications/Eclipse.app/Contents/Eclipse/eclimd")
  '(global-linum-mode nil)
  '(jiralib-url "https://jira.sendgrid.net")
  '(magit-commit-arguments (quote ("--gpg-sign=9C98197E1BCE6344")))
+ ;;'(magit-commit-arguments (quote ("--gpg-sign=E6AE4728A721466C")))
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(osx-clipboard-mode t)
  '(package-selected-packages
