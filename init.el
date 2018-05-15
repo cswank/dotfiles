@@ -271,8 +271,8 @@
  '(column-number-mode t)
  '(global-linum-mode nil)
  '(jiralib-url "https://jira.sendgrid.net")
- '(magit-commit-arguments (quote ("--gpg-sign=9C98197E1BCE6344")))
- ;;'(magit-commit-arguments (quote ("--gpg-sign=E6AE4728A721466C")))
+ ;;"--gpg-sign=9C98197E1BCE6344" or "--gpg-sign=E6AE4728A721466C"
+ '(magit-commit-arguments (quote ((getenv "GPG_SIGN"))))
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(osx-clipboard-mode t)
  '(package-selected-packages
