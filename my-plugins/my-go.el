@@ -4,7 +4,7 @@
 
 ;;; Code:
 ;; which one??
-;;(require 'go-complete)
+(require 'go-mode)
 (defun auto-complete-for-go ()
   "Come on, I don't want to document this."
   (auto-complete-mode 1))
