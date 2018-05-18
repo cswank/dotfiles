@@ -105,7 +105,7 @@
 (global-set-key (kbd "C-c C-a") 'mc/mark-all-like-this)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;My Keyboard Bindings3
+;;My Keyboard Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (setq-default indent-tabs-mode nil)
