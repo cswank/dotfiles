@@ -12,12 +12,12 @@
   (set-window-buffer nil buffer)
   (get-buffer-window buffer))
 
-(defvar magit-status-buffer-switch-function)
-(setq magit-status-buffer-switch-function
-      (lambda (buffer) ; there might already be an Emacs function which does this
-        (pop-to-buffer buffer)
-        (delete-other-windows)))
+(defvar magit-display-buffer-function)
+(setq magit-display-buffer-function
+      (lambda (buffer)
+        (if magit-display-buffer-noselect
+            (magit-display-buffer-traditional buffer)
+          (display-buffer buffer '(display-buffer-full-screen)))))
 
 (provide 'my-magit)
 ;;; my-magit.el ends here
-
