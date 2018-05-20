@@ -15,16 +15,16 @@
 ;;Load Libraries
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
-(load-file "~/.emacs.d/my-plugins/my-python.el")
 (load-file "~/.emacs.d/my-plugins/my-random-stuff.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")
 (load-file "~/.emacs.d/my-plugins/my-magit.el")
 (load-file "~/.emacs.d/my-plugins/my-weather.el")
-(load-file "~/.emacs.d/my-plugins/my-c.el")
 (when (string= (getenv "EMACS_EMAIL") "true")
   (load-file "~/.emacs.d/my-plugins/my-email.el"))
 (load-file "~/.emacs.d/my-plugins/my-lisp.el")
 (load-file "~/.emacs.d/my-plugins/my-javascript.el")
+(load-file "~/.emacs.d/my-plugins/my-python.el")
+(load-file "~/.emacs.d/my-plugins/my-c.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Custom Set Variables
