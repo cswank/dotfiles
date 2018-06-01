@@ -1,0 +1,95 @@
+* Installation
+To install, first put the dodemacs directory from this repo in your home directory.
+
+For go development I use one $GOPATH for everything and install these tools:
+
+#+BEGIN_SRC sh
+  go get -u -v github.com/nsf/gocode
+  go get -u github.com/rogpeppe/godef
+  go get -u golang.org/x/tools/cmd/goimports
+  go get -u golang.org/x/tools/oracle
+  sudo mv $GOPATH/bin/oracle $GOROOT/bin/
+  go get -u github.com/dougm/goflymake
+#+END_SRC
+
+Then run the following (put cursor at end of each block  C-x C-e it).
+
+#+BEGIN_SRC elisp
+  (setq package-list '(go-mode
+                       auto-complete
+                       flycheck
+                       flymake-cursor
+                       projectile
+                       magit
+                       magit-gh-pulls
+                       go-projectile
+                       swiper
+                       org-bullets
+                       ox-reveal
+                       multiple-cursors))
+
+  ; list the repositories containing them
+  (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
+                           ("gnu" . "http://elpa.gnu.org/packages/")
+                           ("melpa" . "http://melpa.org/packages/")
+                           ("marmalade" . "http://marmalade-repo.org/packages/")))
+
+  ; activate all the packages (in particular autoloads)
+  (package-initialize)
+
+  ; fetch the list of packages available 
+  (unless package-archive-contents
+	(package-refresh-contents))
+
+  ; install the missing packages
+  (dolist (package package-list)
+  (unless (package-installed-p package)
+      (package-install package)))
+#+END_SRC
+
+* Install mu4e:
+#+BEGIN_SRC sh
+    yaourt -S mu # (or apt-get install mu, or brew install --with-emacs mu, or nix-env -i mu)
+#+END_SRC
+
+Then set up your .offlineimaprc file, then:
+
+#+BEGIN_SRC sh
+  brew install gnutls
+  offlineimap
+  mu index
+#+END_SRC
+
+
+Homebrew mu seems broken at the moment.  After installing mu with
+the --with-emacs the /usr/local/Cellar/mu/0.9.18_1/share/ directory
+was empty (didn't include emacs/site-lisp).
+
+NEW METHOD:
+
+	$ nix-env -i mu
+
+Then go to /nix and locate the mu4e directory.  Take that output and set the 
+env var EMACS_EMAIL_MU4E=<path to mu4e dir>
+
+OLD METHOD:
+I had to:
+
+    $ cd /tmp
+    $ cp /Users/craig/Library/Caches/Homebrew/mu--gmime-2.6.23.tar.xz .
+    $ tar xf mu--gmime-2.6.23.tar.xz
+    $ cd mu--gmime-2.6.23
+    $ ./configure --prefix=/usr/local/Cellar/mu/HEAD-cb0025b_1/gmime --disable-introspection
+    $ make install
+    $ autoreconf -ivf #dunno what this is
+    $ cd ..
+    $ cp /Users/craig/Library/Caches/Homebrew/mu-0.9.18.tar.gz .
+    $ tar xf mu-0.9.18.tar.gz
+    $ cd mu-0.9.18
+    $ EMACS=/usr/local/Cellar/emacs/25.3/bin/emacs ./configure --prefix=/usr/local/Cellar/mu/0.9.18_1 --with-lispdir=/usr/local/Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu
+    $ make install
+    $ cd /usr/local/share
+    $ ln -s ../Cellar/mu/0.9.18_1/bin/mu .
+    $ cd emacs site-lisp
+    $ ln -s ../../../Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu .
+    
