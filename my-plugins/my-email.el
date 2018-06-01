@@ -2,7 +2,7 @@
 ;;; setup for email via mu4e
 ;;; Commentary:
 
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+(add-to-list 'load-path "~/.emacs.d/plugins/mu4e")
 (require 'mu4e)
 
 ;; default
