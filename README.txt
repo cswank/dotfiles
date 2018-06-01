@@ -66,6 +66,14 @@ Homebrew mu seems broken at the moment.  After installing mu with
 the --with-emacs the /usr/local/Cellar/mu/0.9.18_1/share/ directory
 was empty (didn't include emacs/site-lisp).
 
+NEW METHOD:
+
+	$ nix-env -i mu
+
+Then go to /nix and locate the mu4e directory.  Take that output and set the 
+env var EMACS_EMAIL_MU4E=<path to mu4e dir>
+
+OLD METHOD:
 I had to:
 
     $ cd /tmp

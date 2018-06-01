@@ -2,7 +2,8 @@
 ;;; setup for email via mu4e
 ;;; Commentary:
 
-(add-to-list 'load-path "~/.emacs.d/plugins/mu4e")
+(add-to-list 'load-path (getenv "EMACS_EMAIL_MU4E"))
+(load-library "mu4e")
 (require 'mu4e)
 
 ;; default
