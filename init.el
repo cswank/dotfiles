@@ -25,6 +25,7 @@
 (load-file "~/.emacs.d/my-plugins/my-javascript.el")
 (load-file "~/.emacs.d/my-plugins/my-python.el")
 (load-file "~/.emacs.d/my-plugins/my-c.el")
+(load-file "~/.emacs.d/my-plugins/my-terminal.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Custom Set Variables
