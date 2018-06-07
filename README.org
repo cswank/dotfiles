@@ -70,3 +70,20 @@ I had to:
     $ cd emacs site-lisp
     $ ln -s ../../../Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu .
     
+** ansi-term
+   If you want dired to track PWD in ansi-term, put this
+   in your .zshrc (or equivalent):
+
+#+BEGIN_SRC sh
+  if [ -n "$INSIDE_EMACS" ]; then
+      # function to set the dired and host for ansiterm
+      set_eterm_dir() {
+          print -P "\033AnSiTu %n"
+          print -P "\033AnSiTh" "$(hostname -f)"
+          print -P "\033AnSiTc %d"
+      }
+
+      # call prmptcmd whenever prompt is redrawn
+      precmd_functions=($precmd_functions set_eterm_dir)
+  fi
+#+END_SRC   
