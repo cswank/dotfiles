@@ -1,53 +1,30 @@
 * Installation
-To install, first put the dodemacs directory from this repo in your home directory.
+  
+To install, first clone this repository:
 
-For go development I use one $GOPATH for everything and install these tools:
+#+BEGIN_SRC sh
+  git clone git@github.com:cswank/dotemacs.git
+  mv dotemacs ~/.emacs.d
+#+END_SRC
+
+** Go development
+   
+Install these go tools:
 
 #+BEGIN_SRC sh
   go get -u -v github.com/nsf/gocode
   go get -u github.com/rogpeppe/godef
   go get -u golang.org/x/tools/cmd/goimports
-  go get -u golang.org/x/tools/oracle
-  sudo mv $GOPATH/bin/oracle $GOROOT/bin/
   go get -u github.com/dougm/goflymake
 #+END_SRC
 
-Then run the following (put cursor at end of each block  C-x C-e it).
+Then install all packages listed in package-selected-packages (init.el)
 
 #+BEGIN_SRC elisp
-  (setq package-list '(go-mode
-                       auto-complete
-                       flycheck
-                       flymake-cursor
-                       projectile
-                       magit
-                       magit-gh-pulls
-                       go-projectile
-                       swiper
-                       org-bullets
-                       ox-reveal
-                       multiple-cursors))
-
-  ; list the repositories containing them
-  (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
-                           ("gnu" . "http://elpa.gnu.org/packages/")
-                           ("melpa" . "http://melpa.org/packages/")
-                           ("marmalade" . "http://marmalade-repo.org/packages/")))
-
-  ; activate all the packages (in particular autoloads)
-  (package-initialize)
-
-  ; fetch the list of packages available 
-  (unless package-archive-contents
-	(package-refresh-contents))
-
-  ; install the missing packages
-  (dolist (package package-list)
-  (unless (package-installed-p package)
-      (package-install package)))
+  (package-install-selected-packages)
 #+END_SRC
 
-* Install mu4e:
+** mu4e:
 #+BEGIN_SRC sh
     yaourt -S mu # (or apt-get install mu, or brew install --with-emacs mu, or nix-env -i mu)
 #+END_SRC
