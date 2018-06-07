@@ -21,6 +21,7 @@ plugins/auto-complete-1.3
 plugins/auto-complete.el
 plugins/auto-complete-config.el
 ac-comphist.dat
+tramp-autosave
 .emacs.desktop
 usr/src/pysmell-0.7.3/build
 plugins/change_case.el
