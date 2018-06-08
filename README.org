@@ -11,7 +11,7 @@ To install, first clone this repository:
    
 Install these go tools:
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC shell
   go get -u -v github.com/nsf/gocode
   go get -u github.com/rogpeppe/godef
   go get -u golang.org/x/tools/cmd/goimports

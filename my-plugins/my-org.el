@@ -8,7 +8,7 @@
  '( (python . t)
     (sql . t)
     (ditaa . t)
-    (sh . t)
+    (shell . t)
     (go . t)
     (gnuplot . t)
     ))
