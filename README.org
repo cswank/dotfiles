@@ -87,6 +87,4 @@ I had to:
       precmd_functions=($precmd_functions set_eterm_dir)
   fi
 #+END_SRC   
-* Links
-  [Notes](docs/notes.org)
 
