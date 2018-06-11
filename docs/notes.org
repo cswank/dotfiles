@@ -1,0 +1,458 @@
+#+STARTUP: hidestars
+* Org mode
+** keybindings
+   C-c C-t marks a task as done
+   Alt -> Demotes a subtree
+   Alt <- Promotes a subtree
+   C-c C-e export
+   Meta Enter create a new item at current indent level
+** code block
+   src block:     <s TAB
+   native editor: C-c '
+#+BEGIN_SRC emacs-lisp -n -r
+  (+ 10 5)
+#+END_SRC
+#+BEGIN_SRC go
+  package main
+
+  import "fmt"
+
+  func main() {
+      sayHi()
+  }
+
+  func sayHi() {
+      fmt.Println("hello, world")
+  }
+#+END_SRC
+
+#+BEGIN_SRC python
+  print "hello, world"
+#+END_SRC
+
+#+RESULTS:
+: None
+
+#+BEGIN_SRC sql
+SELECT * from stuff where thing = 'a';
+#+END_SRC
+
+#+begin_src go
+  package  main
+  import "fmt"
+  func main() {
+	  x := 3
+	  y := 4
+
+	  //swap without temp var
+	  x = x ^ y
+	  y = x ^ y
+	  x = x ^ y
+	  fmt.Printf("x: %d, y: %d\n", x, y)
+  }
+
+#+END_SRC
+
+#+RESULTS:
+: x: 4, y: 3
+(hit C-c ' to edit in go-mode buffer)
+
+
+#+BEGIN_SRC python
+    m = 1.6726231e-27 #kg
+    c = 3.0e
+#+END_SRC
+
+#+RESULTS:
+: None
+
+#+BEGIN_SRC artist
+    +------------------------+
+    | hi                     |
+    |                        |
+    +------------------------+
+#+END_SRC
+** ditaa
+*** install
+  Note: to install ditaa:
+
+  Find where the jar file should live:
+  #+BEGIN_SRC lisp
+(expand-file-name
+             "ditaa.jar"
+      (file-name-as-directory
+            (expand-file-name
+                "scripts"
+               (file-name-as-directory
+                  (expand-file-name
+                      "../contrib"
+                     (file-name-directory (org-find-library-dir "org")))))))
+"/usr/local/Cellar/emacs/HEAD-8b789c8/share/emacs/25.1.50/lisp/contrib/scripts/ditaa.jar"
+  #+END_SRC
+
+  Then put it there
+  #+BEGIN_SRC sh
+brew install ditaa
+find /usr/local -name 'ditaa*'
+mkdir -p /usr/local/Cellar/emacs/HEAD-8b789c8/share/emacs/25.1.50/lisp/contrib/scripts
+cp /usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar /usr/local/Cellar/emacs/HEAD-8b789c8/share/emacs/25.1.50/lisp/contrib/scripts/ditaa.jar
+  #+END_SRC
+
+*** examples
+  #+begin_src ditaa :file ditaa-simpleboxes-unsep.png :cmdline -E
++---------+
+|         |
+| Foo     |
+|         |
++----+----+---+
+|Bar |Baz     |
+|    |        |
++----+--------+
+#+end_src
+
+  #+RESULTS:
+  [[file:ditaa-simpleboxes-unsep.png]]
+
+  #+begin_src ditaa :file ditaa-seqboxes.png
++------+   +-----+   +-----+   +-----+
+|{io}  |   |{d}  |   |{s}  |   |cBLU |
+| Foo  +---+ Bar +---+ Baz +---+ Moo |
+|      |   |     |   |     |   |     |
++------+   +-----+   +--+--+   +-----+
+                        |
+           /-----\      |      +------+
+           |     |      |      | c1AB |
+           | Goo +------+---=--+ Shoo |
+           \-----/             |      |
+                               +------+
+
+
+
+#+end_src
+
+  #+RESULTS:
+  [[file:ditaa-seqboxes.png]]
+
+#+BEGIN_SRC  ditaa :file ditaa-seqboxes-with-arrows.png
++--------+   +-------+    +-------+
+|        | --+ ditaa +--> |       |
+|  Text  |   +-------+    |diagram|
+|Document|   |!magic!|    |       |
+|     {d}|   |       |    |       |
+|        |   |       |    |       |
+|cBLU    |   |cBLK   |    |cGRE   |
++---+----+   +-------+    +-------+
+    :                         ^
+    |       Lots of work      |
+    +-------------------------+
+#+END_SRC
+
+#+BEGIN_SRC calc :var x=5 :var y=2
+2+a*x**y
+#+END_SRC
+
+#+RESULTS:
+
+
+# #+begin_src plantuml :file class_diagram.png
+# skinparam monochrome true
+# FitsHdu <|-- PrimaryHdu
+# FitsHdu <|-- ExtensionHdu
+
+# FitsHdu : header
+# FitsHdu : getHeaderKeyword()
+
+# ExtensionHdu <|-- ImageHdu
+# ImageHdu : image
+# ImageHdu : getPixel(row, column)
+
+# ExtensionHdu <|-- BinaryTableHdu
+# BinaryTableHdu : table
+# BinaryTableHdu : getRow(row)
+# BinaryTableHdu : getColumn(column)
+# #+end_src
+** spreadsheet
+*** basic
+| x |  y |
+|---+----|
+| 1 |  1 |
+| 2 |  4 |
+| 3 |  9 |
+| 4 | 16 |
+| 5 | 25 |
+| 6 | 36 |
+| 7 | 49 |
+| 8 | 64 |
+#+TBLFM: $2=$1^2
+(hit C-c C-c to calculate)
+
+*** lisp
+| x | y |  z |
+|---+---+----|
+| 1 | 2 |  3 |
+| 2 | 4 |  6 |
+| 3 | 6 |  9 |
+| 4 | 8 | 12 |
+#+TBLFM: $3='(+ $1 $2);N
+;N tells lisp that the args are numeric
+
+#+name: fibbd
+#+begin_src emacs-lisp :var n=0
+(defun fibbd (n) (if (< n 2) 1 (+ (fibbd (- n 1)) (fibbd (- n 2)))))
+(fibbd n)
+#+end_src
+
+| original | fibbd |
+|----------+-------|
+|        0 |     1 |
+|        1 |     1 |
+|        2 |     2 |
+|        3 |     3 |
+|        4 |     5 |
+|        5 |     8 |
+|        6 |    13 |
+|        7 |    21 |
+|        8 |    34 |
+|        9 |    55 |
+#+TBLFM: $2='(org-sbe fibbd (n $1))
+
+*** Multile formulas 
+| a |  b | sum |
+|---+----+-----|
+| 1 |  2 |   9 |
+| 2 |  4 |  36 |
+| 3 |  6 |  81 |
+| 4 |  8 | 144 |
+| 5 | 10 | 225 |
+#+TBLFM: $2=$1+$1
+#+TBLFM: $3=($1+$2)^2
+
+|  a |  b | sum |
+|----+----+-----|
+|  1 |  2 |   9 |
+|  2 |  4 |  36 |
+|  3 |  6 |  81 |
+|  4 |  8 | 144 |
+|  5 | 10 | 225 |
+|----+----+-----|
+| 15 | 30 | 486 |
+#+TBLFM: $2=$1+$1::$3=($1+$2)^2
+#+TBLFM: @>$3=vsum(@2..@-1)
+#+TBLFM: @>$2=vsum(@2..@-1)
+#+TBLFM: @>$1=vsum(@2..@-1)
+
+*** sum a column ( @> means last row )
+|  a |
+|----|
+|  1 |
+|  2 |
+|  3 |
+|  4 |
+|----|
+| 10 |
+#+TBLFM: @>$1=vsum(@2..@-1)
+
+*** use python
+| airmass | zenith_seeing | delivered_seeing |
+|---------+---------------+------------------|
+|     1.3 |          0.96 |        1.1236660 |
+|     1.3 |           1.0 |        1.1704854 |
+|     1.3 |           1.1 |        1.2875340 |
+|     1.3 |           1.2 |        1.4045825 |
+|     1.3 |          1.25 |        1.4631068 |
+|     1.3 |           1.3 |        1.5216311 |
+|     1.3 |           1.5 |        1.7557281 |
+|     1.3 |           1.8 |        2.1068738 |
+|     1.2 |           1.8 |        2.0080811 |
+|     1.3 |           2.0 |        2.3409709 |
+|     1.3 |           2.5 |        2.9262136 |
+#+TBLFM: $3=$2*($1**0.6)
+
+#+NAME: sampformula
+#+BEGIN_SRC python :var angle=90 :var r=2 :exports none
+from math import radians, cos
+result = r*cos(radians(angle))*2
+return result
+#+END_SRC
+
+| angle |  r |             x |
+|-------+----+---------------|
+|    30 | 10 | 17.3205080757 |
+|    45 | 10 | 14.1421356237 |
+|    60 | 10 |          10.0 |
+#+TBLFM: $3='(org-sbe "sampformula" (angle $1) (r $2))
+
+*** or sh
+#+NAME: oldest
+#+BEGIN_SRC sh :results silent sh :var userid=""
+OLDEST=$(s3cmd ls s3://contacts-incremental-backup/$userid | grep __full__mcbackup-pod | sort -k1,2 | head -n 1 | awk '{print $1"T"$2"Z"}')
+echo $OLDEST
+#+END_SRC
+| pod |  userid | minute | oldest backup     |
+|-----+---------+--------+-------------------|
+|   1 | 1801931 |      2 | 2017-10-06T01:21Z |
+|   1 | 3359770 |      9 | 2017-10-02T00:34Z |
+|   1 | 1946821 |     14 | 2017-10-03T02:03Z |
+#+TBLFM: $4='(org-sbe "oldest" (userid $$2))
+*** or go
+#+name: goexample
+#+begin_src go :var x=0 :results output :imports '("fmt") 
+  fmt.Println(x * x)
+#+end_src
+| a |  b |
+|---+----|
+| 1 |  1 |
+| 2 |  4 |
+| 3 |  9 |
+| 4 | 16 |
+#+TBLFM: $2='(org-sbe goexample (x $1))
+** LaTex
+Foo bar \(f(x) = \frac{x^3}{n}\) chicken checken.
+** todo
+*** Notes
+    save the below example in (setq org-agenda-files '("<some dir>"))
+*** Doc   
+   5.1 Basic TODO functionality
+
+   Any headline becomes a TODO item when it starts with the word ‘TODO’, for example:
+
+        *** TODO Write letter to Sam Fortune
+   The most important commands to work with TODO entries are:
+
+   C-c C-t     (org-todo)
+   Rotate the TODO state of the current item among
+             ,-> (unmarked) -> TODO -> DONE --.
+             '--------------------------------'
+   If TODO keywords have fast access keys (see Fast access to TODO states), you will be prompted for a TODO keyword through the fast selection interface; this is the default behavior when org-use-fast-todo-selection is non-nil.
+
+   The same rotation can also be done “remotely” from the timeline and agenda buffers with the t command key (see Agenda commands).
+
+   C-u C-c C-t
+   When TODO keywords have no selection keys, select a specific keyword using completion; otherwise force cycling through TODO states with no prompt. When org-use-fast-todo-selection is set to prefix, use the fast selection interface.
+
+
+   S-<right> / S-<left>
+   Select the following/preceding TODO state, similar to cycling. Useful mostly if more than two TODO states are possible (see TODO extensions). See also Conflicts, for a discussion of the interaction with shift-selection-mode. See also the variable org-treat-S-cursor-todo-selection-as-state-change.
+   C-c / t     (org-show-todo-tree)
+   View TODO items in a sparse tree (see Sparse trees). Folds the entire buffer, but shows all TODO items (with not-DONE state) and the headings hierarchy above them. With a prefix argument (or by using C-c / T), search for a specific TODO. You will be prompted for the keyword, and you can also give a list of keywords like KWD1|KWD2|... to list entries that match any one of these keywords. With a numeric prefix argument N, show the tree for the Nth keyword in the option org-todo-keywords. With two prefix arguments, find all TODO states, both un-done and done.
+   C-c a t     (org-todo-list)
+   Show the global TODO list. Collects the TODO items (with not-DONE states) from all agenda files (see Agenda views) into a single buffer. The new buffer will be in agenda-mode, which provides commands to examine and manipulate the TODO entries from the new buffer (see Agenda commands). See Global TODO list, for more information.
+   S-M-<RET>     (org-insert-todo-heading)
+   Insert a new TODO entry below the current one.
+   Changing a TODO state can also trigger tag changes. See the docstring of the option org-todo-state-tags-triggers for details.
+*** Example
+**** TODO manager 1:1 (repeat on a day (C-c C-s to schedule))
+     SCHEDULED: <2017-04-13 Thu +1w>
+**** TODO write paper (With deadline (C-c C-s to schedule, C-c C-d to add deadline))
+     DEADLINE: <2017-04-18 Tue> SCHEDULED: <2017-04-17 Mon>
+**** TODO watch concert (With time-range)
+     SCHEDULED: <2017-04-21 Fri 16:00-18:00>
+* Fonts
+** Set font:
+   #+BEGIN_SRC emacs-lisp
+   (set-frame-font "Go Mono 14" nil t)
+   #+END_SRC
+   
+ * Downloads:
+*** Go:
+    https://github.com/golang/image/tree/master/font/gofont/ttfs
+    cp image/tree/master/font/gofont/ttfs/* ~/Library/Fonts/
+* Swiper
+  enter something not in the swiper list:
+  C-M-j
+* Artist-mode
+** examples
+
+               -----               +-------------+
+             -/     \-             |             |
+            /         \            |             |
+           /           \           |             |
+           |  (circle) |           |  C-c C-a s  |     +---------------------------+
+          /  C-c C-a c  \          |             |     |  C-c C-a r                |
+          |      nter   |          |             |     +---------------------------+
+          |     then    |          |             |
+          |     move    |          |             |
+          \     cursor  /          |             |     |        \
+           |           |           |             |     |         \
+           \           /           |             |     |          \
+            \         /            |             |     |           \
+             -\     /-             |             |     |  C-c C-a L \
+               -----               +-------------+     |             \
+                                                       |              \
+                                                       |               \
+                                                       +----------------\
+
+
+
+
+          +-------------------------------------
+          |                                 -/
+          |                               -/
+          |                             -/
+          |  C-c C-a l                -/
+         /                          -/                            +-----------+
+         |                       --/                              |...........|  C-c C-a f (flood fill)
+         |                     -/                                 |...........|
+         |                   -/                                   |...........|
+         |                 -/                                     |...........|
+         |               -/               ---.                    |...........|
+         |             -/                .-.+  .                  +-----------+
+         |          --/                 .. m+%+ .
+         |        -/                     +*..--
+
+        |     -/                        . +++ ...
+        |   -/                          .-+ -.
+        | -/                              .
+        +/
+
+** shortcuts
+To exit a op: C-u ret
+
+C-cC-aC-r  artist-toggle-rubber-banding
+C-cC-al    artist-select-op-line
+C-cC-aL    artist-select-op-straight-line
+C-cC-ar    artist-select-op-rectangle
+C-cC-aR    artist-select-op-square
+C-cC-as    artist-select-op-square
+C-cC-ap    artist-select-op-poly-line
+C-cC-aP    artist-select-op-straight-poly-line
+C-cC-ae    artist-select-op-ellipse
+C-cC-ac    artist-select-op-circle
+C-cC-at    artist-select-op-text-see-thru
+C-cC-aT    artist-select-op-text-overwrite
+C-cC-aS    artist-select-op-spray-can
+C-cC-az    artist-select-op-spray-set-size
+C-cC-aC-d  artist-select-op-erase-char
+C-cC-aE    artist-select-op-erase-rectangle
+C-cC-av    artist-select-op-vaporize-line
+C-cC-aV    artist-select-op-vaporize-lines
+C-cC-aC-k  artist-select-op-cut-rectangle
+C-cC-aM-w  artist-select-op-copy-rectangle
+C-cC-aC-y  artist-select-op-paste
+C-cC-af    artist-select-op-flood-fill
+
+* Search and Replace
+** Across Multiple Files
+   https://www.gnu.org/software/emacs/manual/html_node/efaq/Replacing-text-across-multiple-files.html
+   
+   Dired mode (M-x dired <RET>, or C-x d) supports the command dired-do-find-regexp-and-replace (Q), which allows users to replace regular expressions in multiple files.
+You can use this command to perform search/replace operations on multiple files by following the following steps:
+
+find-grep-dired
+Mark all files in the resulting Dired buffer using t.
+Use Q to start a query-replace-regexp session on the marked files.
+To accept all replacements in each file, hit !.
+
+Another way to do the same thing is to use the “tags” feature of Emacs: it includes the command tags-query-replace which performs a query-replace across all the files mentioned in the TAGS file. See Identifier Search.
+* Elisp
+
+#+BEGIN_SRC  emacs-lisp
+(defun greeting ()
+    (let ((your-name (read-from-minibuffer "Enter your name: ")))
+      (insert (format "Hello %s!."
+                      your-name ; the let-bound var, entered at prompt
+                      ))))
+#+END_SRC  
+* Mu4e
+** Attach image to email
+   C-c C-a

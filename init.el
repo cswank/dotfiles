@@ -16,6 +16,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
 (load-file "~/.emacs.d/my-plugins/my-random-stuff.el")
+(load-file "~/.emacs.d/my-plugins/my-org.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")
 (load-file "~/.emacs.d/my-plugins/my-magit.el")
 (load-file "~/.emacs.d/my-plugins/my-weather.el")
