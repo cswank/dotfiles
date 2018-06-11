@@ -37,39 +37,39 @@ Then set up your .offlineimaprc file, then:
   mu index
 #+END_SRC
 
-
 Homebrew mu seems broken at the moment.  After installing mu with
 the --with-emacs the /usr/local/Cellar/mu/0.9.18_1/share/ directory
 was empty (didn't include emacs/site-lisp).
 
-NEW METHOD:
-
-	$ nix-env -i mu
+*** NEW METHOD:
+	#+BEGIN_SRC shell
+	nix-env -i mu
+	#+END_SRC
 
 Then go to /nix and locate the mu4e directory.  Take that output and set the 
 env var EMACS_EMAIL_MU4E=<path to mu4e dir>
 
-OLD METHOD:
+*** OLD METHOD:
 I had to:
-
-    $ cd /tmp
-    $ cp /Users/craig/Library/Caches/Homebrew/mu--gmime-2.6.23.tar.xz .
-    $ tar xf mu--gmime-2.6.23.tar.xz
-    $ cd mu--gmime-2.6.23
-    $ ./configure --prefix=/usr/local/Cellar/mu/HEAD-cb0025b_1/gmime --disable-introspection
-    $ make install
-    $ autoreconf -ivf #dunno what this is
-    $ cd ..
-    $ cp /Users/craig/Library/Caches/Homebrew/mu-0.9.18.tar.gz .
-    $ tar xf mu-0.9.18.tar.gz
-    $ cd mu-0.9.18
-    $ EMACS=/usr/local/Cellar/emacs/25.3/bin/emacs ./configure --prefix=/usr/local/Cellar/mu/0.9.18_1 --with-lispdir=/usr/local/Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu
-    $ make install
-    $ cd /usr/local/share
-    $ ln -s ../Cellar/mu/0.9.18_1/bin/mu .
-    $ cd emacs site-lisp
-    $ ln -s ../../../Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu .
-    
+#+BEGIN_SRC shell
+    cd /tmp
+    cp /Users/craig/Library/Caches/Homebrew/mu--gmime-2.6.23.tar.xz .
+    tar xf mu--gmime-2.6.23.tar.xz
+    cd mu--gmime-2.6.23
+    ./configure --prefix=/usr/local/Cellar/mu/HEAD-cb0025b_1/gmime --disable-introspection
+    make install
+    autoreconf -ivf #dunno what this is
+    cd ..
+    cp /Users/craig/Library/Caches/Homebrew/mu-0.9.18.tar.gz .
+    tar xf mu-0.9.18.tar.gz
+    cd mu-0.9.18
+    EMACS=/usr/local/Cellar/emacs/25.3/bin/emacs ./configure --prefix=/usr/local/Cellar/mu/0.9.18_1 --with-lispdir=/usr/local/Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu
+    make install
+    cd /usr/local/share
+    ln -s ../Cellar/mu/0.9.18_1/bin/mu .
+    cd emacs site-lisp
+    ln -s ../../../Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu .
+#+END_SRC
 ** ansi-term
    If you want dired to track PWD in ansi-term, put this
    in your .zshrc (or equivalent):
