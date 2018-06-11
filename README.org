@@ -88,5 +88,5 @@ I had to:
   fi
 #+END_SRC   
 * Links
-  [Notes](docs/notes.md)
+  [Notes](docs/notes.org)
 
