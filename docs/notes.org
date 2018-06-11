@@ -284,16 +284,15 @@ return result
 
 *** or sh
 #+NAME: oldest
-#+BEGIN_SRC sh :results silent sh :var userid=""
-OLDEST=$(s3cmd ls s3://contacts-incremental-backup/$userid | grep __full__mcbackup-pod | sort -k1,2 | head -n 1 | awk '{print $1"T"$2"Z"}')
-echo $OLDEST
+#+BEGIN_SRC shell :results silent sh :var userid=""
+echo "user is $userid"
 #+END_SRC
-| pod |  userid | minute | oldest backup     |
-|-----+---------+--------+-------------------|
-|   1 | 1801931 |      2 | 2017-10-06T01:21Z |
-|   1 | 3359770 |      9 | 2017-10-02T00:34Z |
-|   1 | 1946821 |     14 | 2017-10-03T02:03Z |
-#+TBLFM: $4='(org-sbe "oldest" (userid $$2))
+| userid | y         |
+|--------+-----------|
+|      1 | user is 1 |
+|      2 | user is 2 |
+|      3 | user is 3 |
+#+TBLFM: $2='(org-sbe oldest (userid $1))
 *** or go
 #+name: goexample
 #+begin_src go :var x=0 :results output :imports '("fmt") 
