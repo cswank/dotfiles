@@ -9,6 +9,7 @@
     (sql . t)
     (ditaa . t)
     (shell . t)
+	(restclient . t)
     (go . t)
     (gnuplot . t)
     ))
