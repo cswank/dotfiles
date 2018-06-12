@@ -3,14 +3,6 @@
 ;;; Commentary:
 
 ;;; Code:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ansi-term
-;; add this to zsh (to maybe make zsh play nicly with ansi-term
-;; if [[ -n ${EMACS} ]]; then
-;;     zstyle ':prezto:module:terminal' auto-title 'no'
-;; fi
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (defvar my-term-shell "/bin/zsh")
 
 (defun terminal ()

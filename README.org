@@ -78,7 +78,7 @@ I had to:
    If you want dired to track PWD in ansi-term, put this
    in your .zshrc (or equivalent):
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC shell
   if [ -n "$INSIDE_EMACS" ]; then
       # function to set the dired and host for ansiterm
       set_eterm_dir() {
@@ -90,5 +90,15 @@ I had to:
       # call prmptcmd whenever prompt is redrawn
       precmd_functions=($precmd_functions set_eterm_dir)
   fi
-#+END_SRC   
+#+END_SRC
+
+Add this to zsh to make zsh play nicly with ansi-term:
+
+#+BEGIN_SRC shell
+  if [[ -n ${EMACS} ]]; then
+	  zstyle ':prezto:module:terminal' auto-title 'no'
+  fi
+#+END_SRC
+
+
 
