@@ -15,7 +15,7 @@ cursor at the last paren and typing C-x C-e).
   (package-install-selected-packages)
 #+END_SRC
 
-After all the packages are installed (takes a few minutes) then restart emacs so the rest
+After all the packages are installed (takes a few minutes) restart emacs so the rest
 of the init files can be loaded.
 
 ** Go development
