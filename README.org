@@ -11,6 +11,9 @@ Now start emacs (emacs -nw .).  It will start and throw an error at you about a 
 dependency.  In order to install the dependencies execute the following (by putting your
 cursor at the last paren and typing C-c C-c)
 
+After all the packages are installed (takes a few minutes) then restart emacs so the rest
+of the init files can be loaded.
+
 #+BEGIN_SRC elisp
   (package-install-selected-packages)
 #+END_SRC
