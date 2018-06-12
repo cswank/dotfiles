@@ -7,8 +7,15 @@ To install, first clone this repository:
   mv dotemacs ~/.emacs.d
 #+END_SRC
 
+Now start emacs (emacs -nw .).  It will start and throw an error at you about a missing
+dependency.  In order to install the dependencies execute the following (by putting your
+cursor at the last paren and typing C-c C-c)
+
+#+BEGIN_SRC elisp
+  (package-install-selected-packages)
+#+END_SRC
+
 ** Go development
-   
 Install these go tools:
 
 #+BEGIN_SRC shell
@@ -16,12 +23,6 @@ Install these go tools:
   go get -u github.com/rogpeppe/godef
   go get -u golang.org/x/tools/cmd/goimports
   go get -u github.com/dougm/goflymake
-#+END_SRC
-
-Then install all packages listed in package-selected-packages (init.el)
-
-#+BEGIN_SRC elisp
-  (package-install-selected-packages)
 #+END_SRC
 
 ** mu4e:
