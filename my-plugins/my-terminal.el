@@ -22,5 +22,9 @@
   (get-buffer-process "*ansi-term*"))
 
 (global-set-key "\C-ct" 'terminal)
+
+(defadvice term-handle-exit
+  (after term-kill-buffer-on-exit activate)
+(kill-buffer))
 (provide 'my-terminal)
 ;;; my-terminal ends here
