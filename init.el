@@ -72,5 +72,6 @@
 (when (string= (getenv "EMACS_EMAIL") "true")
   (load-file "~/.emacs.d/my-plugins/my-email.el"))
 
+(electric-indent-mode -1)
 (provide 'init)
 ;;; init.el ends here
