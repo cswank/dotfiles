@@ -18,5 +18,10 @@
 (defadvice term-handle-exit
   (after term-kill-buffer-on-exit activate)
 (kill-buffer))
+
+(add-hook 'term-mode-hook
+          (lambda ()
+            (define-key term-raw-map (kbd "C-y") 'term-paste)))
+
 (provide 'my-terminal)
 ;;; my-terminal ends here

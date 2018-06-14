@@ -58,6 +58,7 @@
 ;;Load Libraries
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
+(load-file "~/.emacs.d/my-plugins/my-keybindings.el")
 (load-file "~/.emacs.d/my-plugins/my-random-stuff.el")
 (load-file "~/.emacs.d/my-plugins/my-org.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")

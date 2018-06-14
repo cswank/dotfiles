@@ -29,6 +29,8 @@
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq-default indent-tabs-mode nil)
+
 ;;swiper (replace isearch)
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
@@ -104,15 +106,6 @@
 (global-set-key (kbd "C-c C-n") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c C-p") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-a") 'mc/mark-all-like-this)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;My Keyboard Bindings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-cc" 'comment-region)
-(global-set-key "\C-cu" 'uncomment-region)
-(global-set-key "\C-cl" 'global-display-line-numbers-mode)
-(setq-default indent-tabs-mode nil)
 
 ;;; my-random-stuff.el ends here
 
