@@ -13,7 +13,7 @@
     (ansi-term "/bin/zsh"))
   (get-buffer-process "*ansi-term*"))
 
-(global-set-key "\C-ct" 'terminal)
+(global-set-key "\C-ct" '(lambda ()(interactive)(terminal)))
 
 (defadvice term-handle-exit
   (after term-kill-buffer-on-exit activate)
