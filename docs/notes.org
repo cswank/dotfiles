@@ -173,17 +173,22 @@ cp /usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar /usr/local/Cellar/emacs/HE
 # #+end_src
 ** spreadsheet
 *** basic
-| x |  y |
-|---+----|
-| 1 |  1 |
-| 2 |  4 |
-| 3 |  9 |
-| 4 | 16 |
-| 5 | 25 |
-| 6 | 36 |
-| 7 | 49 |
-| 8 | 64 |
-#+TBLFM: $2=$1^2
+    $  means column
+    @  means row
+    @> means last row
+|  x |   y | z      |
+|----+-----+--------|
+|  1 |   1 | hi     |
+|  2 |   4 | there! |
+|  3 |   9 |        |
+|  4 |  16 |        |
+|  5 |  25 |        |
+|  6 |  36 |        |
+|  7 |  49 |        |
+|  8 |  64 |        |
+|----+-----+--------|
+| 36 | 204 |        |
+#+TBLFM: $2=$1^2::@3$3=there!::@10$2=vsum(@2..@-1);;#+TBLFM: @2$3=hi;;#+TBLFM: @>$1=vsum(@2..@-1)
 (hit C-c C-c to calculate)
 
 *** lisp
@@ -282,7 +287,7 @@ return result
 |    60 | 10 |          10.0 |
 #+TBLFM: $3='(org-sbe "sampformula" (angle $1) (r $2))
 
-*** or sh
+*** or shell
 #+NAME: oldest
 #+BEGIN_SRC shell :results silent sh :var userid=""
 echo "user is $userid"

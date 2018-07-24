@@ -46,11 +46,18 @@ the --with-emacs the /usr/local/Cellar/mu/0.9.18_1/share/ directory
 was empty (didn't include emacs/site-lisp).
 
 *** NEW METHOD:
-	#+BEGIN_SRC shell
-	nix-env -i mu
-	#+END_SRC
+#+BEGIN_SRC shell
+nix-env -i mu
+#+END_SRC
 
-Then go to /nix and locate the mu4e directory.  Take that output and set the 
+Then go to /nix and locate the mu4e directory.
+
+#+BEGIN_SRC shell
+  cd /nix/store
+  find . -name mu4e
+#+END_SRC
+
+Take that output and set the 
 env var EMACS_EMAIL_MU4E=<path to mu4e dir>
 
 *** OLD METHOD:
