@@ -29,6 +29,9 @@
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; make *scratch* buffer org
+(setq initial-major-mode 'org-mode)
+
 (setq-default indent-tabs-mode nil)
 
 ;;swiper (replace isearch)
@@ -108,4 +111,3 @@
 (global-set-key (kbd "C-c C-a") 'mc/mark-all-like-this)
 
 ;;; my-random-stuff.el ends here
-
