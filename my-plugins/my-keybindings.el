@@ -10,7 +10,7 @@
 (global-set-key "\C-cc" 'comment-region)
 (global-set-key "\C-cu" 'uncomment-region)
 (global-set-key "\C-cl" 'global-display-line-numbers-mode)
-(global-set-key "\C-ck" 'browse-kill-ring)
+(global-set-key "\C-cw" 'browse-kill-ring)
 
 (provide 'my-keybindings)
 ;;; my-keybindings.el ends here
