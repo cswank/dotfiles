@@ -36,8 +36,10 @@
        ("/[Gmail].All Mail"    . ?a)))
 
 ;; allow for updating mail using 'U' in the main view:
-(setq mu4e-get-mail-command "offlineimap"
-	  mu4e-update-interval 300)
+(if (string= (getenv "EMACS_EMAIL_AUTOUPDATE") "true")
+    (setq mu4e-get-mail-command "offlineimap"
+          mu4e-update-interval 300)
+  (setq mu4e-get-mail-command "offlineimap"))
 
 ;; something about ourselves
 (setq
