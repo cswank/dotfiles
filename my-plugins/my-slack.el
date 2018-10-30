@@ -3,6 +3,11 @@
 ;;; Commentary:
 
 ;;; Code:
+
+(setq slack-id (getenv "SLACK_CLIENT_ID"))
+(setq slack-secret (getenv "SLACK_CLIENT_SECRET"))
+(setq slack-token (getenv "SLACK_TOKEN"))
+
 (use-package slack
   :commands (slack-start)
   :init
@@ -12,9 +17,9 @@
   (slack-register-team
    :name "Sendgrid"
    :default t
-   :client-id "2279160255.461808125008"
-   :client-secret "e1f672ddf08672e3ff5e0b9d48ceb2f5"
-   :token "xoxs-2279160255-458684486997-462730962453-668aea8465d86145f44cafad1b2841d044f9f953d0b801c1beed21d5d102062b"
+   :client-id slack-id
+   :client-secret slack-secret
+   :token slack-token
    :subscribed-channels '(mcbe-private)
    :full-and-display-names t)
 
@@ -56,3 +61,4 @@
 
 (provide 'my-slack)
 ;;; my-slack.el ends here
+ 

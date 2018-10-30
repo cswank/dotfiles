@@ -23,7 +23,7 @@
   (local-set-key (kbd "M-.") 'godef-jump))
 
 (add-hook 'go-mode-hook 'my-go-mode-hook)
-(yas-reload-all)
+;;(yas-reload-all)
 (add-hook 'go-mode-hook 'yas-minor-mode)
 
 (defun go-create-playground ()
