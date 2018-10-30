@@ -29,6 +29,9 @@
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; make *scratch* buffer org
+(setq initial-major-mode 'org-mode)
+
 (setq-default indent-tabs-mode nil)
 
 ;;swiper (replace isearch)
@@ -102,15 +105,6 @@
 ;; Projectile mode (der)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'projectile)
-(projectile-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;multiple-cursors mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C-c C-n") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-c C-p") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-a") 'mc/mark-all-like-this)
+(projectile-mode +1)
 
 ;;; my-random-stuff.el ends here
-

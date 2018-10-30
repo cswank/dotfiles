@@ -21,8 +21,10 @@
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
   (local-set-key (kbd "M-.") 'godef-jump))
-(add-hook 'go-mode-hook 'my-go-mode-hook)
 
+(add-hook 'go-mode-hook 'my-go-mode-hook)
+(yas-reload-all)
+(add-hook 'go-mode-hook 'yas-minor-mode)
 
 (defun go-create-playground ()
   "Create a new temporary file with a skeletal Go application."
