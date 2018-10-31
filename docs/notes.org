@@ -1,5 +1,14 @@
 #+STARTUP: hidestars
 * Org mode
+** adding color
+   #+BEGIN_SRC elisp
+     (add-to-list 'org-emphasis-alist
+                  '("*" (:foreground "red")
+                    "=" (:foreground "green")
+                    ))
+   #+END_SRC
+   
+   You can make words *bold*, /italic/, _underlined_, =verbatim= and ~code~, and, if you must, +strike-through+.
 ** keybindings
    C-c C-t marks a task as done
    Alt -> Demotes a subtree
@@ -172,23 +181,22 @@ cp /usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar /usr/local/Cellar/emacs/HE
 # BinaryTableHdu : getColumn(column)
 # #+end_src
 ** spreadsheet
-*** basic
+*** kitchen sink
     $  means column
     @  means row
     @> means last row
-|  x |   y | z      |
-|----+-----+--------|
-|  1 |   1 | hi     |
-|  2 |   4 | there! |
-|  3 |   9 |        |
-|  4 |  16 |        |
-|  5 |  25 |        |
-|  6 |  36 |        |
-|  7 |  49 |        |
-|  8 |  64 |        |
-|----+-----+--------|
-| 36 | 204 |        |
-#+TBLFM: $2=$1^2::@3$3=there!::@10$2=vsum(@2..@-1);;#+TBLFM: @2$3=hi;;#+TBLFM: @>$1=vsum(@2..@-1)
+|  x |  y | z      |
+|----+----+--------|
+|  1 |  1 | hi     |
+|  2 |  4 | there! |
+|  3 |  9 |        |
+|  4 | 16 |        |
+|  5 | 25 |        |
+|  6 | 36 |        |
+|  7 | 49 |        |
+|----+----+--------|
+| 28 | 20 |        |
+#+TBLFM: @>$1=vsum(@2..@-1)::@>$2=vmean(@2..@-1)::$2=$1^2::@3$3=there!
 (hit C-c C-c to calculate)
 
 *** lisp
@@ -301,7 +309,7 @@ echo "user is $userid"
 *** or go
 #+name: goexample
 #+begin_src go :var x=0 :results output :imports '("fmt") 
-  fmt.Println(x * x)
+  fmt.Println(x*x)
 #+end_src
 | a |  b |
 |---+----|
