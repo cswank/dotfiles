@@ -53,8 +53,14 @@
   (interactive)
   (let ((b (if mark-active (min (point) (mark)) (point-min)))
         (e (if mark-active (max (point) (mark)) (point-max))))
-    (shell-command-on-region b e
-      "jq ." (current-buffer) t)))
+    (shell-command-on-region b e "jq ." (current-buffer) t)))
+
+(defun un-beautify-json-json ()
+  "Remove the following letters: white space from json."
+  (interactive)
+  (let ((b (if mark-active (min (point) (mark)) (point-min)))
+        (e (if mark-active (max (point) (mark)) (point-max))))
+    (shell-command-on-region b e "jq -c ." (current-buffer) t)))
 
 ;;; turn on syntax highlighting
 (global-font-lock-mode 1)
