@@ -180,6 +180,15 @@ cp /usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar /usr/local/Cellar/emacs/HE
 # BinaryTableHdu : getRow(row)
 # BinaryTableHdu : getColumn(column)
 # #+end_src
+** gnuplot
+   #+PLOT: title:"A vs B" file:"out.png" set:"term png" ind:1 deps:(2) type:2d set:"yrange [0:]"
+   | a |  b |
+   |---+----+
+   | 1 |  2 |
+   | 2 |  4 |
+   | 3 |  6 |
+   | 4 |  8 |
+   | 5 | 10 |
 ** spreadsheet
 *** kitchen sink
     $  means column
@@ -302,10 +311,13 @@ echo "user is $userid"
 #+END_SRC
 | userid | y         |
 |--------+-----------|
-|      1 | user is 1 |
-|      2 | user is 2 |
-|      3 | user is 3 |
-#+TBLFM: $2='(org-sbe oldest (userid $1))
+| a      | user is a |
+| b      | user is b |
+| c      | user is c |
+#+TBLFM: $2='(org-sbe oldest (userid $$1))
+
+NOTE: use $$ instead of $ to pass the var as a string
+
 *** or go
 #+name: goexample
 #+begin_src go :var x=0 :results output :imports '("fmt") 
