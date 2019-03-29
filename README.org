@@ -27,6 +27,7 @@ Install these go tools:
   go get -u golang.org/x/tools/cmd/goimports
   go get -u github.com/dougm/goflymake
   go get -u github.com/fatih/gomodifytags
+  go get -u -v golang.org/x/tools/cmd/gorename
 #+END_SRC
 
 ** mu4e:
