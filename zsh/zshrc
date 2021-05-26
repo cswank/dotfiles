@@ -1,0 +1,192 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/craigswank/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git z)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+alias em="emacsclient"
+
+if [ -e /Users/craigswank/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/craigswank/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+export GOPATH=$HOME/go
+export PATH=$HOME/go/bin:$PATH
+export AWS_SDK_LOAD_CONFIG=true
+export FORECAST_API_KEY=3cca64010571bc7f268639a25f7c37fe
+export EDITOR='emacsclient -nw'
+export GOPRIVATE='github.com/parsyl'
+
+keychain $HOME/.ssh/id_rsa
+source $HOME/.keychain/$HOST-sh
+
+if [[ -n ${EMACS} ]]; then
+    zstyle ':prezto:module:terminal' auto-title 'no'
+fi
+
+if [ -n "$INSIDE_EMACS" ]; then
+    # function to set the dired and host for ansiterm
+    set_eterm_dir() {
+        print -P "\033AnSiTu %n"
+        print -P "\033AnSiTh" "$(hostname -f)"
+        print -P "\033AnSiTc %d"
+    }
+
+    # call prmptcmd whenever prompt is redrawn
+    precmd_functions=($precmd_functions set_eterm_dir)
+fi
+
+function aws_env() {
+    LAMBDA=$1
+    while IFS=$'\t' read -r key val; do
+        key=$(echo $key | sed 's/^"\(.*\)"$/\1/')
+        export $key=$val
+    done < <(aws lambda get-function --function-name $LAMBDA | jq -r '.Configuration.Environment.Variables | to_entries[] | [.key,.value] | @tsv')
+}
+
+function psaux() {
+    PS=$(ps aux)
+    HEAD=$(echo $PS | head -1)
+    PROC=$(echo $PS | grep $1)
+    echo $HEAD
+    echo $PROC
+}
+
+function refresh_dev() {
+    refresh_env '.dev'
+}
+
+function refresh_test() {
+    refresh_env '.test'
+}
+
+function refresh_prod() {
+    refresh_env ''
+}
+
+function refresh_env() {
+    ENV=$1
+    PTH="$HOME/.parsyl/login$ENV.json.gpg"
+    BODY=$(gpg --decrypt $PTH)
+    USER=$(echo $BODY | jq '.userId')
+    RESP=$(curl -s "https://api${ENV}.parsyl.io/token?refresh=true" -d $BODY)
+    OUT=$(echo $RESP | jq ". += {\"userId\":$USER}")
+    PTH="$HOME/.parsyl/login$ENV.json"
+    echo $OUT > $PTH
+    gpg --encrypt -r 'Craig Swank' $PTH
+    rm $PTH
+    export TOKEN=$(echo $RESP | jq '.accessToken' | tr -d '"')
+    export AUTH="Authorization: Bearer $TOKEN"
+}
+
+function dev_token() {
+    use_env '.dev'
+}
+
+function test_token() {
+    use_env '.test'
+}
+
+function prod_token() {
+    use_env ''
+}
+
+function use_env () {
+    ENV=$1
+    PTH="$HOME/.parsyl/login$ENV.json.gpg"
+    BODY=$(gpg --decrypt $PTH)
+    export TOKEN=$(echo $BODY | jq '.accessToken' | tr -d '"')
+    export AUTH="Authorization: Bearer $TOKEN"
+}
