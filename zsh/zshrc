@@ -98,19 +98,27 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-alias em="emacsclient"
-
 if [ -e /Users/craigswank/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/craigswank/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export GOPATH=$HOME/go
 export PATH=$HOME/go/bin:$PATH
 export AWS_SDK_LOAD_CONFIG=true
 export FORECAST_API_KEY=3cca64010571bc7f268639a25f7c37fe
-export EDITOR='emacsclient -nw'
 export GOPRIVATE='github.com/parsyl'
+export EDITOR='emacsclient -nw'
+export MCLI_HOST='ba.local:50051'
 
 keychain $HOME/.ssh/id_rsa
 source $HOME/.keychain/$HOST-sh
+
+function em() {
+    if [ $# -eq 0 ]
+    then
+        emacsclient -nw -e '(switch-to-buffer "*scratch*")'        
+    else
+        emacsclient -nw $1
+    fi
+}
 
 if [[ -n ${EMACS} ]]; then
     zstyle ':prezto:module:terminal' auto-title 'no'
@@ -190,3 +198,4 @@ function use_env () {
     export TOKEN=$(echo $BODY | jq '.accessToken' | tr -d '"')
     export AUTH="Authorization: Bearer $TOKEN"
 }
+. "/Users/craigswank/.acme.sh/acme.sh.env"

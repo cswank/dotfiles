@@ -1,0 +1,58 @@
+{
+    "host": "http://192.168.1.47:6111",
+    "gadgets": [
+        {
+            "location": "home",
+            "name": "temperature",
+            "pin": {
+                "type": "thermometer",
+                "onewire_id": "28-0000041cbae1",
+                "units": "F"
+            }
+        },
+        {
+            "location": "home",
+            "name": "furnace",
+            "pin": {
+                "type": "thermostat",
+                "homekit_pin": "68831095",
+                "pins": {
+                    "heat": {
+                        "type": "gpio",
+                        "platform": "rpi",
+                        "pin": "11",
+                        "direction": "out"
+                    },
+                    "cool": {
+                        "type": "gpio",
+                        "platform": "rpi",
+                        "pin": "13",
+                        "direction": "out"
+                    },
+                    "fan": {
+                        "type": "gpio",
+                        "platform": "rpi",
+                        "pin": "15",
+                        "direction": "out"
+                    }
+                },
+                "args": {
+                    "sensor": "home temperature",
+                    "timeout": "10m"
+                }
+            }
+        },
+        {
+            "type": "cron",
+            "args": {
+                "jobs": [
+                    "0   22   *  *  *  heat home to 66 F",
+                    "0   6    *  *  *  heat home to 72 F",
+                    "0   8    *  *  *  heat home to 66 F",
+                    "0   16    *  *  *  heat home to 72 F"
+                ]
+            }
+        }
+    ]
+}
+

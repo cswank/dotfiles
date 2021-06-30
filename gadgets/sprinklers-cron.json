@@ -1,0 +1,62 @@
+{
+    "host": "http://192.168.1.7:6111",
+    "gadgets": [
+        {
+            "location": "front garden",
+            "name": "sprinklers",
+            "pin": {
+                "type": "gpio",
+                "port": "8",
+                "pin": "7"
+            }
+        },
+        {
+            "location": "garden bed",
+            "name": "sprinklers",
+            "pin": {
+                "type": "gpio",
+                "port": "8",
+                "pin": "8"
+            }
+        },
+        {
+            "location": "back garden",
+            "name": "sprinklers",
+            "pin": {
+                "type": "gpio",
+                "port": "8",
+                "pin": "9"
+            }
+        },
+        {
+            "location": "front yard",
+            "name": "sprinklers",
+            "pin": {
+                "type": "gpio",
+                "port": "8",
+                "pin": "10"
+            }
+        },
+        {
+            "location": "back yard",
+            "name": "sprinklers",
+            "pin": {
+                "type": "gpio",
+                "port": "8",
+                "pin": "11"
+            }
+        },
+        {
+            "type": "cron",
+            "args": {
+                "jobs": [
+                    "0   5    *  *  *     turn on front yard sprinklers for 10 minutes",
+                    "21  5    *  *  0,4   turn on back yard sprinklers for 15 minutes",
+                    "0   4    *  *  *     turn on back garden sprinklers for 10 minutes",
+                    "11  4    *  *  *     turn on front garden sprinklers for 10 minutes",
+                    "22  4,18 *  *  *     turn on garden bed sprinklers for 10 minutes"
+                ]
+            }
+        }
+    ]
+}
