@@ -100,6 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 if [ -e /Users/craigswank/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/craigswank/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
+unsetopt share_history
+
 export GOPATH=$HOME/go
 export PATH=$HOME/go/bin:$PATH
 export AWS_SDK_LOAD_CONFIG=true
@@ -107,6 +109,7 @@ export FORECAST_API_KEY=3cca64010571bc7f268639a25f7c37fe
 export GOPRIVATE='github.com/parsyl'
 export EDITOR='emacsclient -nw'
 export MCLI_HOST='ba.local:50051'
+export PGPASSFILE=$HOME/.pgpass
 
 keychain $HOME/.ssh/id_rsa
 source $HOME/.keychain/$HOST-sh
