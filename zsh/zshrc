@@ -176,7 +176,7 @@ function refresh_env() {
     OUT=$(echo $RESP | jq ". += {\"userId\":$USER}")
     PTH="$HOME/.parsyl/login$ENV.json"
     echo $OUT > $PTH
-    gpg --encrypt -r 'Craig Swank' $PTH
+    gpg --encrypt -r $GPG_USERNAME $PTH
     rm $PTH
     export TOKEN=$(echo $RESP | jq '.accessToken' | tr -d '"')
     export AUTH="Authorization: Bearer $TOKEN"
