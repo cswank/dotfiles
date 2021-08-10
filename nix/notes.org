@@ -1,0 +1,12 @@
+* patchelf
+  Binaries don't work on nixos because linked lib paths don't exist, so here's how to patch op...
+
+  #+begin_src shell
+    nix-shell -p binutils stdenv nix-index
+    patchelf --print-needed op
+    nix repl '<nixpkgs>'
+    nix-repl> with pkgs; lib.makeLibraryPath [ saneBackends ]
+    nix-repl> exit
+    patchelf --set-interpreter "${cat $NIX_CC/nix-support/dynamic-linker)"
+    ./op --version
+  #+end_src
