@@ -25,6 +25,7 @@
     pkgs.alacritty
     pkgs.konsole
     pkgs.guake
+    pkgs.silver-searcher
   ];
   
 }
