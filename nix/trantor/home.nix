@@ -27,6 +27,7 @@
     pkgs.guake
     pkgs.silver-searcher
     pkgs.xclip
+    pkgs.gh
   ];
   
 }
