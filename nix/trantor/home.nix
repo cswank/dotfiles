@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 
+let
+  pkgsUnstable = import <nixpkgs-unstable> {};
+in
+
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -20,14 +24,30 @@
     enable = true;
   };
 
+  nixpkgs.config.allowUnfree = true;
 
   home.packages = [
-    pkgs.alacritty
-    pkgs.konsole
+    pkgsUnstable.nyxt
+    pkgsUnstable.emacs
+    pkgsUnstable.signal-cli
+    pkgsUnstable.keepassxc
     pkgs.guake
     pkgs.silver-searcher
     pkgs.xclip
     pkgs.gh
+    pkgs.gcc
+    pkgs.terraform
+    pkgs.gnumake
+    pkgs.firefox
+    pkgs.git
+    pkgs.slack
+    pkgs.zoom
+    pkgs.go
+    pkgs.zsh
+    pkgs.keychain
+    pkgs.openvpn
+    pkgs.gnupg
   ];
-  
 }
+
+
