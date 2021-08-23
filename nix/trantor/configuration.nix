@@ -26,6 +26,7 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
+  networking.useNetworkd = true;
   networking.interfaces.enp2s0.useDHCP = true;
   networking.interfaces.wlp3s0.useDHCP = true;
 
@@ -84,8 +85,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
     avahi
+    nssmdns
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -99,6 +100,8 @@
   services.avahi = {
     enable = true;
     nssmdns = true;
+    ipv4 = true;
+    ipv6 = true;
     publish = {
       enable = true;
       addresses = true;
