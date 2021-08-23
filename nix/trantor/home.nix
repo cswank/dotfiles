@@ -29,7 +29,6 @@ in
   home.packages = [
     pkgsUnstable.nyxt
     pkgsUnstable.emacs
-    pkgsUnstable.signal-cli
     pkgsUnstable.keepassxc
     pkgs.guake
     pkgs.silver-searcher
