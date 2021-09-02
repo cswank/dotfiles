@@ -20,22 +20,22 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
-  # time.timeZone = "America/Denver";
+  time.timeZone = "America/Denver";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.useNetworkd = true;
+  networking.useNetworkd = false;
   networking.interfaces.enp2s0.useDHCP = true;
-  networking.interfaces.wlp3s0.useDHCP = true;
+  networking.interfaces.wlp3s0.useDHCP = false;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
@@ -58,7 +58,7 @@
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -77,16 +77,18 @@
     shell = pkgs.zsh;
     extraGroups = [ "wheel" "audio" ]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keys = [
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZqIeMUlW9zTxADY6M4VShlFn4a65hOpFlEaOupLt3GXzL2cIrBLnfVqo2mV6M3paerg9XsXifkS8xLnjv9Urs6+v2peePJghY8eyLrZS5UgV8fsx7el5DSU1SfSUi8NFnloHD2WkrVvJj9DBaLbWWiEtFQQucjT9uRJoxk6nOnCOe4dLmgWWdgPUAdu/1UAABtI5V2MU3cjI3D9jl+dWammF7TF/CKH6cK8p9txO/+nFyf0Y9ZWX60XpAQ+gPDVhbuB1IlD6g+NozMRNBiA23veF4k76srsSLgdpywqzJQCYGvn8flKx2pQW/MeRnjGFoUg/jMR3bCy6+OiG3zgZ5V+Io57Fma6VE0AGwWiHA+lYhyc8JWaNCoDllfeyyXAfAhCTLd8+SoXBjpNdI0fOukwPzKfZNc6/qaeAZ6J25HgOihpT+mPHW5DBrz1jKL9jlkUqe8ifICdtLMmYt2Rsu3KFAi+JCyEAkvmi0MpY2Otpjj9tSYS5UfrY9TDd3/E8= craigswank@Craigs-Mac-mini.local"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZqIeMUlW9zTxADY6M4VShlFn4a65hOpFlEaOupLt3GXzL2cIrBLnfVqo2mV6M3paerg9XsXifkS8xLnjv9Urs6+v2peePJghY8eyLrZS5UgV8fsx7el5DSU1SfSUi8NFnloHD2WkrVvJj9DBaLbWWiEtFQQucjT9uRJoxk6nOnCOe4dLmgWWdgPUAdu/1UAABtI5V2MU3cjI3D9jl+dWammF7TF/CKH6cK8p9txO/+nFyf0Y9ZWX60XpAQ+gPDVhbuB1IlD6g+NozMRNBiA23veF4k76srsSLgdpywqzJQCYGvn8flKx2pQW/MeRnjGFoUg/jMR3bCy6+OiG3zgZ5V+Io57Fma6VE0AGwWiHA+lYhyc8JWaNCoDllfeyyXAfAhCTLd8+SoXBjpNdI0fOukwPzKfZNc6/qaeAZ6J25HgOihpT+mPHW5DBrz1jKL9jlkUqe8ifICdtLMmYt2Rsu3KFAi+JCyEAkvmi0MpY2Otpjj9tSYS5UfrY9TDd3/E8= craigswank@Craigs-Mac-mini.List"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQbVm/bXNum2iknQeV0vEcDc/SkHXImMTQvAKmtMDYHkgmRoBswExG34B4qc8MMdbGDfyOLngVHTcSC8KVv2VP90YY6l+uNKxsBHt5KX4I7OycaDPYUwFdMEAsenWHPn5GMtM5lXlAX8BcpZSmoU99fm7KJjgfkoI/wWAsxX5D8ZhYQmP1SnrsaiPTGNUtfEnkAFedBax9jStwyGPTV1WGc/EjchZL9Ryu7myZFE8R6bEicF+VlEuk1XlH+9wa0lH/znsqwr7jIOs7TxqfQVVLFWrwE93TPdJyT2U8l7JxdEvlSdAOvGAHMO/EvbFjlt3vvZK/KBrufD4wc4v56ET7 craig@ba"
     ];
   };
 
-  # List packages installed in system profile. To search, run:
+  # local packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     avahi
     nssmdns
+    mosh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -108,7 +110,31 @@
       workstation = true;
       userServices = true;
     };
-  };  
+  };
+
+  system.activationScripts = {
+      mnt = {
+        text = ''
+          if [ ! -d /mnt/postgresql/13 ] ; then
+            mkdir -p /mnt/postgresql/13
+            chown -R postgres:postgres /mnt/postgresql/13
+          fi
+        '';
+        deps = [];
+      };
+   };
+
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_13;
+    dataDir = "/mnt/postgresql/13";
+  };
+
+  system.nssModules = with pkgs.lib; optional (!config.services.avahi.nssmdns) pkgs.nssmdns;
+  system.nssDatabases.hosts = with pkgs.lib; optionals (!config.services.avahi.nssmdns) (mkMerge [
+    (mkOrder 900 [ "mdns4_minimal [NOTFOUND=return]" ]) # must be before resolve
+    (mkOrder 1501 [ "mdns4" ]) # 1501 to ensure it's after dns
+  ]);
 
   # List services that you want to enable:
 
@@ -118,7 +144,11 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  # 5353 for Avahi
+  networking.firewall.allowedUDPPorts = [ 5353 ];
+  networking.firewall.allowedUDPPortRanges = [
+    { from = 60000; to = 61000; }
+  ]; 
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 

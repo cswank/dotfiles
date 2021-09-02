@@ -8,7 +8,7 @@
     nix repl '<nixpkgs>'
     nix-repl> with pkgs; lib.makeLibraryPath [ saneBackends ]
     nix-repl> exit
-    patchelf --set-interpreter "${cat $NIX_CC/nix-support/dynamic-linker)"
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" op
     ./op --version
   #+end_src
 

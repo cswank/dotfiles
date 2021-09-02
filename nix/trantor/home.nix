@@ -30,12 +30,12 @@ in
     pkgsUnstable.nyxt
     pkgsUnstable.emacs
     pkgsUnstable.keepassxc
+    pkgsUnstable.tfswitch
     pkgs.guake
     pkgs.silver-searcher
     pkgs.xclip
     pkgs.gh
     pkgs.gcc
-    pkgs.terraform
     pkgs.gnumake
     pkgs.firefox
     pkgs.git

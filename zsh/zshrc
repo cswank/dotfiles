@@ -104,6 +104,7 @@ unsetopt share_history
 
 export GOPATH=$HOME/go
 export PATH=$HOME/go/bin:$PATH
+export PATH=$PATH:/usr/local/bin
 export AWS_SDK_LOAD_CONFIG=true
 export FORECAST_API_KEY=3cca64010571bc7f268639a25f7c37fe
 export GOPRIVATE='github.com/parsyl'
@@ -207,3 +208,50 @@ if test -f "$ACME"; then
   . $ACME
 fi
 
+function notes() {
+    if test -f "RELEASE_NOTES.md"; then
+        head RELEASE_NOTES.md
+    else
+        head RELEASE_NOTES.txt
+    fi
+}
+
+function pw() {
+    keepassxc-cli clip ~/Documents/Passwords.kdbx $1
+}
+
+function lspw() {
+    keepassxc-cli ls ~/Documents/Passwords.kdbx
+}
+
+function upload_dev() {
+    DEV=$1
+    FILE=$2
+    GW=$3
+
+    PAYLOAD=$(cat $FILE | base64 | tr -d '\n')
+
+    if [ -z "$GW" ]; then
+        JSON="{\"data\": \"$PAYLOAD\"}"
+    else
+        JSON="{\"data\": \"$PAYLOAD\",\"gatewayId\":\"$GW\"}"
+    fi
+
+    curl -i -XPUT -H "${AUTH}" "https://api.dev.parsyl.io/devices/${DEV}/measurements" -d $JSON -H 'Content-Type: application/json'
+}
+
+function upload_test() {
+    DEV=$1
+    FILE=$2
+    GW=$3
+
+    PAYLOAD=$(cat $FILE | base64 | tr -d '\n')
+
+    if [ -z "$GW" ]; then
+        JSON="{\"data\": \"$PAYLOAD\"}"
+    else
+        JSON="{\"data\": \"$PAYLOAD\",\"gatewayId\":\"$GW\"}"
+    fi
+
+    curl -i -XPUT -H "${AUTH}" "https://api.test.parsyl.io/devices/${DEV}/measurements" -d $JSON -H 'Content-Type: application/json'
+}
