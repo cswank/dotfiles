@@ -46,7 +46,7 @@ in
     pkgs.keychain
     pkgs.openvpn
     pkgs.gnupg
+    pkgs.mosh
+    pkgs.musescore
   ];
 }
-
-

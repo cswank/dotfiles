@@ -59,6 +59,8 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.browsing = true;
+  services.printing.drivers = [ pkgs.brlaser ];
 
   # Enable sound.
   sound.enable = true;
@@ -126,7 +128,7 @@
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_13;
+    package = pkgs.postgresql_13.withPackages (p: [ p.postgis ]);
     dataDir = "/mnt/postgresql/13";
   };
 

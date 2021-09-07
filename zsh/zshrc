@@ -255,3 +255,10 @@ function upload_test() {
 
     curl -i -XPUT -H "${AUTH}" "https://api.test.parsyl.io/devices/${DEV}/measurements" -d $JSON -H 'Content-Type: application/json'
 }
+
+function latest_raw_test() {
+    DEV=$1
+    FILE=$(aws s3 ls --recursive s3://parsyl-raw-device-data-test-useast1/$DEV | sort | tail -1 | awk '{print $4}')
+    aws s3 cp s3://parsyl-raw-device-data-test-useast1/$FILE ./$DEV.zip
+    parqifi read raw --version v4 -i ./$DEV.zip | jq -C
+}
