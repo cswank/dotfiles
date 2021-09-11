@@ -141,7 +141,7 @@ if [ -n "$INSIDE_EMACS" ]; then
     precmd_functions=($precmd_functions set_eterm_dir)
 fi
 
-function aws_env() {
+function aws-env() {
     LAMBDA=$1
     while IFS=$'\t' read -r key val; do
         key=$(echo $key | sed 's/^"\(.*\)"$/\1/')
@@ -157,19 +157,19 @@ function psaux() {
     echo $PROC
 }
 
-function refresh_dev() {
-    refresh_env '.dev'
+function refresh-dev() {
+    refresh-env '.dev'
 }
 
-function refresh_test() {
-    refresh_env '.test'
+function refresh-test() {
+    refresh-env '.test'
 }
 
-function refresh_prod() {
-    refresh_env ''
+function refresh-prod() {
+    refresh-env ''
 }
 
-function refresh_env() {
+function refresh-env() {
     ENV=$1
     PTH="$HOME/.parsyl/login$ENV.json.gpg"
     BODY=$(gpg --decrypt $PTH)
@@ -184,19 +184,19 @@ function refresh_env() {
     export AUTH="Authorization: Bearer $TOKEN"
 }
 
-function dev_token() {
-    use_env '.dev'
+function dev-token() {
+    use-env '.dev'
 }
 
-function test_token() {
-    use_env '.test'
+function test-token() {
+    use-env '.test'
 }
 
-function prod_token() {
-    use_env ''
+function prod-token() {
+    use-env ''
 }
 
-function use_env () {
+function use-env () {
     ENV=$1
     PTH="$HOME/.parsyl/login$ENV.json.gpg"
     BODY=$(gpg --decrypt $PTH)
@@ -221,14 +221,28 @@ function pw() {
     keepassxc-cli clip ~/Documents/Passwords.kdbx $1
 }
 
-function lspw() {
-    keepassxc-cli ls ~/Documents/Passwords.kdbx
+function pwls() {
+    keepassxc-cli ls -R ~/Documents/Passwords.kdbx
 }
 
-function upload_dev() {
-    DEV=$1
-    FILE=$2
+function upload-latest-raw() {
+    ENV=$1
+    DEV=$2
     GW=$3
+
+    ENV=$1
+    DEV=$2
+    FILE=$(aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | tail -1 | awk '{print $4}')
+    aws s3 cp s3://parsyl-raw-device-data-$ENV-useast1/$FILE /tmp/$DEV.zip > /dev/null
+
+    upload-raw $ENV $DEV /tmp/$DEV.zip $GW
+}
+
+function upload-raw() {
+    ENV=$1
+    DEV=$2
+    FILE=$3
+    GW=$4
 
     PAYLOAD=$(cat $FILE | base64 | tr -d '\n')
 
@@ -238,28 +252,19 @@ function upload_dev() {
         JSON="{\"data\": \"$PAYLOAD\",\"gatewayId\":\"$GW\"}"
     fi
 
-    curl -i -XPUT -H "${AUTH}" "https://api.dev.parsyl.io/devices/${DEV}/measurements" -d $JSON -H 'Content-Type: application/json'
-}
-
-function upload_test() {
-    DEV=$1
-    FILE=$2
-    GW=$3
-
-    PAYLOAD=$(cat $FILE | base64 | tr -d '\n')
-
-    if [ -z "$GW" ]; then
-        JSON="{\"data\": \"$PAYLOAD\"}"
+    if [ "$ENV" = "production" ]; then
+        ENV=""
     else
-        JSON="{\"data\": \"$PAYLOAD\",\"gatewayId\":\"$GW\"}"
+        ENV=".$ENV"
     fi
 
-    curl -i -XPUT -H "${AUTH}" "https://api.test.parsyl.io/devices/${DEV}/measurements" -d $JSON -H 'Content-Type: application/json'
+    curl -i -XPUT -H "${AUTH}" "https://api${ENV}.parsyl.io/devices/${DEV}/measurements" -d $JSON -H 'Content-Type: application/json'
 }
 
-function latest_raw_test() {
-    DEV=$1
-    FILE=$(aws s3 ls --recursive s3://parsyl-raw-device-data-test-useast1/$DEV | sort | tail -1 | awk '{print $4}')
-    aws s3 cp s3://parsyl-raw-device-data-test-useast1/$FILE ./$DEV.zip
-    parqifi read raw --version v4 -i ./$DEV.zip | jq -C
+function latest-raw() {
+    ENV=$1
+    DEV=$2
+    FILE=$(aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | tail -1 | awk '{print $4}')
+    aws s3 cp s3://parsyl-raw-device-data-$ENV-useast1/$FILE /tmp/$DEV.zip > /dev/null
+    parqifi read raw --version v4 -i /tmp/$DEV.zip
 }
