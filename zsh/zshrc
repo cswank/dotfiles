@@ -99,6 +99,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 alias jql="jq -C | less -R"
+
+if [ "$(uname)" = "Linux" ]; then
+    alias pbcopy="xclip -sel c"
+fi
+
 if [ -e /Users/craigswank/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/craigswank/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 unsetopt share_history
@@ -230,8 +235,6 @@ function upload-latest-raw() {
     DEV=$2
     GW=$3
 
-    ENV=$1
-    DEV=$2
     FILE=$(aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | tail -1 | awk '{print $4}')
     aws s3 cp s3://parsyl-raw-device-data-$ENV-useast1/$FILE /tmp/$DEV.zip > /dev/null
 
@@ -252,13 +255,19 @@ function upload-raw() {
         JSON="{\"data\": \"$PAYLOAD\",\"gatewayId\":\"$GW\"}"
     fi
 
+    echo $JSON
+
     if [ "$ENV" = "production" ]; then
         ENV=""
     else
         ENV=".$ENV"
     fi
 
-    curl -i -XPUT -H "${AUTH}" "https://api${ENV}.parsyl.io/devices/${DEV}/measurements" -d $JSON -H 'Content-Type: application/json'
+    echo $JSON > /tmp/json
+
+    URL="https://api${ENV}.parsyl.io/devices/${DEV}/measurements"
+    echo $URL
+    curl -i -XPUT -H "${AUTH}" -H 'Content-Type: application/json' $URL --data "@/tmp/json"
 }
 
 function latest-raw() {
@@ -267,4 +276,28 @@ function latest-raw() {
     FILE=$(aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | tail -1 | awk '{print $4}')
     aws s3 cp s3://parsyl-raw-device-data-$ENV-useast1/$FILE /tmp/$DEV.zip > /dev/null
     parqifi read raw --version v4 -i /tmp/$DEV.zip
+}
+
+function latest-raws() {
+    ENV=$1
+    DEV=$2
+    aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | tail -5
+}
+
+function nice-id() {
+    NICE=$1
+    ENV=$2
+
+    if [ -n "$ENV" ]; then
+        ENV=".$ENV"
+    fi
+
+    PAYLOAD="{\"like\":[{\"field\":\"niceId\",\"query\":\"%${NICE}%\"}]}"
+    curl -s -H "${AUTH}" https://api${ENV}.parsyl.io/devices/search -d $PAYLOAD | jq '.[].deviceId' | tr -d '"'
+}
+
+function add-supplier() {
+    ID=$1
+    SUP=$2
+    
 }

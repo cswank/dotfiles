@@ -48,5 +48,7 @@ in
     pkgs.gnupg
     pkgs.mosh
     pkgs.musescore
+    pkgs.feh
+    pkgs.cifs-utils
   ];
 }
