@@ -255,8 +255,6 @@ function upload-raw() {
         JSON="{\"data\": \"$PAYLOAD\",\"gatewayId\":\"$GW\"}"
     fi
 
-    echo $JSON
-
     if [ "$ENV" = "production" ]; then
         ENV=""
     else
@@ -266,21 +264,28 @@ function upload-raw() {
     echo $JSON > /tmp/json
 
     URL="https://api${ENV}.parsyl.io/devices/${DEV}/measurements"
-    echo $URL
     curl -i -XPUT -H "${AUTH}" -H 'Content-Type: application/json' $URL --data "@/tmp/json"
 }
 
 function latest-raw() {
-    ENV=$1
-    DEV=$2
+    DEV=$1
+    ENV=$2
+    if [ -z "$ENV" ]; then
+        ENV="production"
+    fi
+
     FILE=$(aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | tail -1 | awk '{print $4}')
     aws s3 cp s3://parsyl-raw-device-data-$ENV-useast1/$FILE /tmp/$DEV.zip > /dev/null
     parqifi read raw --version v4 -i /tmp/$DEV.zip
 }
 
 function latest-raws() {
-    ENV=$1
-    DEV=$2
+    DEV=$1
+    ENV=$2
+    if [ -z "$ENV" ]; then
+        ENV="production"
+    fi
+
     aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | tail -5
 }
 
@@ -294,10 +299,4 @@ function nice-id() {
 
     PAYLOAD="{\"like\":[{\"field\":\"niceId\",\"query\":\"%${NICE}%\"}]}"
     curl -s -H "${AUTH}" https://api${ENV}.parsyl.io/devices/search -d $PAYLOAD | jq '.[].deviceId' | tr -d '"'
-}
-
-function add-supplier() {
-    ID=$1
-    SUP=$2
-    
 }
