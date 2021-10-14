@@ -286,7 +286,7 @@ function latest-raws() {
         ENV="production"
     fi
 
-    aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | tail -5
+    aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | tail -20
 }
 
 function nice-id() {
