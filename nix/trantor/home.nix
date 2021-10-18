@@ -50,5 +50,6 @@ in
     pkgs.musescore
     pkgs.feh
     pkgs.cifs-utils
+    pkgs.ispell
   ];
 }

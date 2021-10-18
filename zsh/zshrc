@@ -115,7 +115,8 @@ export AWS_SDK_LOAD_CONFIG=true
 export FORECAST_API_KEY=3cca64010571bc7f268639a25f7c37fe
 export GOPRIVATE='github.com/parsyl'
 export EDITOR='emacsclient -nw'
-export MCLI_HOST='ba.local:50051'
+export MCLI_HOST='aurora.local:50051'
+export MCLI_HOME=$HOME/.config/mcli
 export PGPASSFILE=$HOME/.pgpass
 
 keychain $HOME/.ssh/id_rsa
