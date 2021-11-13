@@ -54,7 +54,6 @@ in
     file = {
       ".zshrc".source = ./dotfiles/zshrc;
       ".gitignore".source = ./dotfiles/gitignore;
-      ".gitconfig".source = ./dotfiles/gitconfig;
     };
   };
 }
