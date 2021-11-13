@@ -116,7 +116,7 @@ export FORECAST_API_KEY=3cca64010571bc7f268639a25f7c37fe
 export GOPRIVATE='github.com/parsyl'
 export EDITOR='emacsclient -nw'
 export MCLI_HOST='aurora.local:50051'
-export MCLI_HOME=$HOME/.config/mcli
+export MCLI_REMOTE_SPEAKERS=true
 export PGPASSFILE=$HOME/.pgpass
 
 keychain $HOME/.ssh/id_rsa
@@ -257,14 +257,16 @@ function upload-raw() {
     fi
 
     if [ "$ENV" = "production" ]; then
-        ENV=""
+        URL="https://api.parsyl.io/devices/${DEV}/measurements"
+    elif [ "$ENV" = "localhost" ]; then
+        URL="http://localhost:8081/devices/${DEV}/measurements"
     else
-        ENV=".$ENV"
+        URL="https://api.${ENV}.parsyl.io/devices/${DEV}/measurements"
     fi
 
     echo $JSON > /tmp/json
 
-    URL="https://api${ENV}.parsyl.io/devices/${DEV}/measurements"
+    
     curl -i -XPUT -H "${AUTH}" -H 'Content-Type: application/json' $URL --data "@/tmp/json"
 }
 
