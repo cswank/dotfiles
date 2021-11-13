@@ -1,7 +1,0 @@
-[url "https://cswank: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@github.com"]
-	insteadOf = https://github.com
-[user]
-	name = Craig Swank
-	email = craigswank@gmail.com
-[core]
-	excludesFile = ~/.gitignore
