@@ -15,8 +15,10 @@ in
   # changes in each release.
   home.stateVersion = "21.05";
 
-  programs.home-manager = {
-    enable = true;
+  programs = {
+    home-manager = {
+      enable = true;
+    };
   };
 
   nixpkgs = {
@@ -28,7 +30,6 @@ in
     homeDirectory = "/home/craig";
     packages = [
       pkgsUnstable.tfswitch
-      pkgs.nyxt
       pkgs.emacs
       pkgs.keepassxc
       pkgs.guake
@@ -52,9 +53,13 @@ in
       pkgs.ispell
     ];
     file = {
-      ".zshrc".source = ./dotfiles/zshrc;
-      ".gitignore".source = ./dotfiles/gitignore;
+      ".zshrc".source = ../shared/zshrc;
+      ".gitignore".source = ../shared/gitignore;
       ".ssh/config".source = ./dotfiles/ssh;
+      ".emacs.d" = {
+        source = ../shared/emacs;
+        recursive = true;
+      };
     };
   };
 }

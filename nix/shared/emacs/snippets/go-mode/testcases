@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: testcases
+# key: testcases
+# --
+testCases := []struct{	
+	$1
+}{
+	{
+    	${1:$(mapconcat (lambda (f) (concat (nth 0 (split-string f)) ":"))
+   (split-string yas-text "\n") "\n")} $0
+    },
+}
+
+for i, tc := range testCases {
+	t.Run(fmt.Sprintf("%02d", i), func(t *testing.T) {
+	})
+}

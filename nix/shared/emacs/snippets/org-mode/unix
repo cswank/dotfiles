@@ -1,0 +1,12 @@
+# -- mode: snippet; require-final-newline: nil --
+# name: unix
+# key: unix
+# --
+#+TBLFM: \$$1='(org-sbe unix (ts \$\$$2))
+
+#+NAME: unix
+#+BEGIN_SRC sh :results silent sh :var ts=""
+TS=$(($ts / 1000))
+OUT=$(date -r $TS)
+echo $OUT
+#+END_SRC

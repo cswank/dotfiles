@@ -1,0 +1,12 @@
+# -- mode: snippet; require-final-newline: nil --
+# name: table4
+# key: table4
+# --
+#+NAME: $1
+| Category | Amount | Tax | Total |
+|----------+--------+-----+-------|
+| $0         |        |     |       |
+|----------+--------+-----+-------|
+| Total:   |        |     | 0.00  |
+#+TBLFM: @>\$4=vsum(@2..@-1);%.2f
+#+TBLFM: @2\$4..@-1\$4=\$2+\$3;%.2f

@@ -1,7 +1,7 @@
 * patchelf
   Binaries don't work on nixos because linked lib paths don't exist.
   
-  Here's how to patch op:
+  Here's how to patch op (1password):
   #+begin_src shell
     nix-shell -p binutils stdenv nix-index
     patchelf --print-needed op

@@ -1,0 +1,5 @@
+# -- mode: snippet; require-final-newline: nil --
+# name: vfm
+# key: vfm
+# --
+#+TBLFM: @>\$$1=v${2:$$(yas-choose-value '("sum" "mean"))}(@2..@-1);%.2f

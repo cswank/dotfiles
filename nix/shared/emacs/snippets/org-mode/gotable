@@ -1,0 +1,15 @@
+# -- mode: snippet; require-final-newline: nil --
+# name: gotable
+# key: gotable
+# --
+#+NAME: $2
+#+BEGIN_SRC go :var x=0 :results output :imports '("fmt") 
+  fmt.Println(x*x)
+#+END_SRC
+
+#+NAME: $3
+| a |  b |
+|---+----|
+| $0 |    |
+|   |    |
+#+TBLFM: \$2='(org-sbe $2 (x \$1))
