@@ -2,6 +2,13 @@
 
 let
   pkgsUnstable = import <nixpkgs-unstable> {};
+
+  inherit (lib.generators) toINI;
+
+  greet = pkgs.writeShellScriptBin "greeter" ''
+  # Some bash script
+    echo Hi
+  '';
 in
 
 {
@@ -25,11 +32,26 @@ in
     config.allowUnfree = true;
   };
 
+  xdg.configFile."autostart/keepassxc.desktop".text = toINI {} {
+    "Desktop Entry" = {
+      Version = "1.5";
+      Type = "Application";
+      Name = "KeePassXC";
+      Exec = "${pkgs.keepassxc}/bin/keepassxc";
+      Icon = "keepassxc";
+      X-GNOME-Autostart-enabled = true;
+    };
+  };
+
   home = {
     username = "craig";
     homeDirectory = "/home/craig";
-    packages = [
+    packages = [      
       pkgsUnstable.tfswitch
+      pkgsUnstable.gnome.seahorse
+      pkgsUnstable.gnome.libsecret
+      pkgs.google-chrome
+      pkgs.nyxt
       pkgs.emacs
       pkgs.keepassxc
       pkgs.guake
@@ -53,11 +75,11 @@ in
       pkgs.ispell
     ];
     file = {
-      ".zshrc".source = ../shared/zshrc;
-      ".gitignore".source = ../shared/gitignore;
+      ".zshrc".source = ../dotfiles/zshrc;
+      ".gitignore".source = ../dotfiles/gitignore;
       ".ssh/config".source = ./dotfiles/ssh;
       ".emacs.d" = {
-        source = ../shared/emacs;
+        source = ../dotfiles/emacs;
         recursive = true;
       };
     };

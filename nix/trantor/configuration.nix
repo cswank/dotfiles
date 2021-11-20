@@ -50,8 +50,8 @@
   # services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.desktopManager.pantheon.enable = true;  
   services.xserver.displayManager.lightdm.greeters.pantheon.enable = false;
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "craig";
+  services.xserver.displayManager.autoLogin.enable = false;
+  # services.xserver.displayManager.autoLogin.user = "craig";
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
