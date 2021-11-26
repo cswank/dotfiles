@@ -30,6 +30,11 @@
       lsp-ui-flycheck-enable nil
       lsp-headerline-breadcrumb-mode nil)
 
+(defun sql-params (x)
+  (interactive "nEnd: ")
+   (dotimes (i (- x 1)) (insert (format "$%d, " (1+ i))))
+   (insert (format "$%d" x)))
+
 (defun go-create-playground ()
   "Create a new temporary file with a skeletal Go application."
   (interactive)
