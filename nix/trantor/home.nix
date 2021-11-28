@@ -75,11 +75,11 @@ in
       pkgs.ispell
     ];
     file = {
-      ".zshrc".source = ../dotfiles/zshrc;
-      ".gitignore".source = ../dotfiles/gitignore;
-      ".ssh/config".source = ./dotfiles/ssh;
+      ".zshrc".source = ../files/zshrc;
+      ".gitignore".source = ../files/gitignore;
+      ".ssh/config".source = ./files/ssh;
       ".emacs.d" = {
-        source = ../dotfiles/emacs;
+        source = ../files/emacs;
         recursive = true;
       };
     };

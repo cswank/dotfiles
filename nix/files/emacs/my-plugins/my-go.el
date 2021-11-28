@@ -31,9 +31,10 @@
       lsp-headerline-breadcrumb-mode nil)
 
 (defun sql-params (x)
+  "Insert a sequence of $1, $2,... $x into a postgres query string."
   (interactive "nEnd: ")
-   (dotimes (i (- x 1)) (insert (format "$%d, " (1+ i))))
-   (insert (format "$%d" x)))
+  (dotimes (i (- x 1)) (insert (format "$%d, " (1+ i))))
+  (insert (format "$%d" x)))
 
 (defun go-create-playground ()
   "Create a new temporary file with a skeletal Go application."
@@ -60,9 +61,7 @@
 (global-set-key (kbd "C-c C-g r") 'go-play-buffer)
 (global-set-key (kbd "C-c C-g p") 'go-switch-to-playground)
 (global-set-key (kbd "C-c C-g n") 'go-create-playground)
-
-(fset 'iferr
-   "if err != nil {\n	return err\n	}")
+(global-set-key (kbd "C-c C-g q") 'sql-params)
 
 (provide 'my-go)
 ;;; my-go.el ends here

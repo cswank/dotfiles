@@ -34,6 +34,7 @@
   (* (- a b) 131.25))
 
 (electric-indent-mode -1)
+(electric-pair-mode 1)
 
 (ido-mode 1)
 (put 'downcase-region 'disabled nil)
