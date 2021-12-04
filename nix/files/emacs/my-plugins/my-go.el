@@ -5,6 +5,7 @@
 ;;; Code:
 ;; which one??
 (require 'lsp-mode)
+(require 'edit-indirect)
 (add-hook 'go-mode-hook #'lsp)
 (require 'lsp-ui)
 
@@ -16,6 +17,8 @@
 (setq lsp-prefer-flymake nil)
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+(add-hook 'go-mode-hook
+          (lambda () (local-set-key (kbd "C-c '") #'edit-indirect-region)))
 
 (add-hook 'go-mode-hook
           (lambda ()
@@ -49,6 +52,8 @@
     (insert "\n\t")
     (go-mode)
     (shell-command "go mod init go-playground")))
+
+
 
 (defun go-switch-to-playground ()
   "Switch to Go Playground buffer, creating if necessary."
