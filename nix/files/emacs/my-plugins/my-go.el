@@ -31,11 +31,16 @@
 (add-hook 'edit-indirect-after-creation-hook #'go-sql-buffer)
 
 (defun edit-indirect-custom-guess-major-mode (_parent-buffer _beg _end)
-  "Assume ndirect edits from a go buffer will always be sql (TODO: or json?)"
+  "Assume indirect edits from a go buffer will always be sql or json"
+  (setq first-char (string (char-after 1)))
+  (defvar selected-mode)
   (with-current-buffer _parent-buffer
     (if (eq major-mode 'go-mode)
-        `sql-mode
-      (normal-mode))))
+        (if (or (string= first-char "{") (string= first-char "["))
+            (setq selected-mode 'json-mode)
+          (setq selected-mode 'sql-mode))
+      (setq selected-mode `normal-mode)))
+  (funcall selected-mode))
 
 (setq edit-indirect-guess-mode-function #'edit-indirect-custom-guess-major-mode)
 
