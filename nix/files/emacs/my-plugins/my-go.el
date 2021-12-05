@@ -31,7 +31,7 @@
 (add-hook 'edit-indirect-after-creation-hook #'go-sql-buffer)
 
 (defun edit-indirect-custom-guess-major-mode (_parent-buffer _beg _end)
-  "Guess major-mode to parent-buffer major-mode. Returns symbol of major-mode."
+  "Assume ndirect edits from a go buffer will always be sql (TODO: or json?)"
   (with-current-buffer _parent-buffer
     (if (eq major-mode 'go-mode)
         `sql-mode
