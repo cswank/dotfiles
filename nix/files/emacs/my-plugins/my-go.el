@@ -24,6 +24,21 @@
           (lambda ()
             (setq-default tab-width 4)))
 
+
+(defun go-sql-buffer()
+   (goto-char 0))
+
+(add-hook 'edit-indirect-after-creation-hook #'go-sql-buffer)
+
+(defun edit-indirect-custom-guess-major-mode (_parent-buffer _beg _end)
+  "Guess major-mode to parent-buffer major-mode. Returns symbol of major-mode."
+  (with-current-buffer _parent-buffer
+    (if (eq major-mode 'go-mode)
+        `sql-mode
+      (normal-mode))))
+
+(setq edit-indirect-guess-mode-function #'edit-indirect-custom-guess-major-mode)
+
 (setq lsp-gopls-staticcheck t
       lsp-eldoc-render-all t
       lsp-ui-doc-enable nil
