@@ -108,9 +108,6 @@ if [ -e /Users/craigswank/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/cra
 
 unsetopt share_history
 
-mkdir /tmp/go
-
-export GOTMPDIR=/tmp/go
 export GOPATH=$HOME/go
 export PATH=$HOME/go/bin:$PATH
 export PATH=$PATH:/usr/local/bin
