@@ -51,7 +51,7 @@
       lsp-ui-sideline-enable t
       lsp-ui-imenu-enable t
       lsp-ui-flycheck-enable nil
-      lsp-headerline-breadcrumb-mode nil)
+      lsp-headerline-breadcrumb-enable nil)
 
 (defun sql-params (x)
   "Insert a sequence of $1, $2,... $x into a postgres query string."
