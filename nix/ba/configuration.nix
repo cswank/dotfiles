@@ -259,7 +259,12 @@ ServerName ba.local
   };
 
   fileSystems."/mnt/music" = {
-    device = "/dev/disk/by-uuid/c0244566-01cd-4b1a-b2d0-7afd011f47a7";
+    device = "/dev/disk/by-uuid/34ebd659-f4b2-4b38-95d8-6e7922749a33";
+    fsType = "ext4";
+ };
+
+  fileSystems."/mnt/documents" = {
+    device = "/dev/disk/by-uuid/4c134747-97c6-4498-a2c8-b0619e46c742";
     fsType = "ext4";
  };
 
