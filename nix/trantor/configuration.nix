@@ -11,68 +11,102 @@
     ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
   
   nixpkgs.config.allowUnfree = true;
 
-  networking.hostName = "trantor"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Set your time zone.
   time.timeZone = "America/Denver";
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.useNetworkd = true;
-  networking.interfaces.enp2s0.useDHCP = true;
-  networking.interfaces.wlp3s0.useDHCP = false;
+  networking = {
+    hostName = "trantor";
+    useDHCP = false;
+    useNetworkd = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    interfaces = {
+      enp2s0.useDHCP = false;
+      wlp3s0.useDHCP = false;
+    };
 
-  # Select internationalisation properties.
+    networkmanager.enable = true;
+
+    firewall = {
+      # 5353 for Avahi
+      allowedTCPPorts = [ 7 9 22 5353 8081 ];
+      allowedUDPPorts = [ 5353 7001 ];
+      allowedUDPPortRanges = [
+        # mosh
+        { from = 60000; to = 61000; }
+      ];
+    };
+  };
+
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services = {
+    xserver = {
+      enable = true;
+      layout = "us";
+      xkbOptions = "ctrl:swapcaps";
+      desktopManager = {
+        pantheon.enable = true;  
+      };
+      
+      displayManager = {
+        lightdm.greeters.pantheon.enable = false;
+        autoLogin.user = "craig";
+      };
+    };
 
-  # Enable the Plasma 5 Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.desktopManager.pantheon.enable = true;  
-  services.xserver.displayManager.lightdm.greeters.pantheon.enable = false;
-  services.xserver.displayManager.autoLogin.enable = false;
-  # services.xserver.displayManager.autoLogin.user = "craig";
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      ipv4 = true;
+      ipv6 = true;
+      publish = {
+        enable = true;
+        addresses = true;
+        workstation = true;
+        userServices = true;
+      };
+    };
 
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
+    # CUPS
+    printing = {
+      enable = true;
+      browsing = true;
+      drivers = [ pkgs.brlaser ];
+    };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.browsing = true;
-  services.printing.drivers = [ pkgs.brlaser ];
+    postgresql = {
+      enable = true;
+      package = pkgs.postgresql_13.withPackages (p: [ p.postgis ]);
+      dataDir = "/mnt/postgresql/13";
+    };
 
-  # Enable sound.
+    openssh = {
+      enable = true;
+      passwordAuthentication = false;
+    };
+
+    wakeonlan.interfaces = [ { interface = "enp2s0"; method = "magicpacket"; }] ;
+  };
+
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
+  hardware.pulseaudio = {
+    enable = true;
+    configFile = pkgs.runCommand "default.pa" {} ''
     sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
     ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
-  '';
+    '';
+  };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.craig = {
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -107,6 +141,9 @@
     mosh
     cifs-utils
     paprefs
+    pasystray
+    pavucontrol
+    shairplay
   ];
 
   # programs.dconf.enable = true; # without this paprefs could not enable airplay: https://github.com/NixOS/nixpkgs/issues/47938
@@ -117,20 +154,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-  };
-
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    ipv4 = true;
-    ipv6 = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      workstation = true;
-      userServices = true;
-    };
-  };
+  };  
 
   system.activationScripts = {
       mnt = {
@@ -143,37 +167,6 @@
         deps = [];
       };
    };
-
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_13.withPackages (p: [ p.postgis ]);
-    dataDir = "/mnt/postgresql/13";
-  };
-
-  # this came from floundering while trying to get a remote CUPS printer working
-  # system.nssModules = with pkgs.lib; optional (!config.services.avahi.nssmdns) pkgs.nssmdns;
-  # system.nssDatabases.hosts = with pkgs.lib; optionals (!config.services.avahi.nssmdns) (mkMerge [
-  #   (mkOrder 900 [ "mdns4_minimal [NOTFOUND=return]" ]) # must be before resolve
-  #   (mkOrder 1501 [ "mdns4" ]) # 1501 to ensure it's after dns
-  # ]);
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
-
-  services.wakeonlan.interfaces = [ { interface = "enp2s0"; method = "magicpacket"; }] ;
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 7 9 22 5353 8081 ];
-  # 5353 for Avahi
-  networking.firewall.allowedUDPPorts = [ 5353 7001 ];
-  networking.firewall.allowedUDPPortRanges = [
-    { from = 60000; to = 61000; }
-  ]; 
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # rds-ca-2019-root.pem
   security.pki.certificates = [ "-----BEGIN CERTIFICATE-----
@@ -208,6 +201,4 @@ zPW4CXXvhLmE02TA9/HeCw3KEHIwicNuEfw=
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.05"; # Did you read the comment?
-
 }
-

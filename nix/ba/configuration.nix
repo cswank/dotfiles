@@ -43,9 +43,15 @@ in
     keyMap = "us";
   };
 
-  fonts.fonts = with pkgs; [
-  dina-font
-];
+  fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+    fonts = with pkgs; [
+      inconsolata
+      source-code-pro
+      ubuntu_font_family
+    ];
+  };
 
   i18n = { 
     defaultLocale = "en_US.UTF-8";
@@ -124,15 +130,30 @@ in
   # networking.firewall.enable = false;
 
   # Enable CUPS
-  services.printing.enable = true;
-  services.printing.browsing = true;
-  services.printing.drivers = [ pkgs.brlaser ];
-  services.printing.listenAddresses = [ "*:631" ];
-  services.printing.defaultShared = true;
-  services.printing.allowFrom = [ "all" ];
-  services.printing.extraConf = ''
+  services.printing = {
+    enable = true;
+    browsing = true;
+    drivers = [ pkgs.brlaser ];
+    listenAddresses = [ "*:631" ];
+    defaultShared = true;
+    allowFrom = [ "all" ];
+    extraConf = ''
 ServerName ba.local
   '';
+  };
+
+
+  # Define printers
+  # (figure out 2 sided printing option)
+  # hardware.printers.ensurePrinters = [
+  #   {
+  #     name = "Office";
+  #     description = "Office";
+  #     deviceUri = "usb://Brother/HL-L2320D%20series?serial=U63877K6N190287";
+  #     model = "drv:///brlaser.drv/brl2320d.ppd";
+  #     ppdOptions = { PageSize = "Letter"; };
+  #   }
+  # ];
 
   services.cron = {
     enable = true;

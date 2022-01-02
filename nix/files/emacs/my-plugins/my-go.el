@@ -45,7 +45,7 @@
 (setq edit-indirect-guess-mode-function #'edit-indirect-custom-guess-major-mode)
 
 (setq lsp-gopls-staticcheck t
-      lsp-eldoc-render-all t
+      lsp-eldoc-render-all nil
       lsp-ui-doc-enable nil
       lsp-ui-peek-enable t
       lsp-ui-sideline-enable t
