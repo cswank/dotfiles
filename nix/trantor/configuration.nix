@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./i3.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -54,13 +55,21 @@
       enable = true;
       layout = "us";
       xkbOptions = "ctrl:swapcaps";
-      desktopManager = {
-        pantheon.enable = true;  
+      desktopManager.xterm.enable = false;
+      displayManager = {
+        defaultSession = "none+i3";
       };
       
-      displayManager = {
-        lightdm.greeters.pantheon.enable = false;
-        autoLogin.user = "craig";
+      windowManager.i3 = {
+        enable = true;
+        package = pkgs.i3-gaps;
+        configFile = "/etc/i3.conf";
+        extraPackages = with pkgs; [
+          dmenu #application launcher most people use
+          i3status # gives you the default i3 status bar
+          i3lock #default i3 screen locker
+          i3blocks #if you are planning on using i3blocks over i3status
+        ];
       };
     };
 
@@ -119,32 +128,70 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtGCJvFD4OO5d/u/kVm5pWaCSZ6s4ti3IktnK4KDAgIUH9Dh0tAk0kh5g1SYi3yiQ33CE3OpAxKbJ7U0+f4qyqT5B5D3AZ2LtX6YqitT0S0loYdipJ0/eggkUADvlIYU9M0RYra7Pb5xqXjRmxiFQTVT8Tphkt3nlRIysoERoKSJE7TYD2Wi4XmM3PzP2fO4ulV+xaVwmRydn7GXtqHE9KVDZXwUU89B5CLbpK0+u2AeZ9K2PSKA1NLMIJ/LOv7/MjabV3ZSCNkfaG2zw9RarSh48qpqNT3+V2VDDk5CoojIaUkYwBX7gZcYEWdcBicfzzBvLc1kml1A7QvWLE/O/F craigswank@Craigs-MacBook-Pro.local"
     ];
   };
+  
+  fonts = {
+    fonts = with pkgs; [
+      corefonts
+      dejavu_fonts
+      dina-font
+      fira-code
+      fira-code-symbols
+      font-awesome-ttf
+      liberation_ttf
+      material-design-icons
+      mplus-outline-fonts
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      powerline-fonts
+      proggyfonts
+      roboto
+      siji
+      source-code-pro
+      source-sans-pro
+      source-serif-pro
+      terminus_font
+      ubuntu_font_family
+    ];
 
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    mplus-outline-fonts
-    dina-font
-    proggyfonts
-];
+    fontconfig.defaultFonts = {
+      monospace = [
+        "DejaVu Sans Mono"
+      ];
+      sansSerif = [
+        "DejaVu Sans"
+      ];
+      serif = [
+        "DejaVu Serif"
+      ];
+    };
+
+    fontconfig.dpi = 192;
+  };
 
   # local packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    avahi
-    nssmdns
-    mosh
-    cifs-utils
-    paprefs
-    pasystray
-    pavucontrol
-    shairplay
-  ];
+  environment = {
+    pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
+    etc = {
+      "X11/Xresources".text = ''
+      Xft.dpi: 192
+      '';
+    };
+    
+    systemPackages = with pkgs; [
+      #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      avahi
+      nssmdns
+      mosh
+      cifs-utils
+      paprefs
+      pasystray
+      pavucontrol
+      shairplay
+      gnome.gnome-terminal
+    ];
+  };
 
   # programs.dconf.enable = true; # without this paprefs could not enable airplay: https://github.com/NixOS/nixpkgs/issues/47938
 

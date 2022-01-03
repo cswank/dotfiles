@@ -50,6 +50,7 @@ in
       pkgsUnstable.tfswitch
       pkgsUnstable.gnome.seahorse
       pkgsUnstable.gnome.libsecret
+      pkgs.st
       pkgs.google-chrome
       pkgs.nyxt
       pkgs.emacs
