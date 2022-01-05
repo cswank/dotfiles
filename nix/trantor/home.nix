@@ -26,21 +26,45 @@ in
     home-manager = {
       enable = true;
     };
-  };
+
+	  gnome-terminal = {
+      enable = true;
+      showMenubar = false;
+      profile = {
+        cyplo = {
+          visibleName = "peninsula";
+          default = true;
+          font = "Fira Code Nerd Font";
+          showScrollbar = false;
+          colors = {
+            foregroundColor = "#838394949696";
+            backgroundColor = "#00002B2B3636";
+            palette = [
+              "#070736364242"
+              "#DCDC32322F2F"
+              "#858599990000"
+              "#B5B589890000"
+              "#26268B8BD2D2"
+              "#D3D336368282"
+              "#2A2AA1A19898"
+              "#EEEEE8E8D5D5"
+              "#00002B2B3636"
+              "#CBCB4B4B1616"
+              "#58586E6E7575"
+              "#65657B7B8383"
+              "#838394949696"
+              "#6C6C7171C4C4"
+              "#9393A1A1A1A1"
+              "#FDFDF6F6E3E3"
+            ];
+          };
+        };
+      };
+    };
+  };  
 
   nixpkgs = {
     config.allowUnfree = true;
-  };
-
-  xdg.configFile."autostart/keepassxc.desktop".text = toINI {} {
-    "Desktop Entry" = {
-      Version = "1.5";
-      Type = "Application";
-      Name = "KeePassXC";
-      Exec = "${pkgs.keepassxc}/bin/keepassxc";
-      Icon = "keepassxc";
-      X-GNOME-Autostart-enabled = true;
-    };
   };
 
   home = {
@@ -48,9 +72,8 @@ in
     homeDirectory = "/home/craig";
     packages = [      
       pkgsUnstable.tfswitch
-      pkgsUnstable.gnome.seahorse
-      pkgsUnstable.gnome.libsecret
-      pkgs.st
+      pkgs.gnome3.dconf
+      pkgs.gnome3.gnome-terminal
       pkgs.google-chrome
       pkgs.nyxt
       pkgs.emacs
@@ -76,6 +99,8 @@ in
       pkgs.ispell
     ];
     file = {
+      ".config/i3status/config".source = ../files/i3status;
+      ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
       ".zshrc".source = ../files/zshrc;
       ".gitignore".source = ../files/gitignore;
       ".ssh/config".source = ./files/ssh;

@@ -9,12 +9,15 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./i3.nix
-    ];
+    ];  
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    resumeDevice = "/dev/nvme0n1p2";
   };
   
   nixpkgs.config.allowUnfree = true;
@@ -54,6 +57,8 @@
     xserver = {
       enable = true;
       layout = "us";
+      autoRepeatDelay = 200;
+      autoRepeatInterval = 25;
       xkbOptions = "ctrl:swapcaps";
       desktopManager.xterm.enable = false;
       displayManager = {
@@ -68,11 +73,10 @@
           dmenu #application launcher most people use
           i3status # gives you the default i3 status bar
           i3lock #default i3 screen locker
-          i3blocks #if you are planning on using i3blocks over i3status
         ];
       };
     };
-
+    
     avahi = {
       enable = true;
       nssmdns = true;
@@ -108,12 +112,17 @@
   };
 
   sound.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    configFile = pkgs.runCommand "default.pa" {} ''
+  
+  hardware = {
+    pulseaudio = {
+      enable = true;
+      configFile = pkgs.runCommand "default.pa" {} ''
     sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
     ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
     '';
+    };
+
+    bluetooth.enable = true;
   };
 
   users.users.craig = {
@@ -169,8 +178,6 @@
     fontconfig.dpi = 192;
   };
 
-  # local packages installed in system profile. To search, run:
-  # $ nix search wget
   environment = {
     pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
     etc = {
@@ -180,7 +187,6 @@
     };
     
     systemPackages = with pkgs; [
-      #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       avahi
       nssmdns
       mosh
@@ -189,11 +195,10 @@
       pasystray
       pavucontrol
       shairplay
-      gnome.gnome-terminal
     ];
   };
 
-  # programs.dconf.enable = true; # without this paprefs could not enable airplay: https://github.com/NixOS/nixpkgs/issues/47938
+  programs.dconf.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
