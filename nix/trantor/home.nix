@@ -72,11 +72,12 @@ in
             "media.ffvpx.enabled" = false;
             "media.av1.enabled" = false;
             "gfx.webrender.all" = true;
+            "layers.acceleration.force-enabled" = true;
           };
         };
       };
     };
-  };  
+  };
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -85,7 +86,7 @@ in
   home = {
     username = "craig";
     homeDirectory = "/home/craig";
-    packages = [      
+    packages = [
       pkgsUnstable.tfswitch
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
@@ -113,7 +114,7 @@ in
       pkgs.cifs-utils
       pkgs.ispell
     ];
-    
+
     file = {
       ".config/i3status/config".source = ../files/i3status;
       ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;

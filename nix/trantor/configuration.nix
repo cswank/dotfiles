@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./i3.nix
-    ];  
+    ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -19,7 +19,7 @@
     };
     resumeDevice = "/dev/nvme0n1p2";
   };
-  
+
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
@@ -56,11 +56,11 @@
     keyMap = "us";
   };
 
-  
+
 
   services = {
     xserver = {
-      
+
       enable = true;
       layout = "us";
       autoRepeatDelay = 200;
@@ -70,7 +70,7 @@
       displayManager = {
         defaultSession = "none+i3";
       };
-      
+
       windowManager.i3 = {
         enable = true;
         package = pkgs.i3-gaps;
@@ -82,7 +82,7 @@
         ];
       };
     };
-    
+
     avahi = {
       enable = true;
       nssmdns = true;
@@ -118,7 +118,7 @@
   };
 
   sound.enable = true;
-  
+
   hardware = {
     pulseaudio = {
       enable = true;
@@ -135,8 +135,34 @@
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         vaapiVdpau
         libvdpau-va-gl
+
+        # vaapiIntel
+        # libvdpau
+        # libvdpau-va-gl
+        # vaapiVdpau
       ];
     };
+  };
+
+  environment = {
+    pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+    variables = {
+	    GDK_SCALE = "2"; # Scale UI elements
+	    GDK_DPI_SCALE = "0.5"; # Reverse scale the fonts
+      MOZ_X11_EGL = "1";
+      LIBVA_DRIVER_NAME = "iHD";
+      VDPAU_DRIVER = "va_gl";
+    };
+    systemPackages = with pkgs; [
+      avahi
+      nssmdns
+      mosh
+      cifs-utils
+      paprefs
+      pasystray
+      pavucontrol
+      shairplay
+    ];
   };
 
   users.users.craig = {
@@ -151,7 +177,7 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtGCJvFD4OO5d/u/kVm5pWaCSZ6s4ti3IktnK4KDAgIUH9Dh0tAk0kh5g1SYi3yiQ33CE3OpAxKbJ7U0+f4qyqT5B5D3AZ2LtX6YqitT0S0loYdipJ0/eggkUADvlIYU9M0RYra7Pb5xqXjRmxiFQTVT8Tphkt3nlRIysoERoKSJE7TYD2Wi4XmM3PzP2fO4ulV+xaVwmRydn7GXtqHE9KVDZXwUU89B5CLbpK0+u2AeZ9K2PSKA1NLMIJ/LOv7/MjabV3ZSCNkfaG2zw9RarSh48qpqNT3+V2VDDk5CoojIaUkYwBX7gZcYEWdcBicfzzBvLc1kml1A7QvWLE/O/F craigswank@Craigs-MacBook-Pro.local"
     ];
   };
-  
+
   fonts = {
     fonts = with pkgs; [
       corefonts
@@ -192,28 +218,6 @@
     fontconfig.dpi = 192;
   };
 
-  
-
-  environment = {
-    pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
-    variables = {
-	    GDK_SCALE = "2"; # Scale UI elements
-	    GDK_DPI_SCALE = "0.5"; # Reverse scale the fonts
-      MOZ_X11_EGL = "1";
-      LIBVA_DRIVER_NAME = "iHD";
-    };
-    systemPackages = with pkgs; [
-      avahi
-      nssmdns
-      mosh
-      cifs-utils
-      paprefs
-      pasystray
-      pavucontrol
-      shairplay
-    ];
-  };
-
   programs.dconf.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -222,7 +226,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-  };  
+  };
 
   system.activationScripts = {
       mnt = {
