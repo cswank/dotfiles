@@ -61,6 +61,21 @@ in
         };
       };
     };
+
+    firefox = {
+      enable = true;
+      profiles = {
+        myuser = {
+          id = 0;
+          settings = {
+            "media.ffmpeg.vaapi.enabled" = true;
+            "media.ffvpx.enabled" = false;
+            "media.av1.enabled" = false;
+            "gfx.webrender.all" = true;
+          };
+        };
+      };
+    };
   };  
 
   nixpkgs = {
@@ -98,9 +113,11 @@ in
       pkgs.cifs-utils
       pkgs.ispell
     ];
+    
     file = {
       ".config/i3status/config".source = ../files/i3status;
       ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
+      ".config/mpv/mpv.conf".source = ./files/mpv.conf;
       ".zshrc".source = ../files/zshrc;
       ".gitignore".source = ../files/gitignore;
       ".ssh/config".source = ./files/ssh;

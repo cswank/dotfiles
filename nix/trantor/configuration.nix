@@ -21,6 +21,9 @@
   };
   
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
 
   time.timeZone = "America/Denver";
 
@@ -53,8 +56,11 @@
     keyMap = "us";
   };
 
+  
+
   services = {
     xserver = {
+      
       enable = true;
       layout = "us";
       autoRepeatDelay = 200;
@@ -123,6 +129,14 @@
     };
 
     bluetooth.enable = true;
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
   };
 
   users.users.craig = {
@@ -178,14 +192,16 @@
     fontconfig.dpi = 192;
   };
 
+  
+
   environment = {
     pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
-    etc = {
-      "X11/Xresources".text = ''
-      Xft.dpi: 192
-      '';
+    variables = {
+	    GDK_SCALE = "2"; # Scale UI elements
+	    GDK_DPI_SCALE = "0.5"; # Reverse scale the fonts
+      MOZ_X11_EGL = "1";
+      LIBVA_DRIVER_NAME = "iHD";
     };
-    
     systemPackages = with pkgs; [
       avahi
       nssmdns
