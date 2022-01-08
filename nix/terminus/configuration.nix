@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./i3.nix
+      <home-manager/nixos>
     ];
 
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
@@ -75,6 +76,8 @@
         userServices = true;
       };
     };
+
+    wakeonlan.interfaces = [{ interface = "enp0s10"; method = "magicpacket"; }];
   };
 
   # Enable CUPS to print documents.
@@ -112,7 +115,14 @@
     paprefs
     pasystray
     firefox
+    home-manager
   ];
+
+  home-manager.users.craig = { pkgs, ... }: {
+    home.file = {
+      ".config/i3status/config".source = ./i3status;
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

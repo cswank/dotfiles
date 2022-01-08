@@ -118,7 +118,7 @@
       passwordAuthentication = false;
     };
 
-    wakeonlan.interfaces = [ { interface = "enp2s0"; method = "magicpacket"; }] ;
+    wakeonlan.interfaces = [{ interface = "enp2s0"; method = "magicpacket"; }];
   };
 
   sound.enable = true;
