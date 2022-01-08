@@ -113,6 +113,7 @@ in
       pkgs.feh
       pkgs.cifs-utils
       pkgs.ispell
+      pkgs.networkmanager_openvpn
     ];
 
     file = {

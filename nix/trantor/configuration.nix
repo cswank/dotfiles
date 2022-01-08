@@ -38,6 +38,7 @@
     };
 
     networkmanager.enable = true;
+    networkmanager.packages = with pkgs; [ gnome3.networkmanager-openvpn ];
 
     firewall = {
       # 5353 for Avahi
@@ -69,6 +70,9 @@
       desktopManager.xterm.enable = false;
       displayManager = {
         defaultSession = "none+i3";
+        sessionCommands = ''
+        xsetroot -solid '#07422f'
+        '';
       };
 
       windowManager.i3 = {
@@ -218,14 +222,17 @@
     fontconfig.dpi = 192;
   };
 
-  programs.dconf.enable = true;
+  programs = {
+    dconf.enable = true;
+    nm-applet.enable = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
+    # Some programs need SUID wrappers, can be configured further or are
+    # started in user sessions.
+    # programs.mtr.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
   };
 
   system.activationScripts = {
