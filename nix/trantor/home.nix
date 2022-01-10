@@ -114,6 +114,7 @@ in
       pkgs.cifs-utils
       pkgs.ispell
       pkgs.networkmanager_openvpn
+      pkgs.shutter
     ];
 
     file = {
