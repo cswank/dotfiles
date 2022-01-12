@@ -179,9 +179,9 @@ function refresh-env() {
     ENV=$1
     PTH="$HOME/.parsyl/login$ENV.json.gpg"
     BODY=$(gpg --decrypt $PTH)
-    USER=$(echo $BODY | jq '.userId')
+    USR=$(echo $BODY | jq '.userId')
     RESP=$(curl -s "https://api${ENV}.parsyl.io/token?refresh=true" -d $BODY)
-    OUT=$(echo $RESP | jq ". += {\"userId\":$USER}")
+    OUT=$(echo $RESP | jq ". += {\"userId\":$USR}")
     PTH="$HOME/.parsyl/login$ENV.json"
     echo $OUT > $PTH
     gpg --encrypt -r $GPG_USERNAME $PTH

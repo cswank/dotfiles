@@ -7,7 +7,6 @@ order += "volume master"
 order += "cpu_usage"
 order += "disk /"
 order += "memory"
-order += "load"
 order += "tztime local"
 
 volume master {
@@ -35,10 +34,6 @@ ethernet _first_ {
 
 tztime local {
         format = "%Y-%m-%d %H:%M"
-}
-
-load {
-        format = "%1min %5min %15min"
 }
 
 memory {
