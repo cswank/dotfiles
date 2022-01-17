@@ -164,25 +164,25 @@ function psaux() {
 }
 
 function refresh-dev() {
-    refresh-env '.dev'
+    refresh-env 'dev'
 }
 
 function refresh-test() {
-    refresh-env '.test'
+    refresh-env 'test'
 }
 
 function refresh-prod() {
-    refresh-env ''
+    refresh-env 'prod'
 }
 
 function refresh-env() {
     ENV=$1
-    PTH="$HOME/.parsyl/login$ENV.json.gpg"
+    PTH="$HOME/.parsyl/login/$ENV.json.gpg"
     BODY=$(gpg --decrypt $PTH)
     USR=$(echo $BODY | jq '.userId')
     RESP=$(curl -s "https://api${ENV}.parsyl.io/token?refresh=true" -d $BODY)
     OUT=$(echo $RESP | jq ". += {\"userId\":$USR}")
-    PTH="$HOME/.parsyl/login$ENV.json"
+    PTH="$HOME/.parsyl/login/$ENV.json"
     echo $OUT > $PTH
     gpg --encrypt -r $GPG_USERNAME $PTH
     rm $PTH
@@ -191,20 +191,20 @@ function refresh-env() {
 }
 
 function dev-token() {
-    use-env '.dev'
+    use-env 'dev'
 }
 
 function test-token() {
-    use-env '.test'
+    use-env 'test'
 }
 
 function prod-token() {
-    use-env ''
+    use-env 'prod'
 }
 
 function use-env () {
     ENV=$1
-    PTH="$HOME/.parsyl/login$ENV.json.gpg"
+    PTH="$HOME/.parsyl/login/$ENV.json.gpg"
     BODY=$(gpg --decrypt $PTH)
     export TOKEN=$(echo $BODY | jq '.accessToken' | tr -d '"')
     export AUTH="Authorization: Bearer $TOKEN"

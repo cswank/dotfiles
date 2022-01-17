@@ -141,5 +141,9 @@
   "Get a parsyl auth token"
   (interactive)
   (setenv "AUTH" (format "Authorization: Bearer %s" (shell-command-to-string "token"))))
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
   
 ;;; my-random-stuff.el ends here

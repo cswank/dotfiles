@@ -30,7 +30,6 @@
 (load-file "~/.emacs.d/my-plugins/my-magit.el")
 (load-file "~/.emacs.d/my-plugins/my-org.el")
 (load-file "~/.emacs.d/my-plugins/my-python.el")
-(load-file "~/.emacs.d/my-plugins/my-random-stuff.el")
 (load-file "~/.emacs.d/my-plugins/my-sql.el")
 (load-file "~/.emacs.d/my-plugins/my-terminal.el")
 (load-file "~/.emacs.d/my-plugins/my-weather.el")
@@ -40,5 +39,6 @@
 (when (not (string= (getenv "SLACK_CLIENT_ID") "nil"))
   (load-file "~/.emacs.d/my-plugins/my-slack.el"))
 (provide 'init)
+(load-file "~/.emacs.d/my-plugins/my-random-stuff.el")
 ;;; init.el ends here
 (put 'set-goal-column 'disabled nil)

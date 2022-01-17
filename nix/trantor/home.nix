@@ -115,11 +115,14 @@ in
       pkgs.ispell
       pkgs.networkmanager_openvpn
       pkgs.shutter
+      pkgs.pinentry-curses
+      pkgs.graphviz
     ];
 
     file = {
       ".config/i3status/config".source = ../files/i3status;
       ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
+      ".gnupg/gpg-agent.conf".source = ../files/gpg-agent.conf;
       ".config/mpv/mpv.conf".source = ./files/mpv.conf;
       ".zshrc".source = ../files/zshrc;
       ".gitignore".source = ../files/gitignore;
