@@ -156,6 +156,7 @@
       MOZ_X11_EGL = "1";
       LIBVA_DRIVER_NAME = "iHD";
       VDPAU_DRIVER = "va_gl";
+      WEBKIT_FORCE_SANDBOX = "0"; #nyxt crashes without this
     };
     
     systemPackages = with pkgs; [

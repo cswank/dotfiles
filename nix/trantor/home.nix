@@ -91,7 +91,7 @@ in
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
       pkgs.google-chrome
-      pkgs.nyxt
+      pkgsUnstable.nyxt
       pkgs.emacs
       pkgs.keepassxc
       pkgs.guake

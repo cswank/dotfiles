@@ -22,6 +22,7 @@
 (add-to-list 'auto-mode-alist '("\\.zcml\\'" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.pt\\'" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\`/tmp/zsh[a-z0-9A-Z]+\\'" . sh-mode))
 (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
 (setq interpreter-mode-alist (cons '("python" . python-mode)
                                    interpreter-mode-alist))
