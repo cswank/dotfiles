@@ -180,7 +180,12 @@ function refresh-env() {
     PTH="$HOME/.parsyl/login/$ENV.json.gpg"
     BODY=$(gpg --decrypt $PTH)
     USR=$(echo $BODY | jq '.userId')
-    RESP=$(curl -s "https://api${ENV}.parsyl.io/token?refresh=true" -d $BODY)
+    ENVPTH=".${ENV}"
+    if [ "$ENV" = "prod" ]; then
+        ENVPTH=""
+    fi
+
+    RESP=$(curl -s "https://api${ENVPTH}.parsyl.io/token?refresh=true" -d $BODY)
     OUT=$(echo $RESP | jq ". += {\"userId\":$USR}")
     PTH="$HOME/.parsyl/login/$ENV.json"
     echo $OUT > $PTH
@@ -216,14 +221,14 @@ if test -f "$ACME"; then
 fi
 
 function notes() {
-    head RELEASE_NOTES*
+    head $(ls -B | grep RELEASE_NOTES)
 }
 
 function pw() {
     keepassxc-cli clip ~/Documents/Passwords.kdbx $1
 }
 
-function pwls() {
+function lspw() {
     keepassxc-cli ls -R ~/Documents/Passwords.kdbx
 }
 

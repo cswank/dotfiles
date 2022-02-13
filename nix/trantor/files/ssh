@@ -1,6 +1,6 @@
 Host data-science
   User ec2-user
-  Hostname 10.0.159.45
+  Hostname 10.10.159.141
   IdentityFile /home/craig/.ssh/parsyl_admin_rsa
 
 Host redash

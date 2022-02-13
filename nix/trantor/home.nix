@@ -22,6 +22,8 @@ in
   # changes in each release.
   home.stateVersion = "21.05";
 
+  imports = [ ../files/dconf.nix ];
+
   programs = {
     home-manager = {
       enable = true;
@@ -88,10 +90,12 @@ in
     homeDirectory = "/home/craig";
     packages = [
       pkgsUnstable.tfswitch
+      pkgsUnstable.google-chrome
+      pkgsUnstable.nyxt
+      pkgsUnstable.transcribe
+      pkgsUnstable.tuxguitar
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
-      pkgs.google-chrome
-      pkgsUnstable.nyxt
       pkgs.emacs
       pkgs.keepassxc
       pkgs.guake
@@ -102,7 +106,7 @@ in
       pkgs.gnumake
       pkgs.firefox
       pkgs.git
-      pkgs.slack
+      pkgsUnstable.slack
       pkgs.zoom
       pkgs.zsh
       pkgs.keychain
