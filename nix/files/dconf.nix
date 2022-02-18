@@ -24,60 +24,6 @@ in
       window-width = 1277;
     };
 
-    "org/gnome/desktop/input-sources" = {
-      sources = [ (mkTuple [ "xkb" "us" ]) ];
-      xkb-options = [ "grp:alt_shift_toggle" "ctrl:swapcaps" ];
-    };
-
-    "org/gnome/desktop/interface" = {
-      clock-format = "12h";
-      gtk-im-module = "gtk-im-context-simple";
-    };
-
-    "org/gnome/desktop/peripherals/keyboard" = {
-      delay = "uint32 306";
-      numlock-state = false;
-      repeat-interval = "uint32 25";
-    };
-
-    "org/gnome/desktop/peripherals/mouse" = {
-      natural-scroll = false;
-    };
-
-    "org/gnome/desktop/peripherals/touchpad" = {
-      natural-scroll = true;
-    };
-
-    "org/gnome/evince/default" = {
-      window-ratio = mkTuple [ 1.5940135408005702 1.7268604065177222 ];
-    };
-
-    "org/gnome/evolution-data-server" = {
-      migrated = true;
-      network-monitor-gio-name = "";
-    };
-
-    "org/gnome/file-roller/dialogs/new" = {
-      default-extension = ".zip";
-      encrypt-header = false;
-      expand-options = false;
-      volume-size = 0;
-    };
-
-    "org/gnome/file-roller/listing" = {
-      list-mode = "as-folder";
-      name-column-width = 250;
-      show-path = false;
-      sort-method = "name";
-      sort-type = "ascending";
-    };
-
-    "org/gnome/file-roller/ui" = {
-      sidebar-width = 200;
-      window-height = 480;
-      window-width = 600;
-    };
-
     "org/gnome/nm-applet/eap/0a4917fa-1ee7-4216-9961-f17eacdbc530" = {
       ignore-ca-cert = false;
       ignore-phase2-ca-cert = false;
