@@ -92,8 +92,7 @@ in
       pkgsUnstable.tfswitch
       pkgsUnstable.google-chrome
       pkgsUnstable.nyxt
-      pkgsUnstable.transcribe
-      pkgsUnstable.tuxguitar
+      pkgsUnstable.cryptsetup
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
       pkgs.emacs
