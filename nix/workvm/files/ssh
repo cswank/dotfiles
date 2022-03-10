@@ -1,0 +1,24 @@
+Host data-science
+  User ec2-user
+  Hostname 10.10.159.141
+  IdentityFile /home/craig/.ssh/parsyl_admin_rsa
+
+Host redash
+  User ubuntu
+  Hostname 10.0.9.247
+  IdentityFile /home/craig/.ssh/parsyl_admin_rsa
+
+Host aurora
+  User craigswank
+  Hostname aurora.local
+
+Host sprinklers
+    Hostname 192.168.1.7
+    User debian
+
+Host furnace.local
+    User pi
+
+Host brewery
+    Hostname 192.168.1.12
+    User pi
