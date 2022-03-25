@@ -260,12 +260,12 @@ cp /usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar /usr/local/Cellar/emacs/HE
 (hit C-c C-c to calculate)
 
 *** reference 2nd table
-| service            | estimate | why                                                                                                                    |
-|--------------------+----------+------------------------------------------------------------------------------------------------------------------------|
-| tiles              |    40000 | when viewing shipment report that has map (we had 19k shipment page view last year so I just doubled that in optimism) |
-| address suggestion |    10000 | once per facility creation                                                                                             |
-| geo                |    10000 | once per facility creation                                                                                             |
-| reverse geo        |   100000 | mobile uploads                                                                                                         |
+| service            | estimate |
+|--------------------+----------|
+| tiles              |    40000 |
+| address suggestion |    10000 |
+| geo                |    10000 |
+| reverse geo        |   100000 |
 
 | aws                                         | price ($) | quantity | estimate ($/year) |
 |---------------------------------------------+-----------+----------+-------------------|
