@@ -259,6 +259,37 @@ cp /usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar /usr/local/Cellar/emacs/HE
 #+TBLFM: @2$4..@-1$4=$1+$2
 (hit C-c C-c to calculate)
 
+*** reference 2nd table
+| service            | estimate | why                                                                                                                    |
+|--------------------+----------+------------------------------------------------------------------------------------------------------------------------|
+| tiles              |    40000 | when viewing shipment report that has map (we had 19k shipment page view last year so I just doubled that in optimism) |
+| address suggestion |    10000 | once per facility creation                                                                                             |
+| geo                |    10000 | once per facility creation                                                                                             |
+| reverse geo        |   100000 | mobile uploads                                                                                                         |
+
+| aws                                         | price ($) | quantity | estimate ($/year) |
+|---------------------------------------------+-----------+----------+-------------------|
+| Map tiles retrieved (Vector or Raster)      |      0.04 |     1000 |                4. |
+| Address suggestion requests                 |      0.20 |     1000 |               20. |
+| Addresses geocoded (stored results)         |      4.00 |     1000 |              400. |
+| Positions reverse-geocoded (stored results) |      4.00 |     1000 |              400. |
+|---------------------------------------------+-----------+----------+-------------------|
+| total                                       |           |          |              824. |
+#+TBLFM: @2$4..@-1$4=($2/$3)*remote(usage,@>$2)
+#+TBLFM: @6$4=vsum(@2..@-1)
+
+|---------------------------------------------+-----------+----------+-------------------+--------------------------|
+| mapbox                                      | price ($) | quantity | estimate ($/year) | notes                    |
+|---------------------------------------------+-----------+----------+-------------------+--------------------------|
+| Map tiles retrieved (Vector)                |      0.25 |     1000 |                 0 | after 200k free requests |
+| Address suggestion requests                 |      0.75 |     1000 |                 0 | after 100k free requests |
+| Addresses geocoded (stored results)         |      5.00 |     1000 |              500. |                          |
+| Positions reverse-geocoded (stored results) |      5.00 |     1000 |              500. |                          |
+|---------------------------------------------+-----------+----------+-------------------+--------------------------|
+| total                                       |           |          |             1000. |                          |
+#+TBLFM: @2$4..@-1$4=($2/$3)*remote(usage,@>$2)
+#+TBLFM: @6$4=vsum(@2..@-1)
+
 *** lisp
 | x | y |  z |
 |---+---+----|

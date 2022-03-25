@@ -94,6 +94,7 @@ in
       pkgsUnstable.nyxt
       pkgsUnstable.cryptsetup
       pkgsUnstable.slack
+      pkgsUnstable.gnome.cheese
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
       pkgs.emacs
