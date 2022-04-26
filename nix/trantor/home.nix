@@ -95,6 +95,8 @@ in
       pkgsUnstable.cryptsetup
       pkgsUnstable.slack
       pkgsUnstable.gnome.cheese
+      pkgsUnstable.plantuml
+      pkgsUnstable.gron
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
       pkgs.emacs
