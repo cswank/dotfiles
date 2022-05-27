@@ -6,16 +6,14 @@
   '(load-library "sql-indent"))
 
 ;; (defun org-babel-edit-prep:sql (babel-info)
-;;   (setq-local buffer-file-name (->> babel-info caddr (alist-get :file-name)))
-;;   (setq-local lsp-buffer-uri (->> babel-info caddr (alist-get :file-name) lsp--path-to-uri))
-;;   (lsp)
-;;   ;; other lsp-java specific stuff that you usually run with the major mode, company mode and so on.
-;;   )
+;;   (setq-local buffer-file-name (->> babel-info caddr (alist-get :tangle)))
+;;   (setq-local lsp-buffer-uri (->> babel-info caddr (alist-get :tangle) lsp--path-to-uri))
+;;   (lsp))
 
-(add-hook 'sql-mode-hook 'lsp)
-(setq lsp-sqls-workspace-config-path nil)
-(setq lsp-sqls-connections
-    '(((driver . "postgresql") (dataSourceName . "host=parsyl.cc7inmz0czn4.us-east-1.rds.amazonaws.com port=5432 user=parsyl dbname=parsyl"))))
+;; (add-hook 'sql-mode-hook 'lsp)
+;; (setq lsp-sqls-workspace-config-path nil)
+;; (setq lsp-sqls-connections
+;;     '(((driver . "postgresql") (dataSourceName . "host=parsyl.cc7inmz0czn4.us-east-1.rds.amazonaws.com port=5432 user=parsyl dbname=parsyl"))))
 
 (defun sql-indent-string ()
   "Indents the string under the cursor as SQL."

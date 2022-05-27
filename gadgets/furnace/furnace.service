@@ -1,0 +1,10 @@
+cat /etc/systemd/system/furnace.service 
+[Unit]
+Description=Furnace
+
+[Service]
+WorkingDirectory=/home/pi
+ExecStart=/usr/local/bin/gogadgets run /etc/furnace.json
+
+[Install]
+WantedBy=multi-user.target
