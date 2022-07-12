@@ -101,6 +101,7 @@ in
       pkgsUnstable.winbox
       pkgsUnstable.emacs
       pkgsUnstable.transcribe
+      pkgsUnstable.easyrsa
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
       pkgs.keepassxc

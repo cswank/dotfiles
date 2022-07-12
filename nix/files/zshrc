@@ -171,6 +171,10 @@ function refresh-test() {
     refresh-env 'test'
 }
 
+function refresh-test2() {
+    refresh-env 'test2'
+}
+
 function refresh-prod() {
     refresh-env 'prod'
 }
@@ -201,6 +205,10 @@ function dev-token() {
 
 function test-token() {
     use-env 'test'
+}
+
+function test2-token() {
+    use-env 'test2'
 }
 
 function prod-token() {
