@@ -147,20 +147,20 @@ if [ -n "$INSIDE_EMACS" ]; then
     precmd_functions=($precmd_functions set_eterm_dir)
 fi
 
-function aws-env() {
-    LAMBDA=$1
-    while IFS=$'\t' read -r key val; do
-        key=$(echo $key | sed 's/^"\(.*\)"$/\1/')
-        export $key=$val
-    done < <(aws lambda get-function --function-name $LAMBDA | jq -r '.Configuration.Environment.Variables | to_entries[] | [.key,.value] | @tsv')
-}
-
 function psaux() {
     PS=$(ps aux)
     HEAD=$(echo $PS | head -1)
     PROC=$(echo $PS | grep $1)
     echo $HEAD
     echo $PROC
+}
+
+function aws-env() {
+    LAMBDA=$1
+    while IFS=$'\t' read -r key val; do
+        key=$(echo $key | sed 's/^"\(.*\)"$/\1/')
+        export $key=$val
+    done < <(aws lambda get-function --function-name $LAMBDA | jq -r '.Configuration.Environment.Variables | to_entries[] | [.key,.value] | @tsv')
 }
 
 function refresh-dev() {
@@ -322,4 +322,15 @@ function set-difference () {
 
 function set-symmetric-difference() {
     sort $1 $2 | uniq -u
+}
+
+function countRequests() {
+    while read line; do
+        count=$(echo $line | cut -d ' ' -f1)
+        id=$(echo $line | cut -d ' ' -f2)
+        if [ ${#id} -ge 30 ]; then
+            email=$(curl -s -H "${AUTH}" https://api.test.parsyl.io/users/${id} | jq '.email')
+            echo $count $id $email
+        fi
+    done < <(cw tail /aws/lambda/APIHandler -b$1 | grep 'with token' | jq '.message' | tr -d '"' | cut -d ' ' -f4 | jwt | jq '.sub' | tr -d '"' | sort | uniq -c)
 }

@@ -102,6 +102,7 @@ in
       pkgsUnstable.emacs
       pkgsUnstable.transcribe
       pkgsUnstable.easyrsa
+      pkgsUnstable.asciinema
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
       pkgs.keepassxc
