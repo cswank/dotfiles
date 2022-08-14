@@ -86,18 +86,22 @@ in
   # enable sway window manager
   programs.sway = {
     enable = true;
-    wrapperFeatures.gtk = true;
+    #wrapperFeatures.gtk = true;
   };
   
   services.greetd = {
     enable = true;
+    vt = 2;
     settings = {
-      default_session = {
-        command = ''${config.services.greetd.package}/bin/agreety --cmd "${config.services.greetd.settings.initial_session.command}"'';
-      };
+      # Automatically login. I already entered a password to unlock the disk.
       initial_session = {
-        command = "/var/run/current-system/sw/bin/zsh -lc sway";
-        user = "layus";
+        command = "sway";
+        user = "craig";
+      };
+      default_session = {
+        command =
+          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --greeting 'Hoi!' --cmd sway";
+        user = "craig";
       };
     };
   };
