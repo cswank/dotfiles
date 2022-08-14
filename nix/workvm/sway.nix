@@ -88,4 +88,13 @@ in
     enable = true;
     wrapperFeatures.gtk = true;
   };
+  
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      default_session = {
+        command = "${pkgs.greetd.greetd}/bin/agreety --cmd sway";
+      };
+    };
+  };   
 }
