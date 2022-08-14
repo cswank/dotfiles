@@ -13,12 +13,9 @@ Host aurora
   Hostname aurora.local
 
 Host sprinklers
-    Hostname 192.168.1.7
+    Hostname 192.168.88.246
     User debian
 
-Host furnace.local
-    User pi
-
 Host brewery
-    Hostname 192.168.1.12
+    Hostname 192.168.8.222
     User pi

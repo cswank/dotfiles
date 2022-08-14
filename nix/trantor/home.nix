@@ -95,9 +95,16 @@ in
       pkgsUnstable.cryptsetup
       pkgsUnstable.slack
       pkgsUnstable.gnome.cheese
+      pkgsUnstable.plantuml
+      pkgsUnstable.gron
+      pkgsUnstable.rpi-imager
+      pkgsUnstable.winbox
+      pkgsUnstable.emacs
+      pkgsUnstable.transcribe
+      pkgsUnstable.easyrsa
+      pkgsUnstable.asciinema
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
-      pkgs.emacs
       pkgs.keepassxc
       pkgs.guake
       pkgs.silver-searcher

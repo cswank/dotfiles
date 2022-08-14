@@ -84,6 +84,7 @@
 ;; (global-set-key (kbd "C-c C-g r") 'go-play-buffer)
 ;; (global-set-key (kbd "C-c C-g p") 'go-switch-to-playground)
 ;; (global-set-key (kbd "C-c C-g n") 'go-create-playground)
+
 (global-set-key (kbd "C-c C-g q") 'sql-params)
 
 (provide 'my-go)
