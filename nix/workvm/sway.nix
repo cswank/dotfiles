@@ -91,10 +91,14 @@ in
   
   services.greetd = {
     enable = true;
-    settings = rec {
+    settings = {
       default_session = {
-        command = "${pkgs.greetd.greetd}/bin/agreety --cmd sway";
+        command = ''${config.services.greetd.package}/bin/agreety --cmd "${config.services.greetd.settings.initial_session.command}"'';
+      };
+      initial_session = {
+        command = "/var/run/current-system/sw/bin/zsh -lc sway";
+        user = "layus";
       };
     };
-  };   
+  };
 }
