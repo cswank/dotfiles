@@ -34,6 +34,9 @@ in {
       pkgsUnstable.gnupg
       pkgsUnstable.mosh
       pkgsUnstable.go
+      pkgsUnstable.awscli
+      pkgsUnstable.postgresql
+      pkgsUnstable.jq
     ];
 
     file = {

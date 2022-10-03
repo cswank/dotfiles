@@ -64,20 +64,19 @@
   (dotimes (i (- x 1)) (insert (format "$%d, " (1+ i))))
   (insert (format "$%d" x)))
 
-
-(defun go-create-playground ()
-  "Create a new temporary file with a skeletal Go application."
-  (interactive)
-  (let ((filename (concat (file-name-as-directory (make-temp-file "go-play-" t)) "main.go")))
-    (find-file filename)
-    (rename-buffer (generate-new-buffer-name "Go Playground"))
-    (insert (concat "package main\n\nimport (\n\t\"fmt\"\n)\n\nfunc main() {\n\tfmt.Println(\"This file is located in " filename "\")\n}"))
-    (save-buffer)
-    (previous-line)
-    (end-of-line)
-    (insert "\n\t")
-    (go-mode)
-    (shell-command "go mod init go-playground")))
+;; (defun go-create-playground ()
+;;   "Create a new temporary file with a skeletal Go application."
+;;   (interactive)
+;;   (let ((filename (concat (file-name-as-directory (make-temp-file "go-play-" t)) "main.go")))
+;;     (find-file filename)
+;;     (rename-buffer (generate-new-buffer-name "Go Playground"))
+;;     (insert (concat "package main\n\nimport (\n\t\"fmt\"\n)\n\nfunc main() {\n\tfmt.Println(\"This file is located in " filename "\")\n}"))
+;;     (save-buffer)
+;;     (previous-line)
+;;     (end-of-line)
+;;     (insert "\n\t")
+;;     (go-mode)
+;;     (shell-command "go mod init go-playground")))
 
 ;; (defun go-switch-to-playground ()
 ;;   "Switch to Go Playground buffer, creating if necessary."
@@ -90,6 +89,7 @@
 ;; (global-set-key (kbd "C-c C-g r") 'go-play-buffer)
 ;; (global-set-key (kbd "C-c C-g p") 'go-switch-to-playground)
 ;; (global-set-key (kbd "C-c C-g n") 'go-create-playground)
+
 (global-set-key (kbd "C-c C-g q") 'sql-params)
 
 (provide 'my-go)
