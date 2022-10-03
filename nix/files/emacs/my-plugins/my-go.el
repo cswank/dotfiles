@@ -6,6 +6,7 @@
 ;; which one??
 (require 'lsp-mode)
 (require 'edit-indirect)
+(require 'undo-tree)
 (add-hook 'go-mode-hook #'lsp)
 (require 'lsp-ui)
 
@@ -14,9 +15,13 @@
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
+(add-to-list 'undo-tree-incompatible-major-modes #'magit-status-mode)
+
 (setq lsp-prefer-flymake nil)
+(add-hook 'go-mode-hook 'undo-tree-mode)
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
 (add-hook 'go-mode-hook
           (lambda () (local-set-key (kbd "C-c '") #'edit-indirect-region)))
 
@@ -59,21 +64,20 @@
   (dotimes (i (- x 1)) (insert (format "$%d, " (1+ i))))
   (insert (format "$%d" x)))
 
-;; (defun go-create-playground ()
-;;   "Create a new temporary file with a skeletal Go application."
-;;   (interactive)
-;;   (let ((filename (concat (file-name-as-directory (make-temp-file "go-play-" t)) "main.go")))
-;;     (find-file filename)
-;;     (rename-buffer (generate-new-buffer-name "Go Playground"))
-;;     (insert (concat "package main\n\nimport (\n\t\"fmt\"\n)\n\nfunc main() {\n\tfmt.Println(\"This file is located in " filename "\")\n}"))
-;;     (save-buffer)
-;;     (previous-line)
-;;     (end-of-line)
-;;     (insert "\n\t")
-;;     (go-mode)
-;;     (shell-command "go mod init go-playground")))
 
-
+(defun go-create-playground ()
+  "Create a new temporary file with a skeletal Go application."
+  (interactive)
+  (let ((filename (concat (file-name-as-directory (make-temp-file "go-play-" t)) "main.go")))
+    (find-file filename)
+    (rename-buffer (generate-new-buffer-name "Go Playground"))
+    (insert (concat "package main\n\nimport (\n\t\"fmt\"\n)\n\nfunc main() {\n\tfmt.Println(\"This file is located in " filename "\")\n}"))
+    (save-buffer)
+    (previous-line)
+    (end-of-line)
+    (insert "\n\t")
+    (go-mode)
+    (shell-command "go mod init go-playground")))
 
 ;; (defun go-switch-to-playground ()
 ;;   "Switch to Go Playground buffer, creating if necessary."
