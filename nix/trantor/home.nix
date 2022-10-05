@@ -138,6 +138,7 @@ in
       ".zshrc".source = ../files/zshrc;
       ".gitignore".source = ../files/gitignore;
       ".ssh/config".source = ./files/ssh;
+      ".npmrc".source = ./files/npmrc;
       ".emacs.d" = {
         source = ../files/emacs;
         recursive = true;

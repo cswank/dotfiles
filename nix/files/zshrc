@@ -118,6 +118,8 @@ export EDITOR='emacsclient -nw'
 export MCLI_HOST='aurora.local:50051'
 export MCLI_REMOTE_SPEAKERS=true
 export PGPASSFILE=$HOME/.pgpass
+export PATH=$PATH:$HOME/.npm-packages/bin
+export NODE_PATH=$HOME/.npm-packages/lib/node_modules
 
 keychain $HOME/.ssh/id_rsa
 source $HOME/.keychain/$HOST-sh
