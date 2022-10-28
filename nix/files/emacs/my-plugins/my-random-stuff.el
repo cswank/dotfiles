@@ -43,6 +43,9 @@
 (put 'narrow-to-region 'disabled nil)
 (setq-default indent-tabs-mode nil)
 
+;; keepasscx
+(require 'keepass-mode)
+
 ;; make *scratch* buffer org
 (setq initial-major-mode 'org-mode)
 

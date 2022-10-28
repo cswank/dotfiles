@@ -235,7 +235,7 @@ function notes() {
 }
 
 function pw() {
-    keepassxc-cli clip ~/Documents/Passwords.kdbx $1
+    keepassxc-cli clip ~/Documents/Passwords.kdbx $1 0
 }
 
 function lspw() {

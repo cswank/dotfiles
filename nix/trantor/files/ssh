@@ -5,7 +5,7 @@ Host data-science
 
 Host redash
   User ubuntu
-  Hostname 10.0.9.247
+  Hostname 10.0.10.67
   IdentityFile /home/craig/.ssh/parsyl_admin_rsa
 
 Host aurora
