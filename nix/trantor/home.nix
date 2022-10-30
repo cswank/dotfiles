@@ -105,6 +105,7 @@ in
       pkgsUnstable.firefox
       pkgsUnstable.databricks-sql-cli
       pkgsUnstable.keepassxc
+      pkgsUnstable.terraform-ls
       pkgs.google-chrome
       pkgs.zip
       pkgs.gnome3.dconf

@@ -13,6 +13,10 @@
 (add-hook 'go-mode-hook 'flymake-mode)
 (add-hook 'go-mode-hook 'company-mode)
 
+(defun eglot-format-buffer-on-save ()
+  (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+(add-hook 'go-mode-hook #'eglot-format-buffer-on-save)
+
 (add-hook 'go-mode-hook
           (lambda () (local-set-key (kbd "C-c '") #'edit-indirect-region)))
 
