@@ -43,6 +43,9 @@
 (put 'narrow-to-region 'disabled nil)
 (setq-default indent-tabs-mode nil)
 
+;; keepasscx
+(require 'keepass-mode)
+
 ;; make *scratch* buffer org
 (setq initial-major-mode 'org-mode)
 
@@ -92,18 +95,6 @@
 (global-font-lock-mode 1)
 
 (show-paren-mode 1)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Terraform
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook 'terraform-mode-hook #'terraform-format-on-save-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Undo tree (make sure it is installed with
-;;package-list-packages)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'undo-tree)
-(global-undo-tree-mode)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;dockerfile mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

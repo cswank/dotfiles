@@ -64,21 +64,21 @@ in
       };
     };
 
-    firefox = {
-      enable = true;
-      profiles = {
-        myuser = {
-          id = 0;
-          settings = {
-            "media.ffmpeg.vaapi.enabled" = true;
-            "media.ffvpx.enabled" = false;
-            "media.av1.enabled" = false;
-            "gfx.webrender.all" = true;
-            "layers.acceleration.force-enabled" = true;
-          };
-        };
-      };
-    };
+    # firefox = {
+    #   enable = true;
+    #   profiles = {
+    #     myuser = {
+    #       id = 0;
+    #       settings = {
+    #         "media.ffmpeg.vaapi.enabled" = true;
+    #         "media.ffvpx.enabled" = false;
+    #         "media.av1.enabled" = false;
+    #         "gfx.webrender.all" = true;
+    #         "layers.acceleration.force-enabled" = true;
+    #       };
+    #     };
+    #   };
+    # };
   };
 
   nixpkgs = {
@@ -89,8 +89,7 @@ in
     username = "craig";
     homeDirectory = "/home/craig";
     packages = [
-      pkgsUnstable.tfswitch
-      pkgsUnstable.google-chrome
+      pkgsUnstable.tfswitch      
       pkgsUnstable.nyxt
       pkgsUnstable.cryptsetup
       pkgsUnstable.slack
@@ -103,16 +102,20 @@ in
       pkgsUnstable.transcribe
       pkgsUnstable.easyrsa
       pkgsUnstable.asciinema
+      pkgsUnstable.firefox
+      pkgsUnstable.databricks-sql-cli
+      pkgsUnstable.keepassxc
+      pkgsUnstable.terraform-ls
+      pkgs.google-chrome
+      pkgs.zip
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
-      pkgs.keepassxc
       pkgs.guake
       pkgs.silver-searcher
       pkgs.xclip
       pkgs.gh
       pkgs.gcc
       pkgs.gnumake
-      pkgs.firefox
       pkgs.git
       pkgs.zoom
       pkgs.zsh
@@ -138,6 +141,7 @@ in
       ".zshrc".source = ../files/zshrc;
       ".gitignore".source = ../files/gitignore;
       ".ssh/config".source = ./files/ssh;
+      ".npmrc".source = ./files/npmrc;
       ".emacs.d" = {
         source = ../files/emacs;
         recursive = true;
