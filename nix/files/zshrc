@@ -166,32 +166,29 @@ function aws-env() {
 }
 
 function refresh-dev() {
-    refresh-env 'dev'
+    refresh-env 'dev' 'https://api.dev.parsyl.io'
 }
 
 function refresh-test() {
-    refresh-env 'test'
+    refresh-env 'test' 'https://api.test.parsyl.io'
 }
 
 function refresh-test2() {
-    refresh-env 'test2'
+    refresh-env 'test2' 'https://api.test2.parsyl.io'
 }
 
 function refresh-prod() {
-    refresh-env 'prod'
+    refresh-env 'prod' 'https://api.parsyl.io'
 }
 
 function refresh-env() {
     ENV=$1
+    HOST=$2
     PTH="$HOME/.parsyl/login/$ENV.json.gpg"
     BODY=$(gpg --decrypt $PTH)
     USR=$(echo $BODY | jq '.userId')
-    ENVPTH=".${ENV}"
-    if [ "$ENV" = "prod" ]; then
-        ENVPTH=""
-    fi
 
-    RESP=$(curl -s "https://api${ENVPTH}.parsyl.io/token?refresh=true" -d $BODY)
+    RESP=$(curl -s "${HOST}/token?refresh=true" -d $BODY)
     OUT=$(echo $RESP | jq ". += {\"userId\":$USR}")
     PTH="$HOME/.parsyl/login/$ENV.json"
     echo $OUT > $PTH

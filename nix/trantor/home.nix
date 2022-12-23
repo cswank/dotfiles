@@ -106,6 +106,8 @@ in
       pkgsUnstable.databricks-sql-cli
       pkgsUnstable.keepassxc
       pkgsUnstable.terraform-ls
+      pkgsUnstable._1password
+      pkgsUnstable.texlive.combined.scheme-full
       pkgs.google-chrome
       pkgs.zip
       pkgs.gnome3.dconf
