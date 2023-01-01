@@ -250,6 +250,17 @@ function upload-latest-raw() {
     upload-raw $ENV $DEV /tmp/$DEV.zip $GW
 }
 
+function upload-all-raw() {
+    ENV=$1
+    DEV=$2
+    GW=$3
+
+    while read FILE; do
+        aws s3 cp s3://parsyl-raw-device-data-$ENV-useast1/$FILE /tmp/$DEV.zip > /dev/null
+        upload-raw $ENV $DEV /tmp/$DEV.zip $GW
+    done < <(aws s3 ls --recursive s3://parsyl-raw-device-data-$ENV-useast1/$DEV | sort | awk '{print $4}')
+}
+
 function upload-raw() {
     ENV=$1
     DEV=$2
