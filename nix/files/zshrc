@@ -166,57 +166,68 @@ function aws-env() {
 }
 
 function refresh-dev() {
-    refresh-env 'dev' 'https://api.dev.parsyl.io'
+    refresh-env 'dev' 'https://api.dev.parsyl.io' $1
 }
 
 function refresh-test() {
-    refresh-env 'test' 'https://api.test.parsyl.io'
+    refresh-env 'test' 'https://api.test.parsyl.io' $1
 }
 
 function refresh-test2() {
-    refresh-env 'test2' 'https://api.test2.parsyl.io'
+    refresh-env 'test2' 'https://api.test2.parsyl.io' $1
 }
 
 function refresh-prod() {
-    refresh-env 'prod' 'https://api.parsyl.io'
+    refresh-env 'prod' 'https://api.parsyl.io' $1
 }
 
 function refresh-env() {
     ENV=$1
-    HOST=$2
-    PTH="$HOME/.parsyl/login/$ENV.json.gpg"
+    HST=$2
+    USR=$3
+    if [ -z "$USR" ]; then
+        PTH="$HOME/.parsyl/login/$ENV.json.gpg"
+        TMPPTH="$HOME/.parsyl/login/$ENV.json"
+    else
+        PTH="$HOME/.parsyl/login/$ENV.$USR.json.gpg"
+        TMPPTH="$HOME/.parsyl/login/$ENV.$USR.json"
+    fi
     BODY=$(gpg --decrypt $PTH)
-    USR=$(echo $BODY | jq '.userId')
-
-    RESP=$(curl -s "${HOST}/token?refresh=true" -d $BODY)
-    OUT=$(echo $RESP | jq ". += {\"userId\":$USR}")
-    PTH="$HOME/.parsyl/login/$ENV.json"
-    echo $OUT > $PTH
-    gpg --encrypt -r $GPG_USERNAME $PTH
-    rm $PTH
+    USRID=$(echo $BODY | jq '.userId')
+    RESP=$(curl -s "${HST}/token?refresh=true" -d $BODY)
+    OUT=$(echo $RESP | jq ". += {\"userId\":$USRID}")
+    echo $OUT > $TMPPTH
+    gpg --encrypt -r $GPG_USERNAME $TMPPTH
+    rm $TMPPTH
     export TOKEN=$(echo $RESP | jq '.accessToken' | tr -d '"')
     export AUTH="Authorization: Bearer $TOKEN"
 }
 
 function dev-token() {
-    use-env 'dev'
+    use-env 'dev' $1
 }
 
 function test-token() {
-    use-env 'test'
+    use-env 'test' $1
 }
 
 function test2-token() {
-    use-env 'test2'
+    use-env 'test2' $1
 }
 
 function prod-token() {
-    use-env 'prod'
+    use-env 'prod' $1
 }
 
 function use-env () {
     ENV=$1
-    PTH="$HOME/.parsyl/login/$ENV.json.gpg"
+    USR=$2
+    if [ -z "$USR" ]; then
+        PTH="$HOME/.parsyl/login/$ENV.json.gpg"
+    else
+        PTH="$HOME/.parsyl/login/$ENV.$USR.json.gpg"
+    fi
+    
     BODY=$(gpg --decrypt $PTH)
     export TOKEN=$(echo $BODY | jq '.accessToken' | tr -d '"')
     export AUTH="Authorization: Bearer $TOKEN"

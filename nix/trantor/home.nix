@@ -9,9 +9,7 @@ let
   # Some bash script
     echo Hi
   '';
-in
-
-{
+in {
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -108,6 +106,9 @@ in
       pkgsUnstable.terraform-ls
       pkgsUnstable._1password
       pkgsUnstable.texlive.combined.scheme-full
+      pkgsUnstable.rofi
+      pkgsUnstable.lilypond-unstable-with-fonts
+      pkgsUnstable.simplescreenrecorder
       pkgs.google-chrome
       pkgs.zip
       pkgs.gnome3.dconf
@@ -136,6 +137,7 @@ in
     ];
 
     file = {
+      ".config/rofi/config.rasi".source = ../files/rofi;
       ".config/i3status/config".source = ../files/i3status;
       ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
       ".gnupg/gpg-agent.conf".source = ../files/gpg-agent.conf;

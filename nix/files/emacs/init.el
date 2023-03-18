@@ -31,6 +31,7 @@
 (load-file "~/.emacs.d/my-plugins/my-org.el")
 (load-file "~/.emacs.d/my-plugins/my-python.el")
 (load-file "~/.emacs.d/my-plugins/my-sql.el")
+(load-file "~/.emacs.d/my-plugins/my-tab.el")
 (load-file "~/.emacs.d/my-plugins/my-terminal.el")
 (load-file "~/.emacs.d/my-plugins/my-weather.el")
 (load-file "~/.emacs.d/my-plugins/my-web.el")

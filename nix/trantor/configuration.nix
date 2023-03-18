@@ -57,11 +57,8 @@
     keyMap = "us";
   };
 
-
-
   services = {
     xserver = {
-
       enable = true;
       layout = "us";
       autoRepeatDelay = 200;
@@ -139,7 +136,6 @@
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         vaapiVdpau
         libvdpau-va-gl
-
         # vaapiIntel
         # libvdpau
         # libvdpau-va-gl
