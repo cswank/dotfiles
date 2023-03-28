@@ -30,6 +30,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; example
+;; query-replace-regexp
+;;  "./\(.+\).json" → "./\,(to-camelcase).json"
+;; will find strings within a quote like "./this_and_that.json"
+;; and change it to "./ThisAndThat.json"
+(defun to-camelcase ()
+  "use query-replace-regexp with a replacment expresion like '\,(to-camelcase)'"
+  (string-inflection-pascal-case-function (match-string 1))
+)
+
 (defun abv (a b)
   "alcohol by volume"
   (* (- a b) 131.25))
