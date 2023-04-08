@@ -101,7 +101,6 @@ in {
       pkgsUnstable.easyrsa
       pkgsUnstable.asciinema
       pkgsUnstable.firefox
-      pkgsUnstable.databricks-sql-cli
       pkgsUnstable.keepassxc
       pkgsUnstable.terraform-ls
       pkgsUnstable._1password
