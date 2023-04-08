@@ -20,13 +20,13 @@
                     "heat": {
                         "type": "gpio",
                         "platform": "rpi",
-                        "pin": "11",
+                        "pin": "29",
                         "direction": "out"
                     },
                     "cool": {
                         "type": "gpio",
                         "platform": "rpi",
-                        "pin": "13",
+                        "pin": "31",
                         "direction": "out"
                     },
                     "fan": {
@@ -47,9 +47,7 @@
             "args": {
                 "jobs": [
                     "0   22   *  *  *  heat home to 66 F",
-                    "0   6    *  *  *  heat home to 72 F",
-                    "0   8    *  *  *  heat home to 66 F",
-                    "0   16    *  *  *  heat home to 72 F"
+                    "0   6    *  *  *  heat home to 72 F"
                 ]
             }
         }
