@@ -19,13 +19,13 @@
                     "heat": {
                         "type": "gpio",
                         "platform": "rpi",
-                        "pin": "11",
+                        "pin": "29",
                         "direction": "out"
                     },
                     "cool": {
                         "type": "gpio",
                         "platform": "rpi",
-                        "pin": "13",
+                        "pin": "31",
                         "direction": "out"
                     },
                     "fan": {
@@ -46,9 +46,7 @@
             "args": {
                 "jobs": [
                     "0   6    *  *  *  cool home to 78 F",
-                    "0   8    *  *  *  turn off furnace",
-                    "0   16    *  *  *  cool home to 78 F",
-                    "0   22   *  *  *  turn off furnace"
+                    "0   8    *  *  *  turn off furnace"
                 ]
             }
         }
