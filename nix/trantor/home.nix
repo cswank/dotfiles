@@ -88,7 +88,6 @@ in {
     homeDirectory = "/home/craig";
     packages = [
       pkgsUnstable.tfswitch      
-      pkgsUnstable.nyxt
       pkgsUnstable.cryptsetup
       pkgsUnstable.slack
       pkgsUnstable.gnome.cheese
