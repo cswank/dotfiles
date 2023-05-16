@@ -32,3 +32,14 @@
       (delete-region (region-beginning) (region-end))
       (goto-char pos)
       (insert formatted-text))))
+
+(defun load-sql ()
+  "Prompt user to pick a choice from a list."
+  (interactive)
+  (let ((choices '("api" "cache" "notifications" "messaging")))
+    (setq db (completing-read "Select db:" choices )))
+  (when db
+    (let ((choices '("dev" "test" "prod")))
+      (setq env (completing-read (format "Select environment for %s:" db) choices )))
+    (when env
+      (load-file (format "~/.parsyl/%s/%s.el" db env)))))

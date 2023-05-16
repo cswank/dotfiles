@@ -108,6 +108,7 @@ in {
       pkgsUnstable.rofi
       pkgsUnstable.lilypond-unstable-with-fonts
       pkgsUnstable.simplescreenrecorder
+      pkgsUnstable.nodejs
       pkgs.google-chrome
       pkgs.zip
       pkgs.gnome3.dconf
