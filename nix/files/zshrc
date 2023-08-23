@@ -240,6 +240,30 @@ function use-env () {
     export AUTH="Authorization: Bearer $TOKEN"
 }
 
+function m2m-dev() {
+    m2m-env 'dev' 'https://api.dev.parsyl.io'
+}
+
+function m2m-test() {
+    m2m-env 'test' 'https://api.test.parsyl.io'
+}
+
+function m2m-prod() {
+    m2m-env 'prod' 'https://api.parsyl.io'
+}
+
+function m2m-env () {
+    ENV=$1
+    HST=$2
+    PTH="$HOME/.parsyl/login/m2m.$ENV.json.gpg"
+
+    BODY=$(gpg --decrypt $PTH)
+    RESP=$(curl -s "${HST}/login" -d $BODY)
+
+    export TOKEN=$(echo $RESP | jq '.accessToken' | tr -d '"')
+    export AUTH="Authorization: Bearer $TOKEN"
+}
+
 ACME="$HOME/.acme.sh/acme.sh.env"
 if test -f "$ACME"; then
   . $ACME

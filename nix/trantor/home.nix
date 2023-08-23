@@ -109,7 +109,6 @@ in {
       pkgsUnstable.simplescreenrecorder
       pkgsUnstable.nodejs
       pkgsUnstable.duckdb
-      pkgsUnstable.cobang
       pkgsUnstable.thrift
       pkgs.gnuplot
       pkgs.google-chrome
