@@ -14,7 +14,7 @@
 (global-set-key "\C-cr" 'query-replace)
 (global-set-key "\C-cR" 'query-replace-regexp)
 (global-set-key "\C-cw" 'browse-kill-ring)
-(global-set-key "\C-cs" 'load-sql)
+(global-set-key "\C-cq" 'load-sql)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;multiple-cursors mode

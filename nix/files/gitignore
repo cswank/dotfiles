@@ -24,3 +24,5 @@ local.*.env
 
 # .tfvars files
 *.tfvars
+
+*go.work*

@@ -108,6 +108,9 @@ in {
       pkgsUnstable.lilypond-unstable-with-fonts
       pkgsUnstable.simplescreenrecorder
       pkgsUnstable.nodejs
+      pkgsUnstable.duckdb
+      pkgsUnstable.thrift
+      pkgs.gnuplot
       pkgs.google-chrome
       pkgs.zip
       pkgs.gnome3.dconf
