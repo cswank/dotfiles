@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  pkgsUnstable = import <nixpkgs-unstable> {};
+  pkgsUnstable = import <unstable> {};
 in {
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -25,7 +25,7 @@ in {
 
   home = {
     username = "craig";
-    homeDirectory = "/home/craig";
+    homeDirectory = "/Users/craig";
     packages = [
       pkgsUnstable.tfswitch
       pkgsUnstable.emacs

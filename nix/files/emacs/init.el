@@ -35,7 +35,6 @@
 (load-file "~/.emacs.d/my-plugins/my-terminal.el")
 (load-file "~/.emacs.d/my-plugins/my-weather.el")
 (load-file "~/.emacs.d/my-plugins/my-web.el")
-(load-file "~/.emacs.d/my-plugins/my-copilot.el")
 (when (string= (getenv "EMACS_EMAIL") "true")
   (load-file "~/.emacs.d/my-plugins/my-email.el"))
 (when (not (string= (getenv "SLACK_CLIENT_ID") "nil"))

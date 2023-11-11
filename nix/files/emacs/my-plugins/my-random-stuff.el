@@ -77,9 +77,9 @@
 ;; edit s3 files
 (require 's3ed)
 (s3ed-mode)
-(global-set-key (kbd "C-c s f") 's3ed-find-file)
-(global-set-key (kbd "C-c s s") 's3ed-save-file)
-(global-set-key (kbd "C-c s p") 's3ed-set-profile)
+;;(global-set-key (kbd "C-c s f") 's3ed-find-file)
+;;(global-set-key (kbd "C-c s s") 's3ed-save-file)
+;;(global-set-key (kbd "C-c s p") 's3ed-set-profile)
 
 ;; recentf
 (recentf-mode 1)
