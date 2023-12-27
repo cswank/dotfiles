@@ -104,8 +104,6 @@ if [ "$(uname)" = "Linux" ]; then
     alias pbcopy="xclip -sel c"
 fi
 
-if [ -e /Users/craigswank/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/craigswank/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
 # For work laptop:
 # Nix
 # if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
