@@ -18,7 +18,7 @@
                 "homekit_pin": "68831095",
                 "pins": {
                     "heat": {
-                        "type": "gpio",
+                      "type": "gpio",
                         "platform": "rpi",
                         "pin": "29",
                         "direction": "out"

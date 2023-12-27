@@ -25,6 +25,7 @@ in {
   programs = {
     home-manager = {
       enable = true;
+      path = https://github.com/nix-community/home-manager/archive/master.tar.gz;
     };
 
 	  gnome-terminal = {
@@ -110,6 +111,9 @@ in {
       pkgsUnstable.nodejs
       pkgsUnstable.duckdb
       pkgsUnstable.thrift
+      pkgsUnstable.rpi-imager
+      pkgsUnstable.kicad
+      pkgsUnstable.zig
       pkgs.gnuplot
       pkgs.google-chrome
       pkgs.zip

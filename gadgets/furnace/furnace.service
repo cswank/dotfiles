@@ -1,4 +1,3 @@
-cat /etc/systemd/system/furnace.service 
 [Unit]
 Description=Furnace
 
