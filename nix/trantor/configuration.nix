@@ -1,8 +1,8 @@
 # Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -11,11 +11,11 @@
       ./i3.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
+      grub.device = "nodev";
     };
     resumeDevice = "/dev/nvme0n1p2";
   };
@@ -24,6 +24,8 @@
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
+
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   time.timeZone = "America/Denver";
 
@@ -38,7 +40,7 @@
     };
 
     networkmanager.enable = true;
-    networkmanager.packages = with pkgs; [ gnome3.networkmanager-openvpn ];
+    #networkmanager.options = with pkgs; [ gnome3.networkmanager-openvpn ];
 
     firewall = {
       # 5353 for Avahi
@@ -61,6 +63,7 @@
     xserver = {
       enable = true;
       layout = "us";
+      dpi = 192;
       autoRepeatDelay = 200;
       autoRepeatInterval = 25;
       xkbOptions = "ctrl:swapcaps";
@@ -112,10 +115,12 @@
 
     openssh = {
       enable = true;
-      passwordAuthentication = false;
+      settings = {
+        PasswordAuthentication = false;
+      };
     };
 
-    wakeonlan.interfaces = [{ interface = "enp2s0"; method = "magicpacket"; }];
+    #wakeonlan.interfaces = [{ interface = "enp2s0"; method = "magicpacket"; }];
   };
 
   sound.enable = true;
@@ -156,6 +161,7 @@
     };
     
     systemPackages = with pkgs; [
+      git
       avahi
       nssmdns
       mosh
@@ -181,47 +187,8 @@
     ];
   };
 
-  fonts = {
-    fonts = with pkgs; [
-      corefonts
-      dejavu_fonts
-      dina-font
-      fira-code
-      fira-code-symbols
-      font-awesome-ttf
-      liberation_ttf
-      material-design-icons
-      mplus-outline-fonts
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      powerline-fonts
-      proggyfonts
-      roboto
-      siji
-      source-code-pro
-      source-sans-pro
-      source-serif-pro
-      terminus_font
-      ubuntu_font_family
-    ];
-
-    fontconfig.defaultFonts = {
-      monospace = [
-        "DejaVu Sans Mono"
-      ];
-      sansSerif = [
-        "DejaVu Sans"
-      ];
-      serif = [
-        "DejaVu Serif"
-      ];
-    };
-
-    fontconfig.dpi = 192;
-  };
-
   programs = {
+    zsh.enable = true;
     dconf.enable = true;
     nm-applet.enable = true;
 
@@ -273,11 +240,11 @@ cbI1NAbUgVDqp+DRdfvZkgYKryjTWd/0+1fS8X1bBZVWzl7eirNVnHbSH2ZDpNuY
 zPW4CXXvhLmE02TA9/HeCw3KEHIwicNuEfw=
 -----END CERTIFICATE-----" ];
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.05"; # Did you read the comment?
+  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
+  # and migrated your data accordingly.
+  #
+  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  system.stateVersion = "23.11"; # Did you read the comment?
+
 }
+

@@ -66,7 +66,7 @@ in
       visible-name = "Default";
     };
 
-    "org/gnome/terminal/legacy/profiles:/:cyplo" = {
+    "org/gnome/terminal/legacy/profiles:/:53d98703-ad0c-4092-850e-3dbea0422cd8" = {
       audible-bell = true;
       background-color = "#00002B2B3636";
       backspace-binding = "ascii-delete";

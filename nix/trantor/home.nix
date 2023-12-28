@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  pkgsUnstable = import <nixpkgs-unstable> {};
+  pkgsUnstable = import <unstable> {};
 
   inherit (lib.generators) toINI;
 
@@ -32,7 +32,7 @@ in {
       enable = true;
       showMenubar = false;
       profile = {
-        cyplo = {
+         "53d98703-ad0c-4092-850e-3dbea0422cd8" = {
           visibleName = "peninsula";
           default = true;
           font = "Fira Code Nerd Font";
@@ -114,11 +114,10 @@ in {
       pkgsUnstable.rpi-imager
       pkgsUnstable.kicad
       pkgsUnstable.zig
+      #pkgsUnstable.gnome3.dconf
+      pkgsUnstable.gnome3.gnome-terminal
       pkgs.gnuplot
-      pkgs.google-chrome
       pkgs.zip
-      pkgs.gnome3.dconf
-      pkgs.gnome3.gnome-terminal
       pkgs.guake
       pkgs.silver-searcher
       pkgs.xclip
@@ -126,7 +125,6 @@ in {
       pkgs.gcc
       pkgs.gnumake
       pkgs.git
-      pkgs.zoom
       pkgs.zsh
       pkgs.keychain
       pkgs.openvpn
@@ -136,7 +134,7 @@ in {
       pkgs.feh
       pkgs.cifs-utils
       pkgs.ispell
-      pkgs.networkmanager_openvpn
+      #pkgs.networkmanager_openvpn
       pkgs.shutter
       pkgs.pinentry-curses
       pkgs.graphviz
