@@ -51,8 +51,8 @@ in
     };
 
     "org/gnome/terminal/legacy/profiles:" = {
-      default = "cyplo";
-      list = [ "cyplo" ];
+      default = "53d98703-ad0c-4092-850e-3dbea0422cd8";
+      list = [ "53d98703-ad0c-4092-850e-3dbea0422cd8" ];
     };
 
     "org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9" = {
