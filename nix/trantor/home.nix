@@ -25,7 +25,7 @@ in {
   programs = {
     home-manager = {
       enable = true;
-      path = https://github.com/nix-community/home-manager/archive/master.tar.gz;
+      path = https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz;
     };
 
 	  gnome-terminal = {
@@ -35,7 +35,7 @@ in {
          "53d98703-ad0c-4092-850e-3dbea0422cd8" = {
           visibleName = "peninsula";
           default = true;
-          font = "Fira Code Nerd Font";
+          #font = "Fira Code Nerd Font";
           showScrollbar = false;
           colors = {
             foregroundColor = "#838394949696";
@@ -114,6 +114,7 @@ in {
       pkgsUnstable.rpi-imager
       pkgsUnstable.kicad
       pkgsUnstable.zig
+      pkgsUnstable.fzf
       #pkgsUnstable.gnome3.dconf
       pkgs.gnome3.gnome-terminal
       pkgs.gnuplot
