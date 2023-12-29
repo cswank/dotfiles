@@ -200,6 +200,42 @@
     ];
   };
 
+  fonts = {
+    packages = with pkgs; [
+      corefonts
+      dejavu_fonts
+      dina-font
+      fira-code
+      fira-code-symbols
+      liberation_ttf
+      material-design-icons
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      powerline-fonts
+      proggyfonts
+      roboto
+      siji
+      source-code-pro
+      source-sans-pro
+      source-serif-pro
+      terminus_font
+      ubuntu_font_family
+    ];
+
+    fontconfig.defaultFonts = {
+      monospace = [
+        "DejaVu Sans Mono"
+      ];
+      sansSerif = [
+        "DejaVu Sans"
+      ];
+      serif = [
+        "DejaVu Serif"
+      ];
+    };
+  };
+
   programs = {
     zsh.enable = true;
     dconf.enable = true;
