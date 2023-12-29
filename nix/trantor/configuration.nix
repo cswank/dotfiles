@@ -27,6 +27,19 @@
 
   systemd.services.NetworkManager-wait-online.enable = false;
 
+  systemd.services.usbwake = {
+    enable = true;
+    description = "enable wake from usb devices";
+    unitConfig = {
+      Type = "simple";
+    };
+    script = ''
+    echo enabled > /sys/bus/usb/devices/usb1/power/wakeup
+    echo enabled > /sys/bus/usb/devices/usb2/power/wakeup
+    '';
+    wantedBy = [ "multi-user.target" ];
+  };
+
   time.timeZone = "America/Denver";
 
   networking = {
