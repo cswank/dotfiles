@@ -1,0 +1,9 @@
+[Unit]
+Description=Thermostat
+
+[Service]
+WorkingDirectory=/home/craig
+ExecStart=/usr/local/bin/thermostat -season winter
+
+[Install]
+WantedBy=multi-user.target

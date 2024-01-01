@@ -17,6 +17,7 @@
       efi.canTouchEfiVariables = true;
       grub.device = "nodev";
     };
+    kernelPackages = pkgs.linuxPackages_latest;
     resumeDevice = "/dev/nvme0n1p2";
   };
 
@@ -48,7 +49,13 @@
     useNetworkd = true;
 
     interfaces = {
-      enp2s0.useDHCP = false;
+      enp2s0 = {
+        useDHCP = false;
+        wakeOnLan = {
+          enable = true;
+          policy = ["magic"];
+        };
+      };
       wlp3s0.useDHCP = false;
     };
 
@@ -132,8 +139,6 @@
         PasswordAuthentication = false;
       };
     };
-
-    #wakeonlan.interfaces = [{ interface = "enp2s0"; method = "magicpacket"; }];
   };
 
   sound.enable = true;

@@ -115,7 +115,8 @@ in {
       pkgsUnstable.kicad
       pkgsUnstable.zig
       pkgsUnstable.fzf
-      #pkgsUnstable.gnome3.dconf
+      pkgsUnstable.go
+      pkgsUnstable.jq
       pkgs.gnome3.gnome-terminal
       pkgs.gnuplot
       pkgs.zip
