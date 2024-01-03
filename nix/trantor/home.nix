@@ -117,6 +117,7 @@ in {
       pkgsUnstable.fzf
       pkgsUnstable.go
       pkgsUnstable.jq
+      pkgsUnstable.awscli2
       pkgs.gnome3.gnome-terminal
       pkgs.gnuplot
       pkgs.zip

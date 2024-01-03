@@ -17,7 +17,16 @@
       efi.canTouchEfiVariables = true;
       grub.device = "nodev";
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_1.override {
+      argsOverride = rec {
+        src = pkgs.fetchurl {
+          url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+          sha256 = "7e3d2694d18ce502068cc88a430da809abbd17d0773268524ebece442612b541";
+        };
+        version = "6.1.69";
+        modDirVersion = "6.1.69";
+      };
+    });
     resumeDevice = "/dev/nvme0n1p2";
   };
 

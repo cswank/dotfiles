@@ -70,7 +70,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z zsh-syntax-highlighting history fzf)
+plugins=(git z history fzf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -125,6 +125,7 @@ export MCLI_REMOTE_SPEAKERS=true
 export PGPASSFILE=$HOME/.pgpass
 export PATH=$PATH:$HOME/.npm-packages/bin
 export NODE_PATH=$HOME/.npm-packages/lib/node_modules
+export PARSYL_XRAY=false
 
 keychain $HOME/.ssh/id_ed25519
 source $HOME/.keychain/$HOST-sh
@@ -191,19 +192,15 @@ function refresh-env() {
     HST=$2
     USR=$3
     if [ -z "$USR" ]; then
-        PTH="$HOME/.parsyl/login/$ENV.json.gpg"
-        TMPPTH="$HOME/.parsyl/login/$ENV.json"
+        PTH="$HOME/.parsyl/login/$ENV.json"
     else
-        PTH="$HOME/.parsyl/login/$ENV.$USR.json.gpg"
-        TMPPTH="$HOME/.parsyl/login/$ENV.$USR.json"
+        PTH="$HOME/.parsyl/login/$ENV.$USR.json"
     fi
-    BODY=$(gpg --decrypt $PTH)
+    BODY=$(cat $PTH)
     USRID=$(echo $BODY | jq '.userId')
     RESP=$(curl -s "${HST}/token?refresh=true" -d $BODY)
     OUT=$(echo $RESP | jq ". += {\"userId\":$USRID}")
-    echo $OUT > $TMPPTH
-    gpg --encrypt -r $GPG_USERNAME $TMPPTH
-    rm $TMPPTH
+    echo $OUT > $PTH
     export TOKEN=$(echo $RESP | jq '.accessToken' | tr -d '"')
     export AUTH="Authorization: Bearer $TOKEN"
 }
@@ -228,12 +225,12 @@ function use-env () {
     ENV=$1
     USR=$2
     if [ -z "$USR" ]; then
-        PTH="$HOME/.parsyl/login/$ENV.json.gpg"
+        PTH="$HOME/.parsyl/login/$ENV.json"
     else
-        PTH="$HOME/.parsyl/login/$ENV.$USR.json.gpg"
+        PTH="$HOME/.parsyl/login/$ENV.$USR.json"
     fi
     
-    BODY=$(gpg --decrypt $PTH)
+    BODY=$(cat $PTH)
     export TOKEN=$(echo $BODY | jq '.accessToken' | tr -d '"')
     export AUTH="Authorization: Bearer $TOKEN"
 }
@@ -253,9 +250,9 @@ function m2m-prod() {
 function m2m-env () {
     ENV=$1
     HST=$2
-    PTH="$HOME/.parsyl/login/m2m.$ENV.json.gpg"
+    PTH="$HOME/.parsyl/login/m2m.$ENV.json"
 
-    BODY=$(gpg --decrypt $PTH)
+    BODY=$(cat $PTH)
     RESP=$(curl -s "${HST}/login" -d $BODY)
 
     export TOKEN=$(echo $RESP | jq '.accessToken' | tr -d '"')
