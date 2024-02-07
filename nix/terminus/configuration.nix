@@ -1,39 +1,27 @@
 # Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./i3.nix
-      <home-manager/nixos>
     ];
-
-  environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
 
   nixpkgs.config.allowUnfree = true;
 
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "terminus";
   time.timeZone = "America/Denver";
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.enp0s10.useDHCP = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
@@ -77,21 +65,15 @@
       };
     };
 
-    wakeonlan.interfaces = [{ interface = "enp0s10"; method = "magicpacket"; }];
   };
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  programs.zsh.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.craig = {
+    initialPassword = "pw123";
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [ "wheel" "networkmanager" "audio" "dialout" ];
@@ -102,51 +84,20 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0wI0DmBLKI4uNo1a6KrNkU1I9CXZqWpsH4wBmk3AxC1mOP1iYOHcED47Fl0ZSJqR9Ea5K3EUQpTXhRQlSdThdhRnKvO+wjdtqux69ijIf53PhRNmqy5yMTWWTCxJ5aOxTR2HN/Pxe294za1W2nNdSRZmVtqlDwSvrEc4cwxJrLYfrcQS0MEwVkjnIJaFCpbihpSB5/ROvKLVKWw4iNlA3ed7//s366Wopck6aTlrhkcMaq1V0TKyP26q8EWT34h3E6i8V9Q2rV9ehlS26UK0ApW1nphF1pccnagYUBIK6IWs04PH2BgAhe8315Wj9EkjhW/JWEZxyj1+w9qKwGWbP craigswank@Craigs-MacBook-Pro.local"
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtGCJvFD4OO5d/u/kVm5pWaCSZ6s4ti3IktnK4KDAgIUH9Dh0tAk0kh5g1SYi3yiQ33CE3OpAxKbJ7U0+f4qyqT5B5D3AZ2LtX6YqitT0S0loYdipJ0/eggkUADvlIYU9M0RYra7Pb5xqXjRmxiFQTVT8Tphkt3nlRIysoERoKSJE7TYD2Wi4XmM3PzP2fO4ulV+xaVwmRydn7GXtqHE9KVDZXwUU89B5CLbpK0+u2AeZ9K2PSKA1NLMIJ/LOv7/MjabV3ZSCNkfaG2zw9RarSh48qpqNT3+V2VDDk5CoojIaUkYwBX7gZcYEWdcBicfzzBvLc1kml1A7QvWLE/O/F craigswank@Craigs-MacBook-Pro.local"
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZqIeMUlW9zTxADY6M4VShlFn4a65hOpFlEaOupLt3GXzL2cIrBLnfVqo2mV6M3paerg9XsXifkS8xLnjv9Urs6+v2peePJghY8eyLrZS5UgV8fsx7el5DSU1SfSUi8NFnloHD2WkrVvJj9DBaLbWWiEtFQQucjT9uRJoxk6nOnCOe4dLmgWWdgPUAdu/1UAABtI5V2MU3cjI3D9jl+dWammF7TF/CKH6cK8p9txO/+nFyf0Y9ZWX60XpAQ+gPDVhbuB1IlD6g+NozMRNBiA23veF4k76srsSLgdpywqzJQCYGvn8flKx2pQW/MeRnjGFoUg/jMR3bCy6+OiG3zgZ5V+Io57Fma6VE0AGwWiHA+lYhyc8JWaNCoDllfeyyXAfAhCTLd8+SoXBjpNdI0fOukwPzKfZNc6/qaeAZ6J25HgOihpT+mPHW5DBrz1jKL9jlkUqe8ifICdtLMmYt2Rsu3KFAi+JCyEAkvmi0MpY2Otpjj9tSYS5UfrY9TDd3/E8= craigswank@Craigs-Mac-mini.local"
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD3s72cP0bOpqFnUW6ByP4VuVmbzj4zYzohkA0qrbFla+V38ViRKrhugE1/NyfUz5KFsGZAXyZB13FS1G81IGgzvapXeyp2Rem0GgVqrcVY+F/DqTqLWv5TFNWswDa2pG3JO9+Dtr9hIjLFDn1rbmK4PnDIq4e5t2bTttaj4VZbmfWlRIO/cLnRZ6m+qAvG7O3a0BVNM/fmGlYzwJ7BXuHmyxCEE34stxSdVnS8dynBZCI2obe+jxynEM9kcRSNR3YnnQy/fbwIlNqe+Ci0CHSq5htVKNKP0z1QO6i8lA1YjeIvLMI0pssSEKyumZRWrtzb9/LqutOuqWTyQJZmRf2vXRqY6T5G+/Wq6fib/pcHcOqB2oa0QleM3OuB82MfAvlarLPQgv25VTys8utftCpRhCjVeG2aT86l1+yH2bUTkf+Kfmafu1VE5Naq1FJ0quVUfYSyBzCjvqL4JqXU/t8KALjsCDBoj9p+3kT15uK9UYZ6cy6ujcoQdnaCM5NFuQc= craig@nixos"];
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD3s72cP0bOpqFnUW6ByP4VuVmbzj4zYzohkA0qrbFla+V38ViRKrhugE1/NyfUz5KFsGZAXyZB13FS1G81IGgzvapXeyp2Rem0GgVqrcVY+F/DqTqLWv5TFNWswDa2pG3JO9+Dtr9hIjLFDn1rbmK4PnDIq4e5t2bTttaj4VZbmfWlRIO/cLnRZ6m+qAvG7O3a0BVNM/fmGlYzwJ7BXuHmyxCEE34stxSdVnS8dynBZCI2obe+jxynEM9kcRSNR3YnnQy/fbwIlNqe+Ci0CHSq5htVKNKP0z1QO6i8lA1YjeIvLMI0pssSEKyumZRWrtzb9/LqutOuqWTyQJZmRf2vXRqY6T5G+/Wq6fib/pcHcOqB2oa0QleM3OuB82MfAvlarLPQgv25VTys8utftCpRhCjVeG2aT86l1+yH2bUTkf+Kfmafu1VE5Naq1FJ0quVUfYSyBzCjvqL4JqXU/t8KALjsCDBoj9p+3kT15uK9UYZ6cy6ujcoQdnaCM5NFuQc= craig@nixos"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7yv0GJ7Rap39nGHK4ZV8lPK1gSnhQjlBfVAQwX9JHX craig@trantor"
+    ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    emacs
     avahi
-    zsh
-    git
-    paprefs
-    pasystray
-    firefox
-    home-manager
   ];
 
-  home-manager.users.craig = { pkgs, ... }: {
-    home.file = {
-      ".config/i3status/config".source = ./i3status;
-    };
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };  
-
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 }
 
