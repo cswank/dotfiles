@@ -75,14 +75,14 @@ in {
       pkgsUnstable.emacs
       pkgsUnstable.git
       pkgsUnstable.firefox
-      pkgsUnstable.gnome3.gnome-terminal
       pkgs.xclip
+      pkgs.dconf
+      pkgs.keychain
     ];
 
     file = {
       ".config/i3status/config".source = ../files/i3status;
       ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
-      ".config/mpv/mpv.conf".source = ./files/mpv.conf;
       ".zshrc".source = ../files/zshrc;
       ".emacs.d" = {
         source = ../files/emacs;
