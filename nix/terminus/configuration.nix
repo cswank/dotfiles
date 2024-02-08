@@ -67,6 +67,7 @@
 
   };
 
+  # NOTE: open alsamixer, select sound card, then unmute s/pdif (and mute headphones and speakers)
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
