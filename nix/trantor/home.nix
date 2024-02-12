@@ -115,7 +115,7 @@ in {
       pkgsUnstable.kicad
       pkgsUnstable.zig
       pkgsUnstable.fzf
-      pkgsUnstable.go
+      pkgsUnstable.go_1_22
       pkgsUnstable.jq
       pkgsUnstable.awscli2
       pkgsUnstable.signal-desktop
