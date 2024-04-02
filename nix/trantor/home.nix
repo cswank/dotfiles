@@ -105,7 +105,6 @@ in {
       pkgsUnstable.terraform-ls
       pkgsUnstable._1password
       pkgsUnstable.texlive.combined.scheme-full
-      pkgsUnstable.rofi
       pkgsUnstable.lilypond-unstable-with-fonts
       pkgsUnstable.simplescreenrecorder
       pkgsUnstable.nodejs
@@ -135,6 +134,7 @@ in {
       pkgs.openvpn
       pkgs.gnupg
       pkgs.mosh
+      pkgs.screen
       pkgs.musescore
       pkgs.feh
       pkgs.cifs-utils
@@ -143,6 +143,9 @@ in {
       pkgs.shutter
       pkgs.pinentry-curses
       pkgs.graphviz
+      pkgs.direnv
+      pkgs.lsof
+      pkgs.aws-vault
     ];
 
     file = {
@@ -154,7 +157,7 @@ in {
       ".zshrc".source = ../files/zshrc;
       ".gitignore".source = ../files/gitignore;
       ".ssh/config".source = ./files/ssh;
-      ".npmrc".source = ./files/npmrc;
+      # ".npmrc".source = ./files/npmrc;   needed to add a github access token
       ".emacs.d" = {
         source = ../files/emacs;
         recursive = true;
