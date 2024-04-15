@@ -140,6 +140,10 @@
       enable = true;
       package = pkgs.postgresql_13.withPackages (p: [ p.postgis ]);
       dataDir = "/mnt/postgresql/13";
+      authentication = pkgs.lib.mkOverride 10 ''
+            #type database  DBuser  auth-method
+            local all       all     trust
+      '';
     };
 
     openssh = {
