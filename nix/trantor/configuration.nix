@@ -138,11 +138,14 @@
 
     postgresql = {
       enable = true;
-      package = pkgs.postgresql_13.withPackages (p: [ p.postgis ]);
-      dataDir = "/mnt/postgresql/13";
-      authentication = pkgs.lib.mkOverride 10 ''
-            #type database  DBuser  auth-method
-            local all       all     trust
+      package = pkgs.postgresql_16.withPackages (p: [ p.postgis ]);
+      dataDir = "/mnt/postgresql/16";
+      enableTCPIP = true;
+      authentication = pkgs.lib.mkOverride 16 ''
+            local all       postgres trust
+            local all       craig    trust
+            host  all       all      127.0.0.1/32   scram-sha-256
+            host  all       all      ::1/128        scram-sha-256
       '';
     };
 
@@ -172,7 +175,7 @@
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         vaapiVdpau
         libvdpau-va-gl
-        # vaapiIntel
+        vaapiIntel
         # libvdpau
         # libvdpau-va-gl
         # vaapiVdpau

@@ -100,7 +100,6 @@ in {
       pkgsUnstable.transcribe
       pkgsUnstable.easyrsa
       pkgsUnstable.asciinema
-      pkgsUnstable.firefox
       pkgsUnstable.keepassxc
       pkgsUnstable.terraform-ls
       pkgsUnstable._1password
@@ -118,6 +117,7 @@ in {
       pkgsUnstable.jq
       pkgsUnstable.awscli2
       pkgsUnstable.signal-desktop
+      pkgs.firefox
       pkgs.nyxt
       pkgs.gnome3.gnome-terminal
       pkgs.gnuplot
