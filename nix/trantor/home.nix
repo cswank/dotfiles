@@ -63,30 +63,34 @@ in {
       };
     };
 
-    # firefox = {
-    #   enable = true;
-    #   profiles = {
-    #     myuser = {
-    #       id = 0;
-    #       settings = {
-    #         "media.ffmpeg.vaapi.enabled" = true;
-    #         "media.ffvpx.enabled" = false;
-    #         "media.av1.enabled" = false;
-    #         "gfx.webrender.all" = true;
-    #         "layers.acceleration.force-enabled" = true;
-    #       };
-    #     };
-    #   };
-    # };
+    firefox = {
+      enable = true;
+      profiles = {
+        myuser = {
+          id = 0;
+          settings = {
+            "media.ffmpeg.vaapi.enabled" = true;
+            "media.ffvpx.enabled" = false;
+            "media.av1.enabled" = false;
+            "gfx.webrender.all" = true;
+            #"layers.acceleration.force-enabled" = true;
+          };
+        };
+      };
+    };
   };
 
   nixpkgs = {
     config.allowUnfree = true;
   };
 
-  home = {
+  home = {    
     username = "craig";
     homeDirectory = "/home/craig";
+    sessionVariables = {
+      MOZ_X11_EGL = "1";
+      LIBVA_DRIVER_NAME = "i965";
+    };
     packages = [
       pkgsUnstable.tfswitch      
       pkgsUnstable.cryptsetup

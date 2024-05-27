@@ -92,5 +92,8 @@
 
 (global-set-key (kbd "C-c C-g q") 'sql-params)
 
+;; for handling build tags in work project
+(setq  lsp-go-env '((GOFLAGS . "-tags=e2e")))
+
 (provide 'my-go)
 ;;; my-go.el ends here
