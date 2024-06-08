@@ -50,10 +50,10 @@
             "type": "cron",
             "args": {
                 "jobs": [
-                    "46  4    *  *  *     turn on front yard sprinklers for 10 minutes",
+                    "46  4,18 *  *  *     turn on front yard sprinklers for 10 minutes",
                     "25  4    *  *  2,4,6 turn on back yard sprinklers for 20 minutes",
                     "0   4    *  *  *     turn on back garden sprinklers for 10 minutes",
-                    "11  4    *  *  *     turn on front garden sprinklers for 10 minutes",
+                    "11  4,18 *  *  *     turn on front garden sprinklers for 10 minutes",
                     "22  4,18 *  *  *     turn on garden bed sprinklers for 2 minutes"
                 ]
             }
