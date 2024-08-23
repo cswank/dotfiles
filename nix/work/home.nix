@@ -34,7 +34,7 @@ in {
       pkgsUnstable.gnupg
       pkgsUnstable.mosh
       pkgsUnstable.go
-      pkgsUnstable.awscli
+      pkgsUnstable.awscli2
       pkgsUnstable.postgresql
       pkgsUnstable.jq
     ];
