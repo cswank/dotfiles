@@ -6,6 +6,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;My Keyboard Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun expand-region-twice ()
+  "Run `expand-region' then `edit-indirect-region' in sequence."
+  (interactive)
+  (er/expand-region 2))
+
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-cc" 'comment-region)
 (global-set-key "\C-cu" 'uncomment-region)
@@ -15,6 +20,7 @@
 (global-set-key "\C-cR" 'query-replace-regexp)
 (global-set-key "\C-cw" 'browse-kill-ring)
 (global-set-key "\C-cq" 'load-sql)
+(global-set-key "\C-c=" 'expand-region-twice)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;multiple-cursors mode

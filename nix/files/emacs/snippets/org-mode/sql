@@ -2,6 +2,6 @@
 # name: sql
 # key: sql
 # --
-#+BEGIN_SRC sql :file-name org.sql :engine postgres :exports results :cmdline -d `(symbol-value 'database-name)` -h '`(symbol-value 'database-host)`' -U parsyl
+#+BEGIN_SRC sql :file-name org.sql :engine postgres :exports results :cmdline -d `(symbol-value 'database-name)` -h '`(symbol-value 'database-host)`' -U `(symbol-value 'database-user)`
 $0
 #+END_SRC

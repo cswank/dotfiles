@@ -70,7 +70,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z history)
+plugins=(git z history aws golang)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -203,16 +203,32 @@ function refresh-env() {
     export AUTH="Authorization: Bearer $TOKEN"
 }
 
+function ins-dev-token() {
+    ins-token 'dev'
+}
+
+function ins-test-token() {
+    ins-token 'test'
+}
+
+function ins-prod-token() {
+    ins-token 'prod'
+}
+
+function ins-token () {
+    ENV=$1
+    . "$HOME/.parsyl/login/ins-$ENV.env"
+
+    export TOKEN=$(ins-auth)
+    export AUTH="Authorization: $TOKEN"
+}
+
 function dev-token() {
     use-env 'dev' $1
 }
 
 function test-token() {
     use-env 'test' $1
-}
-
-function test2-token() {
-    use-env 'test2' $1
 }
 
 function prod-token() {

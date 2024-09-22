@@ -95,10 +95,9 @@ in {
       pkgsUnstable.tfswitch      
       pkgsUnstable.cryptsetup
       pkgsUnstable.slack
-      pkgsUnstable.gnome.cheese
+      pkgsUnstable.cheese
       pkgsUnstable.plantuml
       pkgsUnstable.gron
-      pkgsUnstable.rpi-imager
       pkgsUnstable.winbox
       pkgsUnstable.emacs
       pkgsUnstable.transcribe
@@ -121,11 +120,15 @@ in {
       pkgsUnstable.jq
       pkgsUnstable.awscli2
       pkgsUnstable.signal-desktop
+      pkgsUnstable.acme-sh
+      pkgsUnstable.dune3d
+      pkgsUnstable.vlc
       pkgs.firefox
       pkgs.nyxt
       pkgs.gnome3.gnome-terminal
       pkgs.gnuplot
       pkgs.zip
+      pkgs.unzip
       pkgs.guake
       pkgs.silver-searcher
       pkgs.xclip
@@ -143,7 +146,6 @@ in {
       pkgs.feh
       pkgs.cifs-utils
       pkgs.ispell
-      #pkgs.networkmanager_openvpn
       pkgs.shutter
       pkgs.pinentry-curses
       pkgs.graphviz

@@ -36,10 +36,10 @@
 (defun load-sql ()
   "Prompt user to pick a choice from a list."
   (interactive)
-  (let ((choices '("api" "cache" "notifications" "messaging")))
+  (let ((choices '("api" "cache" "notifications" "messaging" "insurance")))
     (setq db (completing-read "Select db:" choices )))
   (when db
-    (let ((choices '("dev" "test" "prod")))
+    (let ((choices '("dev" "test" "prod" "local")))
       (setq env (completing-read (format "Select environment for %s:" db) choices )))
     (when env
       (load-file (format "~/.parsyl/%s/%s.el" db env)))))
