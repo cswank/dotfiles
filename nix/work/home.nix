@@ -37,6 +37,7 @@ in {
       pkgsUnstable.awscli2
       pkgsUnstable.postgresql
       pkgsUnstable.jq
+      pkgs.direnv
     ];
 
     file = {
