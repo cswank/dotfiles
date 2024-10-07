@@ -7,7 +7,7 @@
 ;;My Keyboard Bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun expand-region-twice ()
-  "Run `expand-region' then `edit-indirect-region' in sequence."
+  "Run `expand-region'"
   (interactive)
   (er/expand-region 2))
 
