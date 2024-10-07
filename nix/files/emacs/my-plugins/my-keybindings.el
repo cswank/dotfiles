@@ -9,10 +9,7 @@
 (defun expand-region-twice ()
   "Run `expand-region' then `edit-indirect-region' in sequence."
   (interactive)
-  (er/expand-region 2)
-  (setq first-char (string (char-after (region-beginning))))
-  (if (eq first-char "`")
-    (er/contract-region 1)))
+  (er/expand-region 2))
 
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-cc" 'comment-region)
