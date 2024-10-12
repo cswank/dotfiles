@@ -152,6 +152,7 @@ in {
       pkgs.direnv
       pkgs.lsof
       pkgs.aws-vault
+      pkgs.openssl
     ];
 
     file = {

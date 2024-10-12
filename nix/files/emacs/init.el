@@ -30,6 +30,7 @@
 (load-file "~/.emacs.d/my-plugins/my-magit.el")
 (load-file "~/.emacs.d/my-plugins/my-org.el")
 (load-file "~/.emacs.d/my-plugins/my-python.el")
+(load-file "~/.emacs.d/my-plugins/my-sops.el")
 (load-file "~/.emacs.d/my-plugins/my-sql.el")
 (load-file "~/.emacs.d/my-plugins/my-tab.el")
 (load-file "~/.emacs.d/my-plugins/my-terminal.el")
