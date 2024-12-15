@@ -95,7 +95,6 @@ in {
       pkgsUnstable.tfswitch      
       pkgsUnstable.cryptsetup
       pkgsUnstable.slack
-      pkgsUnstable.cheese
       pkgsUnstable.plantuml
       pkgsUnstable.gron
       pkgsUnstable.winbox
@@ -153,6 +152,7 @@ in {
       pkgs.lsof
       pkgs.aws-vault
       pkgs.openssl
+      pkgs.tree
     ];
 
     file = {

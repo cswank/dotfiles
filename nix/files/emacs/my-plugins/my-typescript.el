@@ -2,327 +2,166 @@
 ;;; setup for email via mu4e
 ;;; Commentary:
 
-;;; Code:
-(use-package treesit
-  :mode (("\\.tsx\\'" . tsx-ts-mode)
-         ("\\.cmake\\'" . cmake-ts-mode)
-         ("\\.go\\'" . go-ts-mode)
-         ("\\.js\\'" . typescript-ts-mode)
-         ("\\.mjs\\'" . typescript-ts-mode)
-         ("\\.mts\\'" . typescript-ts-mode)
-         ("\\.cjs\\'" . typescript-ts-mode)
-         ("\\.ts\\'" . typescript-ts-mode)
-         ("\\.jsx\\'" . tsx-ts-mode)
-         ("\\.json\\'" . json-ts-mode)
-         ("\\.yaml\\'" . yaml-ts-mode)
-         ("\\.yml\\'" . yaml-ts-mode)
-         ("\\.Dockerfile\\'" . dockerfile-ts-mode)
-         ("\\.prisma\\'" . prisma-ts-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.mdx\\'" . markdown-mode))
-  :preface
-  (defun os/setup-install-grammars ()
-    "Install Tree-sitter grammars if they are absent."
-    (interactive)
-    (dolist (grammar
-             '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-               (bash "https://github.com/tree-sitter/tree-sitter-bash")
-               (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src"))
-               (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
-               (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
-               (go "https://github.com/tree-sitter/tree-sitter-go" "v0.20.0")
-               (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-               (make "https://github.com/alemuller/tree-sitter-make")
-               (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-               (cmake "https://github.com/uyha/tree-sitter-cmake")
-               (c "https://github.com/tree-sitter/tree-sitter-c")
-               (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
-               (toml "https://github.com/tree-sitter/tree-sitter-toml")
-               (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
-               (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
-               (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))
-               (prisma "https://github.com/victorhqc/tree-sitter-prisma")))
-      (add-to-list 'treesit-language-source-alist grammar)
-      ;; Only install `grammar' if we don't already have it
-      ;; installed. However, if you want to *update* a grammar then
-      ;; this obviously prevents that from happening.
-      (unless (treesit-language-available-p (car grammar))
-        (treesit-install-language-grammar (car grammar)))))
-
-  ;; Optional, but recommended. Tree-sitter enabled major modes are
-  ;; distinct from their ordinary counterparts.
-  ;;
-  ;; You can remap major modes with `major-mode-remap-alist'. Note
-  ;; that this does *not* extend to hooks! Make sure you migrate them
-  ;; also
-  (dolist (mapping
-           '((python-mode . python-ts-mode)
-             (css-mode . css-ts-mode)
-             (typescript-mode . typescript-ts-mode)
-             (js-mode . typescript-ts-mode)
-             (js2-mode . typescript-ts-mode)
-             (c-mode . c-ts-mode)
-             (c++-mode . c++-ts-mode)
-             (c-or-c++-mode . c-or-c++-ts-mode)
-             (bash-mode . bash-ts-mode)
-             (css-mode . css-ts-mode)
-             (json-mode . json-ts-mode)
-             (js-json-mode . json-ts-mode)
-             (sh-mode . bash-ts-mode)
-             (sh-base-mode . bash-ts-mode)))
-    (add-to-list 'major-mode-remap-alist mapping))
+;;; -*- lexical-binding: t -*-
+;;
+;; this should be replaced by the built-in modes eventually, but it's not always
+;; simple to switch and not every language has a builtin `lang'-ts-mode
+(use-package tree-sitter
+  :demand t
+  :diminish tree-sitter-mode
   :config
-  (os/setup-install-grammars)
-  ;; Do not forget to customize Combobulate to your liking:
-  ;;
-  ;;  M-x customize-group RET combobulate RET
-  ;;
-  (use-package combobulate
-    :preface
-    ;; You can customize Combobulate's key prefix here.
-    ;; Note that you may have to restart Emacs for this to take effect!
-    (setq combobulate-key-prefix "C-c o")
+  (setq treesit-font-lock-level 4))
 
-    ;; Optional, but recommended.
-    ;;
-    ;; You can manually enable Combobulate with `M-x
-    ;; combobulate-mode'.
-    :hook
-    ((python-ts-mode . combobulate-mode)
-     (js-ts-mode . combobulate-mode)
-     (go-mode . go-ts-mode)
-     (html-ts-mode . combobulate-mode)
-     (css-ts-mode . combobulate-mode)
-     (yaml-ts-mode . combobulate-mode)
-     (typescript-ts-mode . combobulate-mode)
-     (json-ts-mode . combobulate-mode)
-     (tsx-ts-mode . combobulate-mode))
-    ;; Amend this to the directory where you keep Combobulate's source
-    ;; code.
-    :load-path ("~/workspace/combobulate")))
+(use-package tree-sitter-langs
+  :after tree-sitter)
 
-(provide 'treesitter)
+;; ;; seems like it will still throw a warning the first time you visit a file with
+;; ;; a treesit major mode if you don't have the grammar installed; manually
+;; ;; running M-x lang-ts-mode after waiting a few seconds for this package to
+;; ;; install and compile the grammar fixes the warning and you shouldn't see it
+;; ;; again afterwards
+;; (use-package treesit-auto
+;;   :config
+;;   (setq treesit-auto-install t))
 
-(use-package corfu
-  :ensure t
-  ;; Optional customizations
-  :custom
-  (corfu-cycle t)                 ; Allows cycling through candidates
-  (corfu-auto t)                  ; Enable auto completion
-  (corfu-auto-prefix 2)           ; Minimum length of prefix for completion
-  (corfu-auto-delay 0)            ; No delay for completion
-  (corfu-popupinfo-delay '(0.5 . 0.2))  ; Automatically update info popup after that numver of seconds
-  (corfu-preview-current 'insert) ; insert previewed candidate
-  (corfu-preselect 'prompt)
-  (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
-  ;; Optionally use TAB for cycling, default is `corfu-complete'.
-  :bind (:map corfu-map
-              ("M-SPC"      . corfu-insert-separator)
-              ("TAB"        . corfu-next)
-              ([tab]        . corfu-next)
-              ("S-TAB"      . corfu-previous)
-              ([backtab]    . corfu-previous)
-              ("S-<return>" . corfu-insert)
-              ("RET"        . corfu-insert))
+;; (use-package flymake :ensure nil
+;;   :init
+;;   (setq-default flymake-no-changes-timeout 1)
+;;   :config
+;;   (setq flymake-mode-line-format
+;;         ;; the default mode line lighter takes up an unnecessary amount of
+;;         ;; space, so make it shorter
+;;         '(" " flymake-mode-line-exception flymake-mode-line-counters)))
 
-  :init
-  (global-corfu-mode)
-  (corfu-history-mode)
-  (corfu-popupinfo-mode) ; Popup completion info
-  :config
-  (add-hook 'eshell-mode-hook
-            (lambda () (setq-local corfu-quit-at-boundary t
-                                   corfu-quit-no-match t
-                                   corfu-auto nil)
-              (corfu-mode))
-            nil
-            t))
+;; ;; use-package for configuring, even though eglot is
+;; ;; built-in in Emacs 29, thus :ensure nil
+;; (use-package eglot :ensure nil :defer t
+;;   :custom-face
+;;   ;; personal preference here; I hate it when packages
+;;   ;; use the `shadow' face for stuff, it's impossible to read
+;;   (eglot-inlay-hint-face
+;;    ((t ( :foreground unspecified
+;;          :inherit font-lock-comment-face))))
+;;   :config
+;;   ;; these two lines help prevent lag with the typescript language server. they
+;;   ;; might actually be mutually exclusive but I haven't investigated further
+;;   (with-eval-after-load 'eglot (fset #'jsonrpc--log-event #'ignore))
+;;   (setq eglot-events-buffer-size 0)
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode)
-  :bind (:map flycheck-mode-map
-              ("M-n" . flycheck-next-error) ; optional but recommended error navigation
-              ("M-p" . flycheck-previous-error)))
+;;   ;; just do it, don't prompt me
+;;   (setq eglot-confirm-server-initiated-edits nil)
+;;   (setq eglot-sync-connect 0)
+;;   (setq eglot-autoshutdown t)
+;;   (setq rex/language-servers
+;;         (list '(tsx-ts-mode "typescript-language-server" "--stdio")
+;;               '(php-mode "phpactor" "language-server")))
+;;   (dolist (server rex/language-servers)
+;;     (add-to-list 'eglot-server-programs server))
+;;   :hook
+;;   (php-mode . eglot-ensure)
+;;   (typescript-ts-mode . eglot-ensure)
+;;   (tsx-ts-mode . eglot-ensure)
+;;   (eglot-managed-mode
+;;    . (lambda () (setq eldoc-documentation-function
+;;                       'eldoc-documentation-compose-eagerly))))
 
-(use-package lsp-mode
-  :diminish "LSP"
-  :ensure t
-  :hook ((lsp-mode . lsp-diagnostics-mode)
-         (lsp-mode . lsp-enable-which-key-integration)
-         ((tsx-ts-mode
-           typescript-ts-mode
-           js-ts-mode) . lsp-deferred))
-  :custom
-  (lsp-keymap-prefix "C-c l")           ; Prefix for LSP actions
-  (lsp-completion-provider :none)       ; Using Corfu as the provider
-  (lsp-diagnostics-provider :flycheck)
-  (lsp-session-file (locate-user-emacs-file ".lsp-session"))
-  (lsp-log-io nil)                      ; IMPORTANT! Use only for debugging! Drastically affects performance
-  (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
-  (lsp-idle-delay 0.5)                  ; Debounce timer for `after-change-function'
-  ;; core
-  (lsp-enable-xref t)                   ; Use xref to find references
-  (lsp-auto-configure t)                ; Used to decide between current active servers
-  (lsp-eldoc-enable-hover t)            ; Display signature information in the echo area
-  (lsp-enable-dap-auto-configure t)     ; Debug support
-  (lsp-enable-file-watchers nil)
-  (lsp-enable-folding nil)              ; I disable folding since I use origami
-  (lsp-enable-imenu t)
-  (lsp-enable-indentation nil)          ; I use prettier
-  (lsp-enable-links nil)                ; No need since we have `browse-url'
-  (lsp-enable-on-type-formatting nil)   ; Prettier handles this
-  (lsp-enable-suggest-server-download t) ; Useful prompt to download LSP providers
-  (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
-  (lsp-enable-text-document-color nil)   ; This is Treesitter's job
+;; ;; triggering this manually is imo much nicer than having it pop up
+;; ;; automatically and obscure the code once you open it, you can scroll it with
+;; ;; C-j and C-k and any other command closes it again, but it can very rarely get
+;; ;; stuck on screen, which requires C-g
+;; (use-package eldoc-box
+;;   :defer t
+;;   :config
+;;   (defun rex/eldoc-box-scroll-up ()
+;;     "Scroll up in `eldoc-box--frame'"
+;;     (interactive)
+;;     (with-current-buffer eldoc-box--buffer
+;;       (with-selected-frame eldoc-box--frame
+;;         (scroll-down 3))))
+;;   (defun rex/eldoc-box-scroll-down ()
+;;     "Scroll down in `eldoc-box--frame'"
+;;     (interactive)
+;;     (with-current-buffer eldoc-box--buffer
+;;       (with-selected-frame eldoc-box--frame
+;;         (scroll-up 3))))
+;;   ;; this won't work without installing general; I include it as an example
+;;   ;; see: https://github.com/skyler544/rex/blob/main/config/rex-keybindings.el
+;;   :general
+;;   (:keymaps 'eglot-mode-map
+;;             "C-k" 'rex/eldoc-box-scroll-up
+;;             "C-j" 'rex/eldoc-box-scroll-down
+;;             "M-h" 'eldoc-box-help-at-point))
 
-  (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics
-  (lsp-ui-sideline-diagnostic-max-lines 20) ; 20 lines since typescript errors can be quite big
-  ;; completion
-  (lsp-completion-enable t)
-  (lsp-completion-enable-additional-text-edit t) ; Ex: auto-insert an import for a completion candidate
-  (lsp-enable-snippet t)                         ; Important to provide full JSX completion
-  (lsp-completion-show-kind t)                   ; Optional
-  ;; headerline
-  (lsp-headerline-breadcrumb-enable t)  ; Optional, I like the breadcrumbs
-  (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
-  (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
-  (lsp-headerline-breadcrumb-icons-enable nil)
-  ;; modeline
-  (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
-  (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
-  (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
-  (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
-  (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
-  (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
-  ;; lens
-  (lsp-lens-enable nil)                 ; Optional, I don't need it
-  ;; semantic
-  (lsp-semantic-tokens-enable nil)      ; Related to highlighting, and we defer to treesitter
+;; ;; these files are started in fundamental mode
+;; ;; by default, but conf-mode handles them well
+;; (use-package emacs :ensure nil
+;;   :mode
+;;   ("\\.env.test$" . conf-mode)
+;;   ("\\.env.local$" . conf-mode)
+;;   ("\\.env.sample$" . conf-mode)
+;;   ("\\.env$" . conf-mode))
 
-  :init
-  (setq lsp-use-plists t))
+;; (use-package web-mode
+;;   :config
+;;   (setq web-mode-code-indent-offset 2)
+;;   (setq web-mode-markup-indent-offset 2)
+;;   :mode
+;;   ("\\.html$" . web-mode)
+;;   ("\\.twig$" . web-mode))
 
-(use-package lsp-completion
-  :no-require
-  :hook ((lsp-mode . lsp-completion-mode)))
+;; (use-package php-mode
+;;   :hook (php-mode . tree-sitter-hl-mode)
+;;   :config
+;;   ;; can't remember exactly what this is for
+;;   (setq php-mode-template-compatibility nil))
 
-(use-package lsp-ui
-  :ensure t
-  :commands
-  (lsp-ui-doc-show
-   lsp-ui-doc-glance)
-  :bind (:map lsp-mode-map
-              ("C-c C-d" . 'lsp-ui-doc-glance))
-  :after (lsp-mode evil)
-  :config (setq lsp-ui-doc-enable t
-                evil-lookup-func #'lsp-ui-doc-glance ; Makes K in evil-mode toggle the doc for symbol at point
-                lsp-ui-doc-show-with-cursor nil      ; Don't show doc when cursor is over symbol - too distracting
-                lsp-ui-doc-include-signature t       ; Show signature
-                lsp-ui-doc-position 'at-point))
+;; ;; take advantage of the built-in treesit
+;; (use-package emacs :ensure nil
+;;   :after treesit
+;;   :custom-face
+;;   (typescript-ts-jsx-tag-face
+;;    ((t ( :inherit font-lock-type-face))))
+;;   :mode
+;;   ("\\.js$" . js-ts-mode)
+;;   ("\\.ts$" . typescript-ts-mode)
+;;   ("\\.tsx$" . tsx-ts-mode))
 
-(use-package lsp-tailwindcss
-  :straight '(lsp-tailwindcss :type git :host github :repo "merrickluo/lsp-tailwindcss")
-  :init (setq lsp-tailwindcss-add-on-mode t)
-  :config
-  (dolist (tw-major-mode
-           '(css-mode
-             css-ts-mode
-             typescript-mode
-             typescript-ts-mode
-             tsx-ts-mode
-             js2-mode
-             js-ts-mode
-             clojure-mode))
-        (add-to-list 'lsp-tailwindcss-major-modes tw-major-mode)))
+;; ;; If you have multiple projects with multiple node versions, you probably won't
+;; ;; want to deal with switching manually via exporting paths in your terminal all
+;; ;; the time; this way is nicer but requires the tool nvm. Unfortunately, loading
+;; ;; nvm itself takes a second or two, which can be very annoying if you let it
+;; ;; live directly in your shell config. Instead, this way you can use it manually
+;; ;; when you open up a project that needs it.
+;; (use-package nvm
+;;   ;; this is not on melpa so you'll need to grab it from rejeep/nvm.el on github
+;;   ;; and load it manually or try using an elpaca recipe:
+;;   ;; :elpaca (:host github :repo "rejeep/nvm.el")
+;;   :init
+;;   (setq rex/nvm-enabled nil)
+;;   (defun rex/load-nvm ()
+;;     "Start nvm."
+;;     (interactive)
+;;     (setq rex/nvm-enabled t)
+;;     ;; ~/.local/bin/load-nvm
+;;     ;; export NVM_DIR="$HOME/.nvm"
+;;     ;; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+;;     ;; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+;;     (async-shell-command "source ~/.local/bin/load-nvm"))
+;;   (defun rex/nvm-use ()
+;;     "Use the .nvmrc file."
+;;     (interactive)
+;;     (unless rex/nvm-enabled
+;;       (rex/load-nvm))
+;;     (nvm-use-for)))
 
-(setenv "LSP_USE_PLISTS" "true") ;; in early-init.el
+;; (use-package add-node-modules-path
+;;   :hook
+;;   (tsx-ts-mode . add-node-modules-path)
+;;   (typescript-ts-mode . add-node-modules-path))
 
-    ;; init.el
-    ;;;; per https://github.com/emacs-lsp/lsp-mode#performance
-    (setq read-process-output-max (* 10 1024 1024)) ;; 10mb
-    (setq gc-cons-threshold 200000000)
-
-    (use-package lsp-mode
-      ;; ... previous configuration
-      :preface
-      (defun lsp-booster--advice-json-parse (old-fn &rest args)
-        "Try to parse bytecode instead of json."
-        (or
-         (when (equal (following-char) ?#)
-
-           (let ((bytecode (read (current-buffer))))
-             (when (byte-code-function-p bytecode)
-               (funcall bytecode))))
-         (apply old-fn args)))
-      (defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
-        "Prepend emacs-lsp-booster command to lsp CMD."
-        (let ((orig-result (funcall old-fn cmd test?)))
-          (if (and (not test?)                             ;; for check lsp-server-present?
-                   (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
-                   lsp-use-plists
-                   (not (functionp 'json-rpc-connection))  ;; native json-rpc
-                   (executable-find "emacs-lsp-booster"))
-              (progn
-                (message "Using emacs-lsp-booster for %s!" orig-result)
-                (cons "emacs-lsp-booster" orig-result))
-            orig-result)))
-      :init
-      (setq lsp-use-plists t)
-      ;; Initiate https://github.com/blahgeek/emacs-lsp-booster for performance
-      (advice-add (if (progn (require 'json)
-                             (fboundp 'json-parse-buffer))
-                      'json-parse-buffer
-                    'json-read)
-                  :around
-                  #'lsp-booster--advice-json-parse)
-      (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command))
-
-(use-package treesit
-  ;; ... all the config from above
-  :config
-  (os/setup-install-grammars)
-  ;; Do not forget to customize Combobulate to your liking:
-  ;;
-  ;;  M-x customize-group RET combobulate RET
-  ;;
-  (use-package combobulate
-    :preface
-    ;; You can customize Combobulate's key prefix here.
-    ;; Note that you may have to restart Emacs for this to take effect!
-    (setq combobulate-key-prefix "C-c o")
-
-    ;; Optional, but recommended.
-    ;;
-    ;; You can manually enable Combobulate with `M-x
-    ;; combobulate-mode'.
-    :hook
-    ((python-ts-mode . combobulate-mode)
-     (js-ts-mode . combobulate-mode)
-     (go-mode . go-ts-mode)
-     (html-ts-mode . combobulate-mode)
-     (css-ts-mode . combobulate-mode)
-     (yaml-ts-mode . combobulate-mode)
-     (typescript-ts-mode . combobulate-mode)
-     (json-ts-mode . combobulate-mode)
-     (tsx-ts-mode . combobulate-mode))
-    ;; Amend this to the directory where you keep Combobulate's source
-    ;; code.
-    :load-path ("~/workspace/combobulate")))
-
-
-(use-package apheleia
-  :ensure apheleia
-  :diminish ""
-  :defines
-  apheleia-formatters
-  apheleia-mode-alist
-  :functions
-  apheleia-global-mode
-  :config
-  (setf (alist-get 'prettier-json apheleia-formatters)
-        '("prettier" "--stdin-filepath" filepath))
-  (apheleia-global-mode +1))
-;;; my-javascript.el ends here
-
+;; ;; you need to have prettier installed for this to work obviously
+;; (use-package prettier-js
+;;   :diminish prettier-js-mode
+;;   :hook
+;;   (tsx-ts-mode . prettier-js-mode)
+;;   (typescript-ts-mode . prettier-js-mode))

@@ -23,6 +23,7 @@
 (load-file "~/.emacs.d/my-plugins/my-beer.el")
 ;;(load-file "~/.emacs.d/my-plugins/my-c.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")
+(load-file "~/.emacs.d/my-plugins/my-go-templates.el")
 (load-file "~/.emacs.d/my-plugins/my-javascript.el")
 (load-file "~/.emacs.d/my-plugins/my-jira.el")
 (load-file "~/.emacs.d/my-plugins/my-keybindings.el")

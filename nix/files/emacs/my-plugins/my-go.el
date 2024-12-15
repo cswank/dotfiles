@@ -93,7 +93,13 @@
 (global-set-key (kbd "C-c C-g q") 'sql-params)
 
 ;; for handling build tags in work project
-(setq  lsp-go-env '((GOFLAGS . "-tags=e2e")))
+(defun insurance-api-configuration ()
+  (if (string-match "insurance-api" (projectile-project-root))
+      (message "setting goflat -tags=e2e for insurance-api")
+      (setq  lsp-go-env '((GOFLAGS . "-tags=e2e")))
+  ))
+
+(add-hook 'lsp-after-initialize-hook 'insurance-api-configuration)
 
 (provide 'my-go)
 ;;; my-go.el ends here
