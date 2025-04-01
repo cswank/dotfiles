@@ -95,7 +95,7 @@
 ;; for handling build tags in work project
 (defun insurance-api-configuration ()
   (if (string-match "insurance-api" (projectile-project-root))
-      (message "setting goflat -tags=e2e for insurance-api")
+      (message "setting goflag -tags=e2e for insurance-api")
       (setq  lsp-go-env '((GOFLAGS . "-tags=e2e")))
   ))
 

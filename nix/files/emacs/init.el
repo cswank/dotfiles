@@ -20,6 +20,7 @@
 ;;Load Libraries
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-library "my-color-theme")
+(load-file "~/.emacs.d/my-plugins/my-random-stuff.el")
 (load-file "~/.emacs.d/my-plugins/my-beer.el")
 ;;(load-file "~/.emacs.d/my-plugins/my-c.el")
 (load-file "~/.emacs.d/my-plugins/my-go.el")
@@ -37,11 +38,13 @@
 (load-file "~/.emacs.d/my-plugins/my-terminal.el")
 (load-file "~/.emacs.d/my-plugins/my-weather.el")
 (load-file "~/.emacs.d/my-plugins/my-web.el")
+(load-file "~/.emacs.d/my-plugins/my-vue.el")
 (when (string= (getenv "EMACS_EMAIL") "true")
   (load-file "~/.emacs.d/my-plugins/my-email.el"))
 (when (not (string= (getenv "SLACK_CLIENT_ID") "nil"))
   (load-file "~/.emacs.d/my-plugins/my-slack.el"))
-(provide 'init)
-(load-file "~/.emacs.d/my-plugins/my-random-stuff.el")
-;;; init.el ends here
+
 (put 'set-goal-column 'disabled nil)
+(provide 'init)
+;;; init.el ends here
+

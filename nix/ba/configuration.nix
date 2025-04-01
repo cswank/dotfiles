@@ -228,13 +228,12 @@ ServerName ba.local
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtGCJvFD4OO5d/u/kVm5pWaCSZ6s4ti3IktnK4KDAgIUH9Dh0tAk0kh5g1SYi3yiQ33CE3OpAxKbJ7U0+f4qyqT5B5D3AZ2LtX6YqitT0S0loYdipJ0/eggkUADvlIYU9M0RYra7Pb5xqXjRmxiFQTVT8Tphkt3nlRIysoERoKSJE7TYD2Wi4XmM3PzP2fO4ulV+xaVwmRydn7GXtqHE9KVDZXwUU89B5CLbpK0+u2AeZ9K2PSKA1NLMIJ/LOv7/MjabV3ZSCNkfaG2zw9RarSh48qpqNT3+V2VDDk5CoojIaUkYwBX7gZcYEWdcBicfzzBvLc1kml1A7QvWLE/O/F craigswank@Craigs-MacBook-Pro.local"
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZqIeMUlW9zTxADY6M4VShlFn4a65hOpFlEaOupLt3GXzL2cIrBLnfVqo2mV6M3paerg9XsXifkS8xLnjv9Urs6+v2peePJghY8eyLrZS5UgV8fsx7el5DSU1SfSUi8NFnloHD2WkrVvJj9DBaLbWWiEtFQQucjT9uRJoxk6nOnCOe4dLmgWWdgPUAdu/1UAABtI5V2MU3cjI3D9jl+dWammF7TF/CKH6cK8p9txO/+nFyf0Y9ZWX60XpAQ+gPDVhbuB1IlD6g+NozMRNBiA23veF4k76srsSLgdpywqzJQCYGvn8flKx2pQW/MeRnjGFoUg/jMR3bCy6+OiG3zgZ5V+Io57Fma6VE0AGwWiHA+lYhyc8JWaNCoDllfeyyXAfAhCTLd8+SoXBjpNdI0fOukwPzKfZNc6/qaeAZ6J25HgOihpT+mPHW5DBrz1jKL9jlkUqe8ifICdtLMmYt2Rsu3KFAi+JCyEAkvmi0MpY2Otpjj9tSYS5UfrY9TDd3/E8= craigswank@Craigs-Mac-mini.local"
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6lfhGGP3P8JJJZOG90dPBQImsYRYkbW+Bnb6gvczZB1Y8bcfOeY7Xxw5zwZaNjRpFExVsvIxPUEjQE2+bXFIHqdv0Ai0Qrtl6inYI82jnHf3j6rXF/GjYenVqkabtFMlCpyabyTKKVC4/fX1qcewsVR/FI/c3oUmze/CK4V8Rlrb/tsjptQYHVIr5NUOHyVObOQDXgsh+P9Bo5fqtRflt2lSFAbEDbqGEXixovZbEpBVbvbWbtc5o9pQ35QS4qh+1aSlBMbnlhMXjNFO0X+3HO44QtZRp3oLINTx6A15o232hfBjDCKw5NGF82PdP1VmtOTAkSOZKeUlD7fxNI6zwHpHLS7ybBr1sC9G4SbxqRCHb74COBT9KEkYRG5poI0BUhk3d/ZBSIm53EkSP11+gfq3N0MxGems9xry0HQBo/urvHs6yb8ImDJaOL9LW9kC2YfvwnQhCyxfnNjxDpZ2NfV37nh2BjSFiGC0wVgVqEOqClNrmDSRdaNHerh7Ke0U= craig@Craigs-MacBook-Pro.local"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKl0QUrClfkHvvN4HQIHH7KjgshLVCBQZnfoJKtGov/i craig@trantor"
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCyIr6FLKv+GeZ0MiGXWR76CoER9UICf3p6wOoeAPeAF9W/kRkPTLG8OS7cUIhVLVH6fz6PZSi45IMqVReHA1RosJa7keNH7pZWtRotAXHT/TkiYfiugfEYSVzZfnyn573q+6rUK3V+8KjDLFqRTGwSAMB6sfIiquYeAAJPw5/22YqlzYOL+TZXNNYtMfEL9sN6qF3kHRtCS6NnIUL+V5TIkrWuBJ7SWyV23PMTXKKT69hhYfnWfLH2NuZ2xQnH8joq4/65ZId4DYNnSGmBND9Fl9ayFuzKFCjz96rGzBKXy8nT8VZg+v5x7megV/OyOygwFO+cJadVHQ/Q1ErhbB35LZe9r9RfLptL1jXg7bn3xv0/k8GIrI/vTacweoQo97ftkf3o+2jketERdScypQaa23q5MtSiEXWjMPI+DUyOnWjaofyf52FWvfi8EAlnCB9Z/TFDQ6Wy/5/uD80WaHICe+eLImn/VK9UnXsFWxfVNH1mA4mPyrfKXt9YMT4FKtc= craig@aurora.local"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKl0QUrClfkHvvN4HQIHH7KjgshLVCBQZnfoJKtGov/i craig@trantor"
       ];
   };
 
-  users.users.quimby =
-  {
+  users.users.quimby = {
     isNormalUser = true;
     home = "/home/quimby";
     description = "Quimby";
@@ -242,8 +241,7 @@ ServerName ba.local
     extraGroups = [];
   };
 
-  users.users.proxy =
-  {
+  users.users.proxy = {
     isNormalUser = true;
     home = "/home/proxy";
     description = "Proxy";

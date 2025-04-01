@@ -395,3 +395,8 @@ function countRequests() {
         fi
     done < <(cw tail /aws/lambda/APIHandler -b$1 | grep 'with token' | jq '.message' | tr -d '"' | cut -d ' ' -f4 | jwt | jq '.sub' | tr -d '"' | sort | uniq -c)
 }
+
+function geocode() {
+    addr=$1
+    curl https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates\?singleline\=$(urlencode "${addr}")\&langCode\=ENG\&f\=json\&token\=${ARCGISTOKEN}\&outFields\=staddr,city,postal,postalext,district,subregion,region,country,cntryname,exinfo,longlabel -H 'Content-Type: application/x-www-form-urlencoded'
+}

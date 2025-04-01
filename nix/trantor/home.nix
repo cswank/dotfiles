@@ -63,21 +63,21 @@ in {
       };
     };
 
-    firefox = {
-      enable = true;
-      profiles = {
-        myuser = {
-          id = 0;
-          settings = {
-            "media.ffmpeg.vaapi.enabled" = true;
-            "media.ffvpx.enabled" = false;
-            "media.av1.enabled" = false;
-            "gfx.webrender.all" = true;
-            #"layers.acceleration.force-enabled" = true;
-          };
-        };
-      };
-    };
+    # firefox = {
+    #   enable = true;
+    #   profiles = {
+    #     myuser = {
+    #       id = 0;
+    #       settings = {
+    #         "media.ffmpeg.vaapi.enabled" = true;
+    #         "media.ffvpx.enabled" = false;
+    #         "media.av1.enabled" = false;
+    #         "gfx.webrender.all" = true;
+    #         #"layers.acceleration.force-enabled" = true;
+    #       };
+    #     };
+    #   };
+    # };
   };
 
   nixpkgs = {
@@ -115,14 +115,16 @@ in {
       pkgsUnstable.kicad
       pkgsUnstable.zig
       pkgsUnstable.fzf
-      pkgsUnstable.go_1_22
+      pkgsUnstable.go
       pkgsUnstable.jq
       pkgsUnstable.awscli2
       pkgsUnstable.signal-desktop
       pkgsUnstable.acme-sh
       pkgsUnstable.dune3d
       pkgsUnstable.vlc
-      pkgs.firefox
+      pkgsUnstable.firefox
+      pkgsUnstable.ghostty
+      #pkgs.firefox
       pkgs.nyxt
       pkgs.gnome3.gnome-terminal
       pkgs.gnuplot

@@ -402,16 +402,18 @@ return result
 
 *** or shell
 #+NAME: oldest
-#+BEGIN_SRC shell :results silent sh :var userid=""
-echo "user is $userid"
+#+BEGIN_SRC shell :results verbatim sh :var userid=""
+echo "user, $userid"
 #+END_SRC
-| userid | y         |
-|--------+-----------|
-| a      | user is a |
-| b      | user is b |
-| c      | user is c |
+
+| userid | y       |
+|--------+---------|
+| a      | user, a |
+| b      | user, b |
+| c      | user, c |
 #+TBLFM: $2='(org-sbe oldest (userid $$1))
 
+NOTE: without :results verbatim the string gets parsed strangely by org-table
 NOTE: use $$ instead of $ to pass the var as a string
 
 *** or go
