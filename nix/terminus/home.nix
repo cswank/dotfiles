@@ -19,11 +19,11 @@ in {
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "25.05";
+  programs.home-manager.enable = true;
 
   imports = [ ../files/dconf.nix ];
 
   programs = {
-
 	  gnome-terminal = {
       enable = true;
       showMenubar = false;
