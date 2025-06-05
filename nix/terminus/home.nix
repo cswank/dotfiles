@@ -23,10 +23,6 @@ in {
   imports = [ ../files/dconf.nix ];
 
   programs = {
-    home-manager = {
-      enable = true;
-      path = https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
-    };
 
 	  gnome-terminal = {
       enable = true;
