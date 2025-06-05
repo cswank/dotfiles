@@ -114,6 +114,7 @@ in {
       pkgsUnstable.rpi-imager
       pkgsUnstable.kicad
       pkgsUnstable.zig
+      pkgsUnstable.zls
       pkgsUnstable.fzf
       pkgsUnstable.go
       pkgsUnstable.jq
@@ -122,9 +123,13 @@ in {
       pkgsUnstable.acme-sh
       pkgsUnstable.dune3d
       pkgsUnstable.vlc
-      pkgsUnstable.firefox
       pkgsUnstable.ghostty
-      #pkgs.firefox
+      #pkgsUnstable.javascript-typescript-langserver
+      pkgsUnstable.firefox
+      pkgsUnstable.qemu
+      pkgsUnstable.quickemu
+      pkgsUnstable.picotool
+      pkgsUnstable.pico-sdk
       pkgs.nyxt
       pkgs.gnome3.gnome-terminal
       pkgs.gnuplot

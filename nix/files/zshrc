@@ -129,7 +129,6 @@ export PARSYL_XRAY=false
 
 keychain $HOME/.ssh/id_ed25519
 source $HOME/.keychain/$HOST-sh
-eval "$(direnv hook zsh)"
 
 function em() {
     if [ $# -eq 0 ]

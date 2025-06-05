@@ -26,3 +26,6 @@ local.*.env
 *.tfvars
 
 *go.work*
+
+zig-out
+.zig-cache
