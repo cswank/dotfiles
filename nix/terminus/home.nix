@@ -71,6 +71,8 @@ in {
       pkgsUnstable.emacs
       pkgsUnstable.git
       pkgsUnstable.firefox
+      pkgsUnstable.ghostty
+      pkgsUnstable.shutter
       pkgs.xclip
       pkgs.dconf
       pkgs.keychain
