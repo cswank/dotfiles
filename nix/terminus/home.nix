@@ -23,6 +23,33 @@ in {
 
   imports = [ ../files/dconf.nix ];
 
+  home = {
+    username = "craig";
+    homeDirectory = "/home/craig";
+    packages = [
+      pkgsUnstable.emacs
+      pkgsUnstable.git
+      pkgsUnstable.firefox
+      pkgsUnstable.ghostty
+      pkgsUnstable.shutter
+      pkgsUnstable.zig
+      pkgsUnstable.go
+      pkgs.xclip
+      pkgs.dconf
+      pkgs.keychain
+    ];
+
+    file = {
+      ".config/i3status/config".source = ../files/i3status;
+      ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
+      ".zshrc".source = ../files/zshrc;
+      ".emacs.d" = {
+        source = ../files/emacs;
+        recursive = true;
+      };
+    };
+  };
+
   programs = {
 	  gnome-terminal = {
       enable = true;
@@ -62,32 +89,5 @@ in {
 
   nixpkgs = {
     config.allowUnfree = true;
-  };
-
-  home = {
-    username = "craig";
-    homeDirectory = "/home/craig";
-    packages = [
-      pkgsUnstable.emacs
-      pkgsUnstable.git
-      pkgsUnstable.firefox
-      pkgsUnstable.ghostty
-      pkgsUnstable.shutter
-      pkgsUnstable.zig
-      pkgsUnstable.go
-      pkgs.xclip
-      pkgs.dconf
-      pkgs.keychain
-    ];
-
-    file = {
-      ".config/i3status/config".source = ../files/i3status;
-      ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
-      ".zshrc".source = ../files/zshrc;
-      ".emacs.d" = {
-        source = ../files/emacs;
-        recursive = true;
-      };
-    };
-  };
+  };  
 }
