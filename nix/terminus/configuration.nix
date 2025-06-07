@@ -29,16 +29,18 @@
   };
 
   services = {
+    displayManager = {
+      defaultSession = "none+i3";
+    };
     xserver = {
       enable = true;
-      layout = "us";
+      xkb = {
+        options = "ctrl:swapcaps";
+        layout = "us";
+      };
       autoRepeatDelay = 200;
       autoRepeatInterval = 25;
-      xkbOptions = "ctrl:swapcaps";
       desktopManager.xterm.enable = false;
-      displayManager = {
-        defaultSession = "none+i3";
-      };
       
       windowManager.i3 = {
         enable = true;
@@ -53,7 +55,7 @@
     
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
       ipv4 = true;
       ipv6 = true;
       publish = {
@@ -63,7 +65,6 @@
         userServices = true;
       };
     };
-
   };
 
   # NOTE: open alsamixer, select sound card, then unmute s/pdif (and mute headphones and speakers)
@@ -112,3 +113,4 @@
 
   system.stateVersion = "25.05"; # Did you read the comment?
 }
+

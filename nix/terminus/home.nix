@@ -73,6 +73,7 @@ in {
       pkgsUnstable.firefox
       pkgsUnstable.ghostty
       pkgsUnstable.shutter
+      pkgsUnstable.zig
       pkgs.xclip
       pkgs.dconf
       pkgs.keychain
