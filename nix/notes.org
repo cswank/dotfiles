@@ -19,3 +19,9 @@
     gsettings set io.elementary.terminal.settings foreground '#d6deeb'
     gsettings set io.elementary.terminal.settings cursor-color '#838394949696'
   #+end_src
+** emacs over ssh
+TODO: figure out how to incorporate
+#+begin_src shell
+tic -x -o ~/.terminfo terminfo-custom.src into nix setup
+#+end_src
+for colors in eamcs over ssh or mosh

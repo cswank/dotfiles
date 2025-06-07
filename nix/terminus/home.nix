@@ -74,6 +74,7 @@ in {
       pkgsUnstable.ghostty
       pkgsUnstable.shutter
       pkgsUnstable.zig
+      pkgsUnstable.go
       pkgs.xclip
       pkgs.dconf
       pkgs.keychain
