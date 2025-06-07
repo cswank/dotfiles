@@ -20,7 +20,7 @@
   time.timeZone = "America/Denver";
 
   networking.useDHCP = false;
-  networking.interfaces.enp0s10.useDHCP = true;
+  networking.interfaces.eno1.useDHCP = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -47,7 +47,6 @@
         extraPackages = with pkgs; [
           dmenu #application launcher most people use
           i3status # gives you the default i3 status bar
-          i3lock #default i3 screen locker
         ];
       };
     };
@@ -68,10 +67,8 @@
   };
 
   # NOTE: open alsamixer, select sound card, then unmute s/pdif (and mute headphones and speakers)
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
   programs.zsh.enable = true;
+  programs.i3lock.enable = true;
 
   users.users.craig = {
     initialPassword = "pw123";
@@ -86,19 +83,32 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtGCJvFD4OO5d/u/kVm5pWaCSZ6s4ti3IktnK4KDAgIUH9Dh0tAk0kh5g1SYi3yiQ33CE3OpAxKbJ7U0+f4qyqT5B5D3AZ2LtX6YqitT0S0loYdipJ0/eggkUADvlIYU9M0RYra7Pb5xqXjRmxiFQTVT8Tphkt3nlRIysoERoKSJE7TYD2Wi4XmM3PzP2fO4ulV+xaVwmRydn7GXtqHE9KVDZXwUU89B5CLbpK0+u2AeZ9K2PSKA1NLMIJ/LOv7/MjabV3ZSCNkfaG2zw9RarSh48qpqNT3+V2VDDk5CoojIaUkYwBX7gZcYEWdcBicfzzBvLc1kml1A7QvWLE/O/F craigswank@Craigs-MacBook-Pro.local"
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZqIeMUlW9zTxADY6M4VShlFn4a65hOpFlEaOupLt3GXzL2cIrBLnfVqo2mV6M3paerg9XsXifkS8xLnjv9Urs6+v2peePJghY8eyLrZS5UgV8fsx7el5DSU1SfSUi8NFnloHD2WkrVvJj9DBaLbWWiEtFQQucjT9uRJoxk6nOnCOe4dLmgWWdgPUAdu/1UAABtI5V2MU3cjI3D9jl+dWammF7TF/CKH6cK8p9txO/+nFyf0Y9ZWX60XpAQ+gPDVhbuB1IlD6g+NozMRNBiA23veF4k76srsSLgdpywqzJQCYGvn8flKx2pQW/MeRnjGFoUg/jMR3bCy6+OiG3zgZ5V+Io57Fma6VE0AGwWiHA+lYhyc8JWaNCoDllfeyyXAfAhCTLd8+SoXBjpNdI0fOukwPzKfZNc6/qaeAZ6J25HgOihpT+mPHW5DBrz1jKL9jlkUqe8ifICdtLMmYt2Rsu3KFAi+JCyEAkvmi0MpY2Otpjj9tSYS5UfrY9TDd3/E8= craigswank@Craigs-Mac-mini.local"
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD3s72cP0bOpqFnUW6ByP4VuVmbzj4zYzohkA0qrbFla+V38ViRKrhugE1/NyfUz5KFsGZAXyZB13FS1G81IGgzvapXeyp2Rem0GgVqrcVY+F/DqTqLWv5TFNWswDa2pG3JO9+Dtr9hIjLFDn1rbmK4PnDIq4e5t2bTttaj4VZbmfWlRIO/cLnRZ6m+qAvG7O3a0BVNM/fmGlYzwJ7BXuHmyxCEE34stxSdVnS8dynBZCI2obe+jxynEM9kcRSNR3YnnQy/fbwIlNqe+Ci0CHSq5htVKNKP0z1QO6i8lA1YjeIvLMI0pssSEKyumZRWrtzb9/LqutOuqWTyQJZmRf2vXRqY6T5G+/Wq6fib/pcHcOqB2oa0QleM3OuB82MfAvlarLPQgv25VTys8utftCpRhCjVeG2aT86l1+yH2bUTkf+Kfmafu1VE5Naq1FJ0quVUfYSyBzCjvqL4JqXU/t8KALjsCDBoj9p+3kT15uK9UYZ6cy6ujcoQdnaCM5NFuQc= craig@nixos"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7yv0GJ7Rap39nGHK4ZV8lPK1gSnhQjlBfVAQwX9JHX craig@trantor"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKl0QUrClfkHvvN4HQIHH7KjgshLVCBQZnfoJKtGov/i craig@trantor"
     ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    avahi
-  ];
+  environment = {
+    pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+    variables = {
+      GDK_SCALE = "2"; # Scale UI elements
+      GDK_DPI_SCALE = "0.5"; # Reverse scale the fonts
+      MOZ_X11_EGL = "1";
+      LIBVA_DRIVER_NAME = "iHD";
+      VDPAU_DRIVER = "va_gl";
+      WEBKIT_FORCE_SANDBOX = "0"; #nyxt crashes without this
+    };
+
+    systemPackages = with pkgs; [
+      avahi
+      mosh
+      git
+    ];
+  };
 
   services.openssh.enable = true;
   networking.firewall.enable = false;
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }
-
