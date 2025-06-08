@@ -169,6 +169,7 @@ in {
       ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
       ".gnupg/gpg-agent.conf".source = ../files/gpg-agent.conf;
       ".config/mpv/mpv.conf".source = ./files/mpv.conf;
+      ".config/ghostty/config".source = ./files/ghostty.conf;
       ".zshrc".source = ../files/zshrc;
       ".gitignore".source = ../files/gitignore;
       ".ssh/config".source = ./files/ssh;

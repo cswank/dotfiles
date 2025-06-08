@@ -42,6 +42,7 @@ in {
     file = {
       ".config/i3status/config".source = ../files/i3status;
       ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
+      ".config/ghostty/config".source = ./files/ghostty.conf;
       ".zshrc".source = ../files/zshrc;
       ".emacs.d" = {
         source = ../files/emacs;
