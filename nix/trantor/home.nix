@@ -131,6 +131,7 @@ in {
       pkgsUnstable.picotool
       pkgsUnstable.pico-sdk
       pkgsUnstable.wakelan
+      pkgsUnstable.claude-code
       pkgs.nyxt
       pkgs.gnome3.gnome-terminal
       pkgs.gnuplot
