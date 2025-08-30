@@ -1,0 +1,9 @@
+[Unit]
+Description=Sprinklers
+
+[Service]
+WorkingDirectory=/home/craig
+ExecStart=/usr/local/bin/gogadgets run /etc/sprinklers-cron.json
+
+[Install]
+WantedBy=multi-user.target
