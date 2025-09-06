@@ -2,13 +2,18 @@
 ;;; setup vars for org-mode
 ;;; Commentary:
 ;;; Code:
+
+(add-to-list 'load-path "~/.emacs.d/ob-duckdb")
+(require 'ob-duckdb)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
     (sql . t)
+    (duckdb . t)
     (ditaa . t)
     (shell . t)
-	(restclient . t)
+    (restclient . t)
     (go . t)
     (gnuplot . t)
     (http . t)
