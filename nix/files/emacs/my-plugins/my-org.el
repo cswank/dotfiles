@@ -3,7 +3,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(add-to-list 'load-path "~/.emacs.d/ob-duckdb")
+(add-to-list 'load-path "~/.emacs.d/plugins/ob-duckdb")
 (require 'ob-duckdb)
 
 (org-babel-do-load-languages
