@@ -94,10 +94,15 @@
 
 ;; for handling build tags in work project
 (defun insurance-api-configuration ()
-  (if (string-match "insurance-api" (projectile-project-root))
-      (message "setting goflag -tags=e2e for insurance-api")
-      (setq  lsp-go-env '((GOFLAGS . "-tags=e2e")))
-  ))
+  (when-let* ((project (project-current))
+              (project-root (project-root project)))
+    (let ((repo-name (file-name-nondirectory
+                      (directory-file-name project-root))))
+      (message "Repository name: %s" repo-name)
+      (if (string-match "insurance-api" repo-name)
+          (message "setting goflag -tags=e2e for %s" repo-name)
+        (setq  lsp-go-env '((GOFLAGS . "-tags=e2e")))))
+    ))
 
 (add-hook 'lsp-after-initialize-hook 'insurance-api-configuration)
 
