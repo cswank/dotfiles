@@ -75,16 +75,21 @@ in
     extraGroups = [];
   };
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
+  };
 
-  services.openssh.enable = true;
-  services.openssh.settings.PermitRootLogin = "no";
-  services.openssh.settings.PasswordAuthentication = false;
-
-  networking.firewall.allowedTCPPorts = [ 22 80 443 631 2049 3333 3334 5355 6111 6114 8000 8080 50051 50100 ];
-  networking.firewall.allowedUDPPorts = [ 631 5353 ];
-  networking.firewall.allowedUDPPortRanges = [
-    { from = 60000; to = 61000; }
-  ];
+  networking.firewall = {
+    allowedTCPPorts = [ 22 80 443 631 2049 3333 3334 5355 6111 6114 8000 8080 50051 50100 ];
+    allowedUDPPorts = [ 631 5353 ];
+    allowedUDPPortRanges = [
+      { from = 60000; to = 61000; }
+    ];
+  };
 
   services.avahi = { 
     enable = true; 
@@ -155,5 +160,4 @@ in
   # and migrated your data accordingly.
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
