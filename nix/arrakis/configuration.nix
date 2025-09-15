@@ -39,6 +39,7 @@ in
     pkgs.git
     pkgs.keychain
     pkgs.screen
+    pkgs.bind
     unstable.acme-sh
   ];
 
