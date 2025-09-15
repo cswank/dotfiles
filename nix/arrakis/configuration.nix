@@ -40,6 +40,7 @@ in
     pkgs.keychain
     pkgs.screen
     pkgs.bind
+    unstable.htop
     unstable.acme-sh
   ];
 
