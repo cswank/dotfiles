@@ -92,7 +92,6 @@ in {
       LIBVA_DRIVER_NAME = "i965";
     };
     packages = [
-      pkgsUnstable.tfswitch      
       pkgsUnstable.cryptsetup
       pkgsUnstable.slack
       pkgsUnstable.plantuml
@@ -103,7 +102,6 @@ in {
       pkgsUnstable.easyrsa
       pkgsUnstable.asciinema
       pkgsUnstable.keepassxc
-      pkgsUnstable.terraform-ls
       pkgsUnstable._1password
       pkgsUnstable.texlive.combined.scheme-full
       pkgsUnstable.lilypond-unstable-with-fonts
@@ -131,6 +129,8 @@ in {
       pkgsUnstable.picotool
       pkgsUnstable.pico-sdk
       pkgsUnstable.wakelan
+      pkgsUnstable.claude-code
+      pkgsUnstable.tenv
       pkgs.nyxt
       pkgs.gnome3.gnome-terminal
       pkgs.gnuplot
@@ -161,6 +161,7 @@ in {
       pkgs.aws-vault
       pkgs.openssl
       pkgs.tree
+      pkgs.xxd
     ];
 
     file = {

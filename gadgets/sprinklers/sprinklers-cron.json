@@ -1,62 +1,67 @@
 {
-    "host": "http://192.168.88.246:6111",
-    "gadgets": [
-        {
-            "location": "front garden",
-            "name": "sprinklers",
-            "pin": {
-                "type": "gpio",
-                "port": "8",
-                "pin": "11"
-            }
-        },
-        {
-            "location": "garden bed",
-            "name": "sprinklers",
-            "pin": {
-                "type": "gpio",
-                "port": "8",
-                "pin": "7"
-            }
-        },
-        {
-            "location": "back garden",
-            "name": "sprinklers",
-            "pin": {
-                "type": "gpio",
-                "port": "8",
-              "pin": "8"
-            }
-        },
-        {
-            "location": "front yard",
-            "name": "sprinklers",
-            "pin": {
-                "type": "gpio",
-                "port": "8",
-                "pin": "10"
-            }
-        },
-        {
-            "location": "back yard",
-            "name": "sprinklers",
-            "pin": {
-                "type": "gpio",
-                "port": "8",
-                "pin": "9"
-            }
-        },
-        {
-            "type": "cron",
-            "args": {
-                "jobs": [
-                    "46  4,18 *  *  *     turn on front yard sprinklers for 10 minutes",
-                    "25  4    *  *  2,4,6 turn on back yard sprinklers for 20 minutes",
-                    "0   4    *  *  *     turn on back garden sprinklers for 10 minutes",
-                    "11  4,18 *  *  *     turn on front garden sprinklers for 10 minutes",
-                    "22  4,18 *  *  *     turn on garden bed sprinklers for 2 minutes"
-                ]
-            }
-        }
-    ]
+  "host": "http://192.168.88.148:6111",
+  "gadgets": [
+    {
+      "location": "front garden",
+      "name": "sprinklers",
+      "pin": {
+        "type": "gpio",
+        "platform": "rpi",
+        "pin": "11",
+        "direction": "out"
+      }
+    },
+    {
+      "location": "back garden",
+      "name": "sprinklers",
+      "pin": {
+        "type": "gpio",
+        "platform": "rpi",
+        "pin": "13",
+        "direction": "out"
+      }
+    },
+    {
+      "location": "front yard",
+      "name": "sprinklers",
+      "pin": {
+        "type": "gpio",
+        "platform": "rpi",
+        "pin": "15",
+        "direction": "out"
+      }
+    },
+    {
+      "location": "garden bed",
+      "name": "sprinklers",
+      "pin": {
+        "type": "gpio",
+        "platform": "rpi",
+        "pin": "19",
+        "direction": "out"
+      }
+    },
+    {
+      "location": "back yard",
+      "name": "sprinklers",
+      "pin": {
+        "type": "gpio",
+        "platform": "rpi",
+        "pin": "21",
+        "direction": "out"
+      }
+    },
+    {
+      "type": "cron",
+      "args": {
+        "jobs": [
+          "46  4,18 *  *  *     turn on front yard sprinklers for 10 minutes",
+          "25  4    *  *  2,4,6 turn on back yard sprinklers for 20 minutes",
+          "0   4    *  *  *     turn on back garden sprinklers for 10 minutes",
+          "11  4,18 *  *  *     turn on front garden sprinklers for 10 minutes",
+          "22  4,18 *  *  *     turn on garden bed sprinklers for 2 minutes"
+        ]
+      }
+    }
+  ]
 }

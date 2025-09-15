@@ -64,29 +64,7 @@
   (dotimes (i (- x 1)) (insert (format "$%d, " (1+ i))))
   (insert (format "$%d" x)))
 
-;; (defun go-create-playground ()
-;;   "Create a new temporary file with a skeletal Go application."
-;;   (interactive)
-;;   (let ((filename (concat (file-name-as-directory (make-temp-file "go-play-" t)) "main.go")))
-;;     (find-file filename)
-;;     (rename-buffer (generate-new-buffer-name "Go Playground"))
-;;     (insert (concat "package main\n\nimport (\n\t\"fmt\"\n)\n\nfunc main() {\n\tfmt.Println(\"This file is located in " filename "\")\n}"))
-;;     (save-buffer)
-;;     (previous-line)
-;;     (end-of-line)
-;;     (insert "\n\t")
-;;     (go-mode)
-;;     (shell-command "go mod init go-playground")))
-
-;; (defun go-switch-to-playground ()
-;;   "Switch to Go Playground buffer, creating if necessary."
-;;   (interactive)
-;;   (let ((playground (get-buffer "Go Playground")))
-;;     (if playground
-;;         (switch-to-buffer playground)
-;;       (go-create-playground))))
-
-;; (global-set-key (kbd "C-c C-g r") 'go-play-buffer)
+(global-set-key (kbd "C-c C-g r") 'go-play-buffer)
 ;; (global-set-key (kbd "C-c C-g p") 'go-switch-to-playground)
 ;; (global-set-key (kbd "C-c C-g n") 'go-create-playground)
 
@@ -94,10 +72,13 @@
 
 ;; for handling build tags in work project
 (defun insurance-api-configuration ()
-  (if (string-match "insurance-api" (projectile-project-root))
-      (message "setting goflag -tags=e2e for insurance-api")
-      (setq  lsp-go-env '((GOFLAGS . "-tags=e2e")))
-  ))
+  "Configure LSP Go environment for insurance-api projects."
+  (when-let* ((project-root (project-root (project-current)))
+              (repo-name (file-name-nondirectory
+                         (directory-file-name project-root))))
+    (when (string-match-p "insurance-api" repo-name)
+      (setq lsp-go-env '((GOFLAGS . "-tags=e2e")))
+      (message "Set GOFLAGS=-tags=e2e for %s" repo-name))))
 
 (add-hook 'lsp-after-initialize-hook 'insurance-api-configuration)
 
