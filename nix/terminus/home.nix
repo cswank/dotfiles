@@ -33,10 +33,15 @@ in {
       pkgsUnstable.ghostty
       pkgsUnstable.shutter
       pkgsUnstable.zig
+      pkgsUnstable.zls
       pkgsUnstable.go
+      pkgsUnstable.keepassxc
+      pkgsUnstable.picotool
       pkgs.xclip
       pkgs.dconf
       pkgs.keychain
+      pkgs.gcc
+      pkgs.screen
     ];
 
     file = {
