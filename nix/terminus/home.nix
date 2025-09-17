@@ -31,7 +31,7 @@ in {
       pkgsUnstable.git
       pkgsUnstable.firefox
       pkgsUnstable.ghostty
-      pkgsUnstable.shutter
+      pkgsUnstable.cheese
       pkgsUnstable.zig
       pkgsUnstable.zls
       pkgsUnstable.go
