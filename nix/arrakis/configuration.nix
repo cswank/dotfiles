@@ -11,7 +11,7 @@ let
 in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
     ];
 
@@ -23,14 +23,12 @@ in
     };
   };
 
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "arrakis";
   time.timeZone = "America/Denver";
 
-  # Configure keymap in X11
   services.xserver.xkb.layout = "us";
 
   environment.systemPackages = with pkgs; [
