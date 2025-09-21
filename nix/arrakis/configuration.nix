@@ -38,6 +38,7 @@ in
     pkgs.keychain
     pkgs.screen
     pkgs.bind
+    pkgs.wakelan
     unstable.htop
     unstable.acme-sh
   ];
