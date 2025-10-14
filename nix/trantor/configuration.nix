@@ -73,7 +73,8 @@
 
     firewall = {
       # 5353 for Avahi
-      allowedTCPPorts = [ 7 9 22 5353 8081 8883];
+      # 1883 for mqtt
+      allowedTCPPorts = [ 7 9 22 1883 5353 8081 8883];
       allowedUDPPorts = [ 5353 7001 8883 ];
       allowedUDPPortRanges = [
         # mosh
