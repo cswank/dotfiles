@@ -4,6 +4,3 @@
 [submodule "nix/files/emacs/ob-duckdb"]
 	path = nix/files/emacs/ob-duckdb
 	url = https://github.com/cswank/ob-duckdb
-[submodule "nix/files/emacs/plugins/ob-duckdb"]
-	path = nix/files/emacs/plugins/ob-duckdb
-	url = https://github.com/cswank/ob-duckdb
