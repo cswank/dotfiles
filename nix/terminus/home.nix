@@ -37,11 +37,13 @@ in {
       pkgsUnstable.go
       pkgsUnstable.keepassxc
       pkgsUnstable.picotool
+      pkgsUnstable.rpi-imager
       pkgs.xclip
       pkgs.dconf
       pkgs.keychain
       pkgs.gcc
       pkgs.screen
+      pkgs.gnumake
     ];
 
     file = {
