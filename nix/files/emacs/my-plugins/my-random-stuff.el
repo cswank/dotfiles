@@ -31,6 +31,13 @@
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package editorconfig
+  :init (editorconfig-mode 1)
+  :config
+  ;; (add-to-list 'editorconfig-indentation-alist
+  ;;              '(json-mode json-mode-indent-level))
+  :delight)
+
 ;; straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file

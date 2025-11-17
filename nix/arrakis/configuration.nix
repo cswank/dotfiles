@@ -142,6 +142,20 @@ in
     wantedBy = [ "default.target" ];
   };
 
+  systemd.services.astronomy = {
+    description = "astronomy";
+
+    serviceConfig = {
+      User = "proxy";
+      WorkingDirectory=/home/proxy/env;
+      ExecStart = "/usr/local/bin/controller";
+      Restart = "on-failure";
+      AmbientCapabilities="CAP_NET_BIND_SERVICE";
+    };
+
+    wantedBy = [ "default.target" ];
+  };
+
   systemd.services.proxy.enable = true;
 
   fileSystems."/mnt/music" = {
