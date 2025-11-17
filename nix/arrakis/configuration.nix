@@ -147,8 +147,8 @@ in
 
     serviceConfig = {
       User = "proxy";
-      WorkingDirectory=/home/proxy/env;
-      ExecStart = "/usr/local/bin/controller";
+      WorkingDirectory=/home/proxy;
+      ExecStart = "/usr/local/bin/controller -d --longitude=-104.99 --latitude=39.73";
       Restart = "on-failure";
       AmbientCapabilities="CAP_NET_BIND_SERVICE";
     };
