@@ -3,8 +3,13 @@
 ;;; Commentary:
 ;;; Code:
 
-(add-to-list 'load-path "~/.emacs.d/plugins/ob-duckdb")
-(require 'ob-duckdb)
+(use-package ob-duckdb
+  :straight (:host github :repo "gggion/ob-duckdb")
+  :after org
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (append org-babel-load-languages '((duckdb . t)))))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
