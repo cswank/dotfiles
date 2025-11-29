@@ -13,6 +13,11 @@
     packages = [
       pkgs.mosh
       pkgs.emacs
+      pkgs.keychain
+      pkgs.zls
+      pkgs.silver-searcher
+      pkgs.picotool
+      pkgs.go
     ];
 
     file = {

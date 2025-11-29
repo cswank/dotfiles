@@ -24,5 +24,12 @@ Host brewery
     User pi
 
 Host home
+    User craig
     Hostname www.craigswank.com
     Port 5440
+
+Host arrakis.local
+    User craig
+
+Host trantor.local
+    User craig
