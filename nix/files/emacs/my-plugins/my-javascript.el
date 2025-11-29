@@ -12,5 +12,9 @@
   :ensure t
   :defer t
   :mode "\\.json\\'")
+
+(add-hook 'json-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'editorconfig-format-buffer nil t)))
 ;;; my-javascript.el ends here
 

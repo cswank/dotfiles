@@ -31,12 +31,19 @@ in {
       pkgsUnstable.git
       pkgsUnstable.firefox
       pkgsUnstable.ghostty
-      pkgsUnstable.shutter
+      pkgsUnstable.cheese
       pkgsUnstable.zig
+      pkgsUnstable.zls
       pkgsUnstable.go
+      pkgsUnstable.keepassxc
+      pkgsUnstable.picotool
+      pkgsUnstable.rpi-imager
       pkgs.xclip
       pkgs.dconf
       pkgs.keychain
+      pkgs.gcc
+      pkgs.screen
+      pkgs.gnumake
     ];
 
     file = {

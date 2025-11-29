@@ -55,11 +55,11 @@
       "type": "cron",
       "args": {
         "jobs": [
-          "46  4,18 *  *  *     turn on front yard sprinklers for 5 minutes",
-          "25  4    *  *  2,4,6 turn on back yard sprinklers for 20 minutes",
+          "46  4    *  *  *     turn on front yard sprinklers for 5 minutes",
+          "25  4    *  *  2,5   turn on back yard sprinklers for 10 minutes",
           "0   4    *  *  *     turn on back garden sprinklers for 5 minutes",
-          "11  4,18 *  *  *     turn on front garden sprinklers for 5 minutes",
-          "22  4,18 *  *  *     turn on garden bed sprinklers for 2 minutes"
+          "11  4    *  *  *     turn on front garden sprinklers for 5 minutes",
+          "22  4    *  *  *     turn on garden bed sprinklers for 2 minutes"
         ]
       }
     }

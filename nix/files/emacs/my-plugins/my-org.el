@@ -2,13 +2,23 @@
 ;;; setup vars for org-mode
 ;;; Commentary:
 ;;; Code:
+
+(use-package ob-duckdb
+  :straight (:host github :repo "gggion/ob-duckdb")
+  :after org
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (append org-babel-load-languages '((duckdb . t)))))
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
     (sql . t)
+    (duckdb . t)
     (ditaa . t)
     (shell . t)
-	(restclient . t)
+    (restclient . t)
     (go . t)
     (gnuplot . t)
     (http . t)

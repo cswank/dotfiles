@@ -248,6 +248,11 @@ function use-env () {
     export AUTH="Authorization: Bearer $TOKEN"
 }
 
+function local-user() {
+    ID=$(echo $TOKEN | jwt | jq '.sub' | tr -d '"')
+    curl -i -H "${AUTH}" http://localhost:9000/users -d '{"id": "'$ID'", "name": "craig", "groups": ["m2m"]}'
+}
+
 function m2m-dev() {
     m2m-env 'dev' 'https://api.dev.parsyl.io'
 }
