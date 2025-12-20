@@ -160,5 +160,14 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lsp-mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq lsp-file-watch-ignored
+      '("node_modules"
+        "\\.git"
+        "\\.cache"
+        "\\.zig-cache"))
   
 ;;; my-random-stuff.el ends here

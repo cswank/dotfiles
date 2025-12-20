@@ -25,6 +25,8 @@
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+;;(define-key global-map (kbd "C-c j") 'avy-goto-char-timer)
+(define-key global-map (kbd "C-c j") 'avy-goto-char-2)
 (define-key global-map (kbd "C-c b") 'ace-jump-buffer)
 (global-set-key (kbd "C-c y") 'browse-kill-ring)
 

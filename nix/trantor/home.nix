@@ -102,7 +102,7 @@ in {
       pkgsUnstable.easyrsa
       pkgsUnstable.asciinema
       pkgsUnstable.keepassxc
-      pkgsUnstable._1password
+      pkgsUnstable._1password-cli
       pkgsUnstable.texlive.combined.scheme-full
       pkgsUnstable.lilypond-unstable-with-fonts
       pkgsUnstable.simplescreenrecorder

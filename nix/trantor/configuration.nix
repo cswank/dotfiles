@@ -219,6 +219,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8bzpDmgoIgDQCI6UFPW0DG7jMnwuL6bBxMAyjPCWMR craig@Craigs-MBP.localdomain"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/d4tqHOjIukqYWixQAfQrt1dLpaM8o9bYwyk7Ct8pi craig@arrakis"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAtQEzzTxy/ay4aZlZDnjXcj6xSElp4WhhL9Zc6a8pau craig@terminus"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIANA5nbUglGbrSDJuXg+POTOQahpt6fqnbQyEditR3Zb craigswank@Craigs-MacBook-Pro-2.local"      
     ];
   };
 
