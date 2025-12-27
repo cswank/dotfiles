@@ -92,76 +92,76 @@ in {
       LIBVA_DRIVER_NAME = "i965";
     };
     packages = [
-      pkgsUnstable.cryptsetup
-      pkgsUnstable.slack
-      pkgsUnstable.plantuml
-      pkgsUnstable.gron
-      pkgsUnstable.winbox
-      pkgsUnstable.emacs
-      pkgsUnstable.transcribe
-      pkgsUnstable.easyrsa
-      pkgsUnstable.asciinema
-      pkgsUnstable.keepassxc
       pkgsUnstable._1password-cli
-      pkgsUnstable.texlive.combined.scheme-full
-      pkgsUnstable.lilypond-unstable-with-fonts
-      pkgsUnstable.simplescreenrecorder
-      pkgsUnstable.nodejs
-      pkgsUnstable.duckdb
-      pkgsUnstable.thrift
-      pkgsUnstable.rpi-imager
-      pkgsUnstable.kicad
-      pkgsUnstable.zig
-      pkgsUnstable.zls
-      pkgsUnstable.fzf
-      pkgsUnstable.go
-      pkgsUnstable.jq
-      pkgsUnstable.awscli2
-      pkgsUnstable.signal-desktop
       pkgsUnstable.acme-sh
+      pkgsUnstable.asciinema
+      pkgsUnstable.awscli2
+      pkgsUnstable.claude-code
+      pkgsUnstable.cloc
+      pkgsUnstable.cryptsetup
+      pkgsUnstable.duckdb
       pkgsUnstable.dune3d
-      pkgsUnstable.vlc
-      pkgsUnstable.ghostty
-      #pkgsUnstable.javascript-typescript-langserver
+      pkgsUnstable.easyrsa
+      pkgsUnstable.emacs
       pkgsUnstable.firefox
+      pkgsUnstable.fzf
+      pkgsUnstable.ghostty
+      pkgsUnstable.go
+      pkgsUnstable.gron
+      pkgsUnstable.jq
+      pkgsUnstable.keepassxc
+      pkgsUnstable.kicad
+      pkgsUnstable.lilypond-unstable-with-fonts
+      pkgsUnstable.nodejs
+      pkgsUnstable.pico-sdk
+      pkgsUnstable.picotool
+      pkgsUnstable.plantuml
       pkgsUnstable.qemu
       pkgsUnstable.quickemu
-      pkgsUnstable.picotool
-      pkgsUnstable.pico-sdk
-      pkgsUnstable.wakelan
-      pkgsUnstable.claude-code
+      pkgsUnstable.rpi-imager
+      pkgsUnstable.signal-desktop
+      pkgsUnstable.simplescreenrecorder
+      pkgsUnstable.slack
       pkgsUnstable.tenv
-      pkgs.nyxt
-      pkgs.gnome3.gnome-terminal
-      pkgs.gnuplot
-      pkgs.zip
-      pkgs.unzip
-      pkgs.guake
-      pkgs.silver-searcher
-      pkgs.xclip
-      pkgs.gh
-      pkgs.gcc
-      pkgs.gnumake
-      pkgs.git
-      pkgs.zsh
-      pkgs.keychain
-      pkgs.openvpn
-      pkgs.gnupg
-      pkgs.mosh
-      pkgs.screen
-      pkgs.musescore
-      pkgs.feh
-      pkgs.cifs-utils
-      pkgs.ispell
-      pkgs.shutter
-      pkgs.pinentry-curses
-      pkgs.graphviz
-      pkgs.direnv
-      pkgs.lsof
+      pkgsUnstable.texlive.combined.scheme-full
+      pkgsUnstable.thrift
+      pkgsUnstable.transcribe
+      pkgsUnstable.vlc
+      pkgsUnstable.wakelan
+      pkgsUnstable.winbox
+      pkgsUnstable.zig
+      pkgsUnstable.zls
       pkgs.aws-vault
+      pkgs.cifs-utils
+      pkgs.direnv
+      pkgs.feh
+      pkgs.gcc
+      pkgs.gh
+      pkgs.git
+      pkgs.gnome3.gnome-terminal
+      pkgs.gnumake
+      pkgs.gnupg
+      pkgs.gnuplot
+      pkgs.graphviz
+      pkgs.guake
+      pkgs.ispell
+      pkgs.keychain
+      pkgs.lsof
+      pkgs.mosh
+      pkgs.musescore
+      pkgs.nyxt
       pkgs.openssl
+      pkgs.openvpn
+      pkgs.pinentry-curses
+      pkgs.screen
+      pkgs.shutter
+      pkgs.silver-searcher
       pkgs.tree
+      pkgs.unzip
+      pkgs.xclip
       pkgs.xxd
+      pkgs.zip
+      pkgs.zsh
     ];
 
     file = {
