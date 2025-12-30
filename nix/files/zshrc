@@ -404,3 +404,12 @@ function geocode() {
     addr=$1
     curl https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates\?singleline\=$(urlencode "${addr}")\&langCode\=ENG\&f\=json\&token\=${ARCGISTOKEN}\&outFields\=staddr,city,postal,postalext,district,subregion,region,country,cntryname,exinfo,longlabel -H 'Content-Type: application/x-www-form-urlencoded'
 }
+
+function body() {
+    while IFS= read -r line; do
+        bod=$(echo $line | tr -d '"')
+        if [[ "$bod" != "null" ]]; then
+            echo $bod | base64 -d | gunzip | jq
+        fi
+    done
+}
