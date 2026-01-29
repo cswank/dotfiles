@@ -31,6 +31,21 @@
 ;;Other stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun kill-non-file-buffers ()
+  (interactive)
+  (mapc (lambda (buf)
+          (when (and (buffer-file-name buf)
+                     (not (vc-backend (buffer-file-name buf))))
+            (kill-buffer buf)))
+        (buffer-list)))
+
+(defun reverse-chars (beg end)
+ "Reverse characters between BEG and END."
+ (interactive "r")
+ (let ((region (buffer-substring beg end)))
+   (delete-region beg end)
+   (insert (nreverse region))))
+
 (use-package editorconfig
   :init (editorconfig-mode 1)
   :config
