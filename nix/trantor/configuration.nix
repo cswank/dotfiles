@@ -21,10 +21,10 @@
       argsOverride = rec {
         src = pkgs.fetchurl {
           url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-          sha256 = "8ebc65af0cfc891ba63dce0546583da728434db0f5f6a54d979f25ec47f548b3";
+          sha256 = "1ajzby6isqji1xlp660m4qj2i2xs003vsjp1jspziwl7hrzhqadb";
         };
-        version = "6.6.9";
-        modDirVersion = "6.6.9";
+        version = "6.6.15";
+        modDirVersion = "6.6.15";
       };
     });
     resumeDevice = "/dev/nvme0n1p2";
@@ -36,6 +36,19 @@
   };
 
   systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
+
+  systemd.services.bluetooth-suspend = {
+    description = "Unload bluetooth module before suspend";
+    before = [ "sleep.target" ];
+    wantedBy = [ "sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.kmod}/bin/modprobe -r btusb";
+      ExecStop = "${pkgs.kmod}/bin/modprobe btusb";
+    };
+  };
 
   systemd.services.usbwake = {
     enable = true;

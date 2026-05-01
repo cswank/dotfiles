@@ -36,7 +36,7 @@
 (defun load-sql ()
   "Prompt user to pick a choice from a list."
   (interactive)
-  (let ((choices '("api" "cache" "notifications" "messaging" "insurance")))
+  (let ((choices '("insurance" "pas")))
     (setq db (completing-read "Select db:" choices )))
   (when db
     (let ((choices '("dev" "test" "prod" "local")))

@@ -76,7 +76,8 @@
   (when-let* ((project-root (project-root (project-current)))
               (repo-name (file-name-nondirectory
                          (directory-file-name project-root))))
-    (when (string-match-p "insurance-api" repo-name)
+    (when (or (string-match-p "insurance-api" repo-name)
+              (string-match-p "policy-admin-api" repo-name))
       (setq lsp-go-env '((GOFLAGS . "-tags=e2e")))
       (message "Set GOFLAGS=-tags=e2e for %s" repo-name))))
 

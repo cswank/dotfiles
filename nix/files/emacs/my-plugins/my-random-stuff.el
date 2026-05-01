@@ -183,6 +183,8 @@
       '("node_modules"
         "\\.git"
         "\\.cache"
+        "\\.claude"
+        "\\.terraform"
         "\\.zig-cache"))
   
 ;;; my-random-stuff.el ends here

@@ -131,11 +131,14 @@ in {
       pkgsUnstable.winbox
       pkgsUnstable.zig
       pkgsUnstable.zls
+      pkgsUnstable.emacsPackages.vterm
+      pkgsUnstable.mermaid-cli
       pkgs.aws-vault
       pkgs.cifs-utils
       pkgs.direnv
       pkgs.feh
       pkgs.gcc
+      pkgs.libgccjit
       pkgs.gh
       pkgs.git
       pkgs.gnome3.gnome-terminal
