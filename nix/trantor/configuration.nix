@@ -82,7 +82,6 @@
     };
 
     networkmanager.enable = true;
-    #networkmanager.options = with pkgs; [ gnome3.networkmanager-openvpn ];
 
     firewall = {
       # 5353 for Avahi
@@ -151,7 +150,7 @@
     };
 
     postgresql = {
-      enable = true;
+      enable = false;
       package = pkgs.postgresql_16.withPackages (p: [ p.postgis ]);
       dataDir = "/mnt/postgresql/16";
       enableTCPIP = true;
@@ -287,17 +286,17 @@
     };
   };
 
-  system.activationScripts = {
-      mnt = {
-        text = ''
-          if [ ! -d /mnt/postgresql/13 ] ; then
-            mkdir -p /mnt/postgresql/13
-            chown -R postgres:postgres /mnt/postgresql/13
-          fi
-        '';
-        deps = [];
-      };
-   };
+  # system.activationScripts = {
+  #     mnt = {
+  #       text = ''
+  #         if [ ! -d /mnt/postgresql/13 ] ; then
+  #           mkdir -p /mnt/postgresql/13
+  #           chown -R postgres:postgres /mnt/postgresql/13
+  #         fi
+  #       '';
+  #       deps = [];
+  #     };
+  #  };
 
   # rds-ca-2019-root.pem
   security.pki.certificates = [ "-----BEGIN CERTIFICATE-----
