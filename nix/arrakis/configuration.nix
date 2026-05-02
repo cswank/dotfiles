@@ -41,6 +41,7 @@ in
     pkgs.wakelan
     unstable.htop
     unstable.acme-sh
+    unstable.jq    
   ];
 
   programs.zsh.enable = true;
