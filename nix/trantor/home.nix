@@ -121,7 +121,12 @@ in {
       pkgsUnstable.rpi-imager
       pkgsUnstable.signal-desktop
       pkgsUnstable.simplescreenrecorder
-      pkgsUnstable.slack
+      (pkgsUnstable.slack.overrideAttrs (old: {
+        postFixup = (old.postFixup or "") + ''
+          wrapProgram $out/bin/slack \
+            --add-flags "--force-device-scale-factor=2.0"
+        '';
+      }))
       pkgsUnstable.tenv
       pkgsUnstable.texlive.combined.scheme-full
       pkgsUnstable.thrift
@@ -133,6 +138,7 @@ in {
       pkgsUnstable.zls
       pkgsUnstable.emacsPackages.vterm
       pkgsUnstable.mermaid-cli
+      pkgsUnstable.postgresql_15
       pkgs.aws-vault
       pkgs.cifs-utils
       pkgs.direnv
