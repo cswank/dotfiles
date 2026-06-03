@@ -134,6 +134,7 @@
       nssmdns = true;
       ipv4 = true;
       ipv6 = true;
+      allowInterfaces = [ "enp2s0" ];
       publish = {
         enable = true;
         addresses = true;
