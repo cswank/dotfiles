@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  pkgsUnstable = import <nixpkgs-unstable> {};
+  pkgs = import <nixpkgs-unstable> {};
 
   inherit (lib.generators) toINI;
 
@@ -89,11 +89,11 @@ in
     username = "craig";
     homeDirectory = "/home/craig";
     packages = [
-      pkgsUnstable.tfswitch
-      pkgsUnstable.google-chrome
-      pkgsUnstable.nyxt
-      pkgsUnstable.cryptsetup
-      pkgsUnstable.slack
+      pkgs.tfswitch
+      pkgs.google-chrome
+      pkgs.nyxt
+      pkgs.cryptsetup
+      pkgs.slack
       pkgs.gnome3.dconf
       pkgs.gnome3.gnome-terminal
       pkgs.emacs
