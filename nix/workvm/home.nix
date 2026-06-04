@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  pkgs = import <nixpkgs-unstable> {};
+  pkgs = import <nixpkgs-unstable> { config.allowUnfree = true; };
 
   inherit (lib.generators) toINI;
 
@@ -56,10 +56,6 @@ in
         };
       };
     };
-  };
-
-  nixpkgs = {
-    config.allowUnfree = true;
   };
 
   home = {

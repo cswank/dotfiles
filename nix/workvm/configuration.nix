@@ -15,6 +15,11 @@
       <home-manager/nixos>
     ];
 
+  # Allow unfree packages. With home-manager.useGlobalPkgs = true, home
+  # packages use this system-level nixpkgs config (a nixpkgs.config in
+  # home.nix would be ignored).
+  nixpkgs.config.allowUnfree = true;
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   # Move pre-existing, unmanaged files (e.g. a ~/.zshrc written by the
