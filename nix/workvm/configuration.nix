@@ -108,6 +108,15 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Resolve .local (mDNS) hostnames advertised by avahi on the LAN.
+  # nssmdns4 hooks mDNS into nsswitch so getaddrinfo() resolves *.local;
+  # openFirewall lets mDNS (UDP 5353) through the default firewall.
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
