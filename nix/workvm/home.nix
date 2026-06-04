@@ -29,40 +29,11 @@ in
       enable = true;
     };
 
-  gnome-terminal = {
-      enable = true;
-      showMenubar = false;
-      profile = {
-        "53d98703-ad0c-4092-850e-3dbea0422cd8" = {
-          visibleName = "peninsula";
-          default = true;
-          font = "Fira Code Nerd Font";
-          showScrollbar = false;
-          colors = {
-            foregroundColor = "#838394949696";
-            backgroundColor = "#00002B2B3636";
-            palette = [
-              "#070736364242"
-              "#DCDC32322F2F"
-              "#858599990000"
-              "#B5B589890000"
-              "#26268B8BD2D2"
-              "#D3D336368282"
-              "#2A2AA1A19898"
-              "#EEEEE8E8D5D5"
-              "#00002B2B3636"
-              "#CBCB4B4B1616"
-              "#58586E6E7575"
-              "#65657B7B8383"
-              "#838394949696"
-              "#6C6C7171C4C4"
-              "#9393A1A1A1A1"
-              "#FDFDF6F6E3E3"
-            ];
-          };
-        };
-      };
-    };
+    # gnome-terminal is configured via dconf (see ../files/dconf.nix).
+    # Do not also use `programs.gnome-terminal` here: both write the same
+    # profile and the profile list gets concatenated, producing a broken
+    # duplicate entry that makes the terminal fall back to theme colors
+    # (black-on-black).
 
     firefox = {
       enable = true;

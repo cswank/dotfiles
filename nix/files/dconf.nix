@@ -68,18 +68,18 @@ in
 
     "org/gnome/terminal/legacy/profiles:/:53d98703-ad0c-4092-850e-3dbea0422cd8" = {
       audible-bell = true;
-      background-color = "#00002B2B3636";
+      background-color = "rgb(0,43,54)";
       backspace-binding = "ascii-delete";
       bold-color-same-as-fg = true;
       cursor-blink-mode = "system";
       cursor-colors-set = false;
       cursor-shape = "block";
       delete-binding = "delete-sequence";
-      font = "Fira Code Nerd Font";
-      foreground-color = "#838394949696";
+      font = "FiraCode Nerd Font Mono 12";
+      foreground-color = "rgb(131,148,150)";
       highlight-colors-set = false;
       login-shell = false;
-      palette = [ "#070736364242" "#DCDC32322F2F" "#858599990000" "#B5B589890000" "#26268B8BD2D2" "#D3D336368282" "#2A2AA1A19898" "#EEEEE8E8D5D5" "#00002B2B3636" "#CBCB4B4B1616" "#58586E6E7575" "#65657B7B8383" "#838394949696" "#6C6C7171C4C4" "#9393A1A1A1A1" "#FDFDF6F6E3E3" ];
+      palette = [ "rgb(7,54,66)" "rgb(220,50,47)" "rgb(133,153,0)" "rgb(181,137,0)" "rgb(38,139,210)" "rgb(211,54,130)" "rgb(42,161,152)" "rgb(238,232,213)" "rgb(0,43,54)" "rgb(203,75,22)" "rgb(88,110,117)" "rgb(101,123,131)" "rgb(131,148,150)" "rgb(108,113,196)" "rgb(147,161,161)" "rgb(253,246,227)" ];
       scrollback-lines = 10000;
       scrollbar-policy = "never";
       use-custom-command = false;
