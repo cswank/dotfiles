@@ -44,7 +44,7 @@
     # GTK/Firefox/terminal and i3's pango fonts honor it, and a resize doesn't
     # touch it. This keeps UI sizing constant while resolution stays dynamic.
     displayManager.sessionCommands = ''
-      echo "Xft.dpi: 144" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
+      echo "Xft.dpi: 220" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
     '';
     xkb.layout = "us";
   };
