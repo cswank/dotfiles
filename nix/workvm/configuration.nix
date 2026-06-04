@@ -33,19 +33,11 @@
     windowManager.i3.enable = true;
     windowManager.i3.configFile = "/etc/i3.conf";
     displayManager.lightdm.enable = true;
-    # Fixed-resolution fallback. Only matters when the UTM display card does
-    # not negotiate a mode on its own (e.g. plain "virtio-ramfb"). With
-    # "virtio-gpu-pci" + spice-vdagent the desktop auto-resizes and this is a
-    # harmless no-op. Adds the mode if the card doesn't already advertise it,
-    # then switches to it. The modeline is the output of `cvt 1920 1080`.
-    displayManager.sessionCommands = ''
-      ${pkgs.xrandr}/bin/xrandr -s 3840x2160 2>/dev/null || {
-        out=$(${pkgs.xrandr}/bin/xrandr | ${pkgs.gnused}/bin/sed -n 's/ connected.*//p' | head -n1)
-        ${pkgs.xrandr}/bin/xrandr --newmode "3840x2160_60.00" 712.75 3840 4160 4576 5312 2160 2163 2168 2237 -hsync +vsync 2>/dev/null || true
-        ${pkgs.xrandr}/bin/xrandr --addmode "$out" "3840x2160_60.00" 2>/dev/null || true
-        ${pkgs.xrandr}/bin/xrandr --output "$out" --mode "3840x2160_60.00" 2>/dev/null || true
-      }
-    '';
+    # Resolution is left to spice-vdagent, which resizes the guest to match
+    # the UTM window. No fixed xrandr pin: a hard-coded mode breaks when you
+    # reconnect/switch displays (guest stays at the old size, so the fixed
+    # dpi makes everything look giant). If dynamic resize ever stops working,
+    # re-add a `displayManager.sessionCommands` xrandr pin here.
     xkb.layout = "us";
   };
 
