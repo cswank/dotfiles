@@ -76,6 +76,7 @@ in
       pkgs.dconf
       pkgs.gnome-terminal
       pkgs.emacs
+      pkgs.claude-code
       pkgs.keepassxc
       pkgs.guake
       pkgs.silver-searcher
