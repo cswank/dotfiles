@@ -33,7 +33,7 @@ in
       enable = true;
       showMenubar = false;
       profile = {
-        cyplo = {
+        "42a1995b-71b7-4447-8ca3-db2794405644" = {
           visibleName = "peninsula";
           default = true;
           font = "Fira Code Nerd Font";
