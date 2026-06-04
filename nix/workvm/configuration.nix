@@ -31,11 +31,11 @@
     # harmless no-op. Adds the mode if the card doesn't already advertise it,
     # then switches to it. The modeline is the output of `cvt 1920 1080`.
     displayManager.sessionCommands = ''
-      ${pkgs.xrandr}/bin/xrandr -s 1920x1080 2>/dev/null || {
+      ${pkgs.xrandr}/bin/xrandr -s 2560x1440 2>/dev/null || {
         out=$(${pkgs.xrandr}/bin/xrandr | ${pkgs.gnused}/bin/sed -n 's/ connected.*//p' | head -n1)
-        ${pkgs.xrandr}/bin/xrandr --newmode "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync 2>/dev/null || true
-        ${pkgs.xrandr}/bin/xrandr --addmode "$out" "1920x1080_60.00" 2>/dev/null || true
-        ${pkgs.xrandr}/bin/xrandr --output "$out" --mode "1920x1080_60.00" 2>/dev/null || true
+        ${pkgs.xrandr}/bin/xrandr --newmode "2560x1440_60.00" 312.25 2560 2752 3024 3488 1440 1443 1448 1493 -hsync +vsync 2>/dev/null || true
+        ${pkgs.xrandr}/bin/xrandr --addmode "$out" "2560x1440_60.00" 2>/dev/null || true
+        ${pkgs.xrandr}/bin/xrandr --output "$out" --mode "2560x1440_60.00" 2>/dev/null || true
       }
     '';
     xkb.layout = "us";
