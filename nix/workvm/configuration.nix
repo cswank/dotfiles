@@ -29,7 +29,7 @@
 
   services.xserver = {
     enable = true;
-    dpi = 144;
+    dpi = 220;
     windowManager.i3.enable = true;
     windowManager.i3.configFile = "/etc/i3.conf";
     displayManager.lightdm.enable = true;
