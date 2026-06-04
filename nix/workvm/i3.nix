@@ -25,6 +25,10 @@ set $mod Mod4
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango:${variables.font.name} ${variables.font.size}
 
+# No window title bars or borders (removes the default blue i3 border).
+default_border none
+default_floating_border none
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 

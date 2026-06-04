@@ -22,14 +22,14 @@ in
   # changes in each release.
   home.stateVersion = "26.05";
 
-  imports = [ ../files/dconf.nix ];
+  imports = [ ./dconf.nix ];
 
   programs = {
     home-manager = {
       enable = true;
     };
 
-    # gnome-terminal is configured via dconf (see ../files/dconf.nix).
+    # gnome-terminal is configured via dconf (see ./dconf.nix).
     # Do not also use `programs.gnome-terminal` here: both write the same
     # profile and the profile list gets concatenated, producing a broken
     # duplicate entry that makes the terminal fall back to theme colors
@@ -46,6 +46,12 @@ in
             "media.av1.enabled" = false;
             "gfx.webrender.all" = true;
             "layers.acceleration.force-enabled" = true;
+            # Compact toolbar/tabs (0 = normal, 1 = compact, 2 = touch).
+            "browser.uidensity" = 1;
+            # Cap UI/content scaling instead of the 144-dpi auto value (1.5x),
+            # which made the chrome oversized. Raise toward 1.5 if pages are
+            # too small, lower toward 1.0 for an even denser UI.
+            "layout.css.devPixelsPerPx" = "1.25";
           };
         };
       };
@@ -92,7 +98,7 @@ in
 
     file = {
       ".config/i3status/config".source = ../files/i3status;
-      ".config/gtk-3.0/settings.ini".source = ../files/gtk.ini;
+      ".config/gtk-3.0/settings.ini".source = ./files/gtk.ini;
       ".gnupg/gpg-agent.conf".source = ../files/gpg-agent.conf;
       ".config/mpv/mpv.conf".source = ./files/mpv.conf;
       ".zshrc".source = ../files/zshrc;
