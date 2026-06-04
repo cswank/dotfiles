@@ -68,14 +68,14 @@ in
 
     "org/gnome/terminal/legacy/profiles:/:53d98703-ad0c-4092-850e-3dbea0422cd8" = {
       audible-bell = true;
-      background-color = "rgb(0,43,54)";
+      background-color = "rgb(40,40,40)";
       backspace-binding = "ascii-delete";
       bold-color-same-as-fg = true;
       cursor-blink-mode = "system";
       cursor-colors-set = false;
       cursor-shape = "block";
       delete-binding = "delete-sequence";
-      font = "FiraCode Nerd Font Mono 12";
+      font = "FiraCode Nerd Font Mono 14";
       foreground-color = "rgb(131,148,150)";
       highlight-colors-set = false;
       login-shell = false;
