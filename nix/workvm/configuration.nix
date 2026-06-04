@@ -12,12 +12,12 @@
       # Uncomment after first boot, once the home-manager channel is added, then run:
       # sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz home-manager
       # sudo nix-channel --update
-      # <home-manager/nixos>
+      <home-manager/nixos>
     ];
 
-  # home-manager.useGlobalPkgs = true;
-  # home-manager.useUserPackages = true;
-  # home-manager.users.craig = import ./home.nix;
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.users.craig = import /home/craig/Projects/dotfiles/nix/workvm/home.nix;
 
   services.xserver = {
     enable = true;

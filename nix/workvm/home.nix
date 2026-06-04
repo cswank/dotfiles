@@ -22,7 +22,7 @@ in
   # changes in each release.
   home.stateVersion = "26.05";
 
-  imports = [ /home/craig/.config/nix/dconf.nix ];
+  imports = [ ../files/dconf.nix ];
 
   programs = {
     home-manager = {
