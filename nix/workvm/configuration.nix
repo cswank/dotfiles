@@ -36,8 +36,16 @@
     # Resolution is left to spice-vdagent, which resizes the guest to match
     # the UTM window. No fixed xrandr pin: a hard-coded mode breaks when you
     # reconnect/switch displays (guest stays at the old size, so the fixed
-    # dpi makes everything look giant). If dynamic resize ever stops working,
-    # re-add a `displayManager.sessionCommands` xrandr pin here.
+    # dpi makes everything look giant).
+    #
+    # But a runtime resize makes the X server recompute its DPI from the
+    # reported physical size, overriding services.xserver.dpi (at 4K that
+    # comes out low -> everything tiny). Pin Xft.dpi as an X resource instead:
+    # GTK/Firefox/terminal and i3's pango fonts honor it, and a resize doesn't
+    # touch it. This keeps UI sizing constant while resolution stays dynamic.
+    displayManager.sessionCommands = ''
+      echo "Xft.dpi: 144" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
+    '';
     xkb.layout = "us";
   };
 
