@@ -22,7 +22,7 @@ in
   # changes in each release.
   home.stateVersion = "26.05";
 
-  imports = [ ../files/dconf.nix ];
+  imports = [ /home/craig/.config/nix/dconf.nix ];
 
   programs = {
     home-manager = {
@@ -33,7 +33,7 @@ in
       enable = true;
       showMenubar = false;
       profile = {
-        "42a1995b-71b7-4447-8ca3-db2794405644" = {
+        "53d98703-ad0c-4092-850e-3dbea0422cd8" = {
           visibleName = "peninsula";
           default = true;
           font = "Fira Code Nerd Font";
