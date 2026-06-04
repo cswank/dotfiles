@@ -29,7 +29,7 @@ in
       enable = true;
     };
 
-	  gnome-terminal = {
+  gnome-terminal = {
       enable = true;
       showMenubar = false;
       profile = {
@@ -90,12 +90,10 @@ in
     homeDirectory = "/home/craig";
     packages = [
       pkgs.tfswitch
-      pkgs.google-chrome
       pkgs.nyxt
       pkgs.cryptsetup
-      pkgs.slack
-      pkgs.gnome3.dconf
-      pkgs.gnome3.gnome-terminal
+      pkgs.dconf
+      pkgs.gnome-terminal
       pkgs.emacs
       pkgs.keepassxc
       pkgs.guake
@@ -106,7 +104,6 @@ in
       pkgs.gnumake
       pkgs.firefox
       pkgs.git
-      pkgs.zoom
       pkgs.zsh
       pkgs.keychain
       pkgs.openvpn
@@ -116,7 +113,7 @@ in
       pkgs.feh
       pkgs.cifs-utils
       pkgs.ispell
-      pkgs.networkmanager_openvpn
+      pkgs.networkmanager-openvpn
       pkgs.shutter
       pkgs.pinentry-curses
       pkgs.graphviz
