@@ -17,6 +17,9 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  # Move pre-existing, unmanaged files (e.g. a ~/.zshrc written by the
+  # oh-my-zsh installer) to <name>.backup instead of failing activation.
+  home-manager.backupFileExtension = "backup";
   home-manager.users.craig = import /home/craig/Projects/dotfiles/nix/workvm/home.nix;
 
   services.xserver = {
