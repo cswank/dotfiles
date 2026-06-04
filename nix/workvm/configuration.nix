@@ -21,7 +21,7 @@
 
   services.xserver = {
     enable = true;
-    dpi = 192;
+    dpi = 96;
     windowManager.i3.enable = true;
     windowManager.i3.configFile = "/etc/i3.conf";
     displayManager.lightdm.enable = true;
@@ -54,10 +54,10 @@
   services.spice-vdagentd.enable = true;
 
   environment.variables = {
-    GDK_SCALE = "2";
+    GDK_SCALE = "1";
     GDK_DPI_SCALE = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-    _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+    _JAVA_OPTIONS = "-Dsun.java2d.uiScale=1";
   };
 
   # Use the systemd-boot EFI boot loader.
