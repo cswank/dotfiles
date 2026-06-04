@@ -1,4 +1,4 @@
-{ pgks, ... }:
+{ pkgs, ... }:
 
 let 
   variables = import ./variables.nix;

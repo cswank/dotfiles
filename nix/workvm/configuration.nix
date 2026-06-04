@@ -9,8 +9,27 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./i3.nix
-      ./sway.nix
     ];
+
+  services.xserver = {
+    enable = true;
+    dpi = 192;
+    windowManager.i3.enable = true;
+    windowManager.i3.configFile = "/etc/i3.conf";
+    displayManager.lightdm.enable = true;
+    displayManager.autoLogin = {
+      enable = true;
+      user = "craig";
+    };
+    xkb.layout = "us";
+  };
+
+  environment.variables = {
+    GDK_SCALE = "2";
+    GDK_DPI_SCALE = "1";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -53,6 +72,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 }
 
