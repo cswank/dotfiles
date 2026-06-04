@@ -9,7 +9,15 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./i3.nix
+      # Uncomment after first boot, once the home-manager channel is added:
+      #   sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz home-manager
+      #   sudo nix-channel --update
+      # <home-manager/nixos>
     ];
+
+  # home-manager.useGlobalPkgs = true;
+  # home-manager.useUserPackages = true;
+  # home-manager.users.craig = import ./home.nix;
 
   services.xserver = {
     enable = true;
