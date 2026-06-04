@@ -29,8 +29,29 @@
       enable = true;
       user = "craig";
     };
+    # Fixed-resolution fallback. Only matters when the UTM display card does
+    # not negotiate a mode on its own (e.g. plain "virtio-ramfb"). With
+    # "virtio-gpu-pci" + spice-vdagent the desktop auto-resizes and this is a
+    # harmless no-op. Adds the mode if the card doesn't already advertise it,
+    # then switches to it. Change WIDTHxHEIGHT to taste.
+    displayManager.sessionCommands = ''
+      ${pkgs.xorg.xrandr}/bin/xrandr -s 1920x1080 2>/dev/null || {
+        out=$(${pkgs.xorg.xrandr}/bin/xrandr | ${pkgs.gnused}/bin/sed -n 's/ connected.*//p' | head -n1)
+        mode=$(${pkgs.xorg.cvt}/bin/cvt 1920 1080 | ${pkgs.gnused}/bin/sed -n '2s/^Modeline "\([^"]*\)" \(.*\)/\1 \2/p')
+        name=$(echo "$mode" | ${pkgs.gawk}/bin/awk '{print $1}')
+        ${pkgs.xorg.xrandr}/bin/xrandr --newmode $mode 2>/dev/null || true
+        ${pkgs.xorg.xrandr}/bin/xrandr --addmode "$out" "$name" 2>/dev/null || true
+        ${pkgs.xorg.xrandr}/bin/xrandr --output "$out" --mode "$name" 2>/dev/null || true
+      }
+    '';
     xkb.layout = "us";
   };
+
+  # Guest agents so the UTM/QEMU SPICE display can negotiate and
+  # auto-resize the resolution to match the window. Requires the VM's
+  # "Emulated Display Card" in UTM to be set to "virtio-ramfb-gl (GPU Supported)".
+  services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true;
 
   environment.variables = {
     GDK_SCALE = "2";
