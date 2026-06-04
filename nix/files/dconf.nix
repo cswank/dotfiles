@@ -75,7 +75,7 @@ in
       cursor-colors-set = false;
       cursor-shape = "block";
       delete-binding = "delete-sequence";
-      font = "FiraCode Nerd Font Mono 14";
+      font = "FiraCode Nerd Font Mono 11";
       foreground-color = "rgb(131,148,150)";
       highlight-colors-set = false;
       login-shell = false;

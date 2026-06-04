@@ -22,6 +22,6 @@ in rec {
    
   font = {
     name = "DejaVu Sans Mono";
-    size = "10";
+    size = "8";
   };
 }
