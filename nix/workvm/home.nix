@@ -66,6 +66,10 @@ in
     username = "craig";
     homeDirectory = "/home/craig";
     packages = [
+      pkgs.go
+      pkgs.jq
+      pkgs.keepassxc
+      pkgs.tenv
       pkgs.tfswitch
       pkgs.nyxt
       pkgs.cryptsetup
