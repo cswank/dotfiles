@@ -36,7 +36,6 @@
   };
 
   systemd.services.NetworkManager-wait-online.enable = false;
-  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 
   systemd.services.bluetooth-suspend = {
     description = "Unload bluetooth module before suspend";
@@ -68,20 +67,12 @@
   networking = {
     hostName = "trantor";
     useDHCP = false;
-    useNetworkd = true;
-
-    interfaces = {
-      enp2s0 = {
-        useDHCP = false;
-        wakeOnLan = {
-          enable = true;
-          policy = ["magic"];
-        };
-      };
-      wlp3s0.useDHCP = false;
-    };
-
     networkmanager.enable = true;
+
+    interfaces.enp2s0.wakeOnLan = {
+      enable = true;
+      policy = ["magic"];
+    };
 
     firewall = {
       # 5353 for Avahi

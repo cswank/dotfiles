@@ -68,7 +68,7 @@ in
 
     "org/gnome/terminal/legacy/profiles:/:53d98703-ad0c-4092-850e-3dbea0422cd8" = {
       audible-bell = true;
-      background-color = "rgb(40,40,40)";
+      background-color = "rgb(10,10,10)";
       backspace-binding = "ascii-delete";
       bold-color-same-as-fg = true;
       cursor-blink-mode = "system";

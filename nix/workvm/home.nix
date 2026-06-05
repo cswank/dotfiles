@@ -62,6 +62,9 @@ in
     username = "craig";
     homeDirectory = "/home/craig";
     packages = [
+      pkgs.awscli2
+      pkgs.unzip
+      pkgs.zip
       pkgs.go
       pkgs.jq
       pkgs.keepassxc
@@ -95,6 +98,7 @@ in
       pkgs.shutter
       pkgs.pinentry-curses
       pkgs.graphviz
+      pkgs.emacsPackages.vterm
     ];
 
     file = {
