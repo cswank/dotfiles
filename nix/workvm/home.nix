@@ -94,11 +94,11 @@ in
       pkgs.feh
       pkgs.cifs-utils
       pkgs.ispell
-      pkgs.networkmanager-openvpn
       pkgs.shutter
       pkgs.pinentry-curses
       pkgs.graphviz
       pkgs.emacsPackages.vterm
+      pkgs.postgresql_18
     ];
 
     file = {

@@ -77,6 +77,9 @@
 
   networking.hostName = "yavin"; # Define your hostname.
   networking.networkmanager.enable = true;
+  # Register the OpenVPN plugin with the NetworkManager daemon so the
+  # nm-applet "VPN type" dropdown is populated.
+  networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
   time.timeZone = "America/Denver";
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
