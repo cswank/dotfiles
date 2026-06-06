@@ -44,6 +44,12 @@ exec --no-startup-id nm-applet
 # i3 does not process XDG autostart, so start it explicitly.
 exec --no-startup-id ${pkgs.spice-vdagent}/bin/spice-vdagent
 
+# Compositor. Qt6 apps (e.g. KeePassXC 2.7.x) request a translucent/ARGB
+# window; with no compositor running, i3 shows them as a solid black box.
+# picom composites them. Use the xrender backend: the UTM virtio-gpu has no
+# working GL/EGL, so the glx/egl backends fail to initialize.
+exec --no-startup-id ${pkgs.picom}/bin/picom --backend xrender
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
