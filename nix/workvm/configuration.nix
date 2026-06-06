@@ -22,12 +22,14 @@
   # home.nix would be ignored).
   nixpkgs.config.allowUnfree = true;
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
   # Move pre-existing, unmanaged files (e.g. a ~/.zshrc written by the
   # oh-my-zsh installer) to <name>.backup instead of failing activation.
-  home-manager.backupFileExtension = "backup";
-  home-manager.users.craig = import /home/craig/Projects/dotfiles/nix/workvm/home.nix;
+    backupFileExtension = "backup";
+    users.craig = import /home/craig/Projects/dotfiles/nix/workvm/home.nix;
+  };
 
   services.xserver = {
     enable = true;
