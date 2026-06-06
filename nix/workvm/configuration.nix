@@ -49,6 +49,18 @@
       echo "Xft.dpi: 220" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
     '';
     xkb.layout = "us";
+
+    # macOS-style "natural" scrolling. UTM routes the Mac trackpad through the
+    # absolute spice/QEMU *tablet* device, which MatchIsPointer does not catch,
+    # so match the libinput driver directly (NaturalScrolling is a no-op on
+    # devices that can't scroll).
+    inputClassSections = [
+      ''
+        Identifier "natural scrolling"
+        MatchDriver "libinput"
+        Option "NaturalScrolling" "on"
+      ''
+    ];
   };
 
   services.displayManager.autoLogin = {
