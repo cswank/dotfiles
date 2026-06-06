@@ -55,17 +55,6 @@ in
       list = [ "53d98703-ad0c-4092-850e-3dbea0422cd8" ];
     };
 
-    "org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9" = {
-      background-color = "rgb(12,12,12)";
-      bold-is-bright = true;
-      foreground-color = "rgb(170,170,170)";
-      palette = [ "rgb(46,52,54)" "rgb(204,0,0)" "rgb(78,154,6)" "rgb(196,160,0)" "rgb(52,101,164)" "rgb(117,80,123)" "rgb(6,152,154)" "rgb(211,215,207)" "rgb(85,87,83)" "rgb(239,41,41)" "rgb(138,226,52)" "rgb(252,233,79)" "rgb(114,159,207)" "rgb(173,127,168)" "rgb(52,226,226)" "rgb(238,238,236)" ];
-      scroll-on-output = false;
-      scrollbar-policy = "never";
-      use-theme-colors = false;
-      visible-name = "Default";
-    };
-
     "org/gnome/terminal/legacy/profiles:/:53d98703-ad0c-4092-850e-3dbea0422cd8" = {
       audible-bell = true;
       background-color = "rgb(10,10,10)";
@@ -75,7 +64,7 @@ in
       cursor-colors-set = false;
       cursor-shape = "block";
       delete-binding = "delete-sequence";
-      font = "FiraCode Nerd Font Mono 11";
+      font = "FiraCode Nerd Font Mono 12";
       foreground-color = "rgb(131,148,150)";
       highlight-colors-set = false;
       login-shell = false;
@@ -86,21 +75,6 @@ in
       use-system-font = false;
       use-theme-colors = false;
       visible-name = "peninsula";
-    };
-
-    "org/gnome/terminal/legacy/profiles:/:default" = {
-      audible-bell = true;
-      backspace-binding = "ascii-delete";
-      cursor-blink-mode = "system";
-      cursor-shape = "block";
-      delete-binding = "delete-sequence";
-      login-shell = false;
-      scrollback-lines = 10000;
-      scrollbar-policy = "always";
-      use-custom-command = false;
-      use-system-font = true;
-      use-theme-colors = true;
-      visible-name = "dark";
     };
 
     "org/gtk/settings/color-chooser" = {
