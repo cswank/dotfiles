@@ -134,6 +134,10 @@
       };
     };
 
+    resolved.extraConfig = ''
+      MulticastDNS=no
+    '';
+
     # CUPS
     printing = {
       enable = true;
