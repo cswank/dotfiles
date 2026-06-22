@@ -28,6 +28,7 @@
       };
     });
     resumeDevice = "/dev/nvme0n1p2";
+    kernelParams = [ "no_console_suspend" ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -47,6 +48,32 @@
       ExecStart = "${pkgs.kmod}/bin/modprobe -r btusb";
       ExecStop = "${pkgs.kmod}/bin/modprobe btusb";
     };
+  };
+
+  systemd.services.suspend-debug = {
+    description = "Log inhibitors and ghostty processes before suspend";
+    before = [ "sleep.target" ];
+    wantedBy = [ "sleep.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      echo "--- inhibitors ---"
+      ${pkgs.systemd}/bin/systemd-inhibit --list --no-pager || true
+      echo "--- ghostty procs ---"
+      ${pkgs.procps}/bin/ps -eo pid,ppid,etime,stat,cmd | grep -iE 'ghostty|defunct' || true
+      echo "--- loginctl ---"
+      ${pkgs.systemd}/bin/loginctl list-sessions --no-pager || true
+    '';
+  };
+
+  systemd.services.resume-debug = {
+    description = "Log ghostty processes after resume";
+    after = [ "suspend.target" "hibernate.target" ];
+    wantedBy = [ "suspend.target" "hibernate.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      echo "--- post-resume ghostty procs ---"
+      ${pkgs.procps}/bin/ps -eo pid,ppid,etime,stat,cmd | grep -iE 'ghostty|defunct' || true
+    '';
   };
 
   systemd.services.usbwake = {
