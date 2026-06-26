@@ -12,14 +12,15 @@ If suspend misbehaves (won't suspend, hangs on resume, ghostty windows wedge aft
 - ~7 weeks of clean suspends.
 - 2026-06-22 (484d09a): re-enabled ghostty as the default terminal.
 - 2026-06-24: first new suspend hang. Kernel got `PM: suspend entry (deep)` and nothing else — wedged in the device-suspend phase. `systemd-inhibit` showed no inhibitors held.
+- 2026-06-25: hang recurred. `pm_debug_messages` had been added but turned out to be the wrong knob — it gates higher-level PM lifecycle pr_dbg messages, not per-device `calling X+` traces.
+- 2026-06-26: confirmed `/sys/power/pm_print_times = 1` is the correct knob (344 per-device "calling" lines on a test cycle). Switched to a `systemd.tmpfiles` rule to enable it at boot.
 
-Current hypothesis: ghostty's EGL/GPU usage on `i915` triggers a driver suspend hang (no userspace inhibitor involved, which is why `systemd-inhibit --list` shows nothing). `pm_debug_messages` should name the offending driver next time.
+Current hypothesis: ghostty's EGL/GPU usage on `i915` triggers a driver suspend hang (no userspace inhibitor involved, which is why `systemd-inhibit --list` shows nothing). `pm_print_times` should name the offending driver on the next hang.
 
 ### What's installed
 
-- `boot.kernelParams = [ "no_console_suspend" "pm_debug_messages" ]`:
-  - `no_console_suspend` keeps the kernel console alive across suspend so any kernel-side hang leaves a trail.
-  - `pm_debug_messages` makes the kernel print `calling <driver>+` / `<driver> returned 0` for every device during the suspend transition. If suspend hangs in a driver `.suspend` callback, the last `calling ...+` line without a matching `returned` is the offender. Noisy but harmless.
+- `boot.kernelParams = [ "no_console_suspend" ]` — keeps the kernel console alive across suspend so any kernel-side hang leaves a trail.
+- `systemd.tmpfiles.rules = [ "w /sys/power/pm_print_times - - - - 1" ]` — at boot, writes `1` to `/sys/power/pm_print_times`. This makes the kernel print `calling <driver>+ @ <pid>` and the matching `call <driver>+ returned 0 after <usecs>` for every device during suspend and resume. If suspend hangs in a driver `.suspend` callback, the last `calling ...+` line without a matching `returned` is the offender. Noisy (hundreds of lines per cycle) but harmless. Do **not** confuse with `pm_debug_messages` — that's a different (and less useful for this) knob.
 - `systemd.services.suspend-debug` — runs `before = sleep.target`. Logs:
   - `systemd-inhibit --list` (who is holding sleep/idle locks)
   - all `ghostty` and `<defunct>` processes
@@ -47,7 +48,13 @@ ACPI: PM: Waking up from system sleep state S3
 PM: suspend exit
 ```
 
-If you only see `PM: suspend entry (deep)` and nothing else, the hang is in the device-suspend phase (a driver `.suspend` callback wedged) — `pm_debug_messages` will show which driver was last called.
+If you only see `PM: suspend entry (deep)` and nothing else, the hang is in the device-suspend phase (a driver `.suspend` callback wedged). To find the offender:
+
+```
+journalctl -b -1 -k --no-pager | grep -E 'calling .* @|call .* returned' > /tmp/pm.log
+# last 'calling X+' line without a matching 'call X+ returned' = the hung driver
+tail -20 /tmp/pm.log
+```
 
 If you catch it live (system woke but is misbehaving):
 

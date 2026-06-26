@@ -28,8 +28,12 @@
       };
     });
     resumeDevice = "/dev/nvme0n1p2";
-    kernelParams = [ "no_console_suspend" "pm_debug_messages" ];
+    kernelParams = [ "no_console_suspend" ];
   };
+
+  systemd.tmpfiles.rules = [
+    "w /sys/power/pm_print_times - - - - 1"
+  ];
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.packageOverrides = pkgs: {
