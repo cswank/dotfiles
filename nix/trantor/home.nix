@@ -80,6 +80,25 @@ in {
     # };
   };
 
+  services.dunst.enable = true;
+
+  systemd.user.services.stomach-reminder = {
+    Unit.Description = "Hourly stomach exercise reminder";
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Stomach exercises' 'Time to do your stomach exercises'";
+    };
+  };
+
+  systemd.user.timers.stomach-reminder = {
+    Unit.Description = "Hourly stomach exercise reminder";
+    Timer = {
+      OnCalendar = "Mon..Fri 06..14:00:00";
+      Persistent = false;
+    };
+    Install.WantedBy = [ "timers.target" ];
+  };
+
   nixpkgs = {
     config.allowUnfree = true;
   };
