@@ -125,6 +125,7 @@ in {
       pkgsUnstable.firefox
       pkgsUnstable.fzf
       pkgsUnstable.ghostty
+      pkgsUnstable.kitty
       pkgsUnstable.go
       pkgsUnstable.gron
       pkgsUnstable.jq
@@ -199,6 +200,7 @@ in {
       ".gnupg/gpg-agent.conf".source = ../files/gpg-agent.conf;
       ".config/mpv/mpv.conf".source = ./files/mpv.conf;
       ".config/ghostty/config".source = ./files/ghostty.conf;
+      ".config/kitty/kitty.conf".source = ./files/kitty.conf;
       ".zshrc".source = ../files/zshrc;
       ".gitignore".source = ../files/gitignore;
       ".ssh/config".source = ./files/ssh;

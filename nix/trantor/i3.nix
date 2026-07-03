@@ -48,7 +48,10 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec gnome-terminal
-bindsym $mod+Return exec ghostty
+bindsym $mod+Return exec kitty
+
+# keep titlebar, drop the side/bottom border on kitty
+for_window [class="kitty"] border normal 0
 
 # kill focused window
 bindsym $mod+Shift+q kill
