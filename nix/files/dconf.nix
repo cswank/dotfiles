@@ -67,16 +67,16 @@ in
     };
 
     "org/gnome/terminal/legacy/profiles:/:53d98703-ad0c-4092-850e-3dbea0422cd8" = {
-      audible-bell = true;
-      background-color = "#00002B2B3636";
+      audible-bell = false;
+      background-color = "rgb(16,16,16)";
       backspace-binding = "ascii-delete";
       bold-color-same-as-fg = true;
-      cursor-blink-mode = "system";
+      cursor-blink-mode = "off";
       cursor-colors-set = false;
       cursor-shape = "block";
       delete-binding = "delete-sequence";
-      font = "Fira Code Nerd Font";
-      foreground-color = "#838394949696";
+      font = "monospace 12";
+      foreground-color = "rgb(221,221,221)";
       highlight-colors-set = false;
       login-shell = false;
       palette = [ "#070736364242" "#DCDC32322F2F" "#858599990000" "#B5B589890000" "#26268B8BD2D2" "#D3D336368282" "#2A2AA1A19898" "#EEEEE8E8D5D5" "#00002B2B3636" "#CBCB4B4B1616" "#58586E6E7575" "#65657B7B8383" "#838394949696" "#6C6C7171C4C4" "#9393A1A1A1A1" "#FDFDF6F6E3E3" ];
@@ -85,7 +85,7 @@ in
       use-custom-command = false;
       use-system-font = false;
       use-theme-colors = false;
-      visible-name = "peninsula";
+      visible-name = "kitty-like";
     };
 
     "org/gnome/terminal/legacy/profiles:/:default" = {

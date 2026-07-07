@@ -48,10 +48,11 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec gnome-terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec i3-sensible-terminal
 
-# keep titlebar, drop the side/bottom border on kitty
+# keep titlebar, drop the side/bottom border on terminals
 for_window [class="kitty"] border normal 0
+for_window [class="Gnome-terminal"] border normal 0
 
 # kill focused window
 bindsym $mod+Shift+q kill

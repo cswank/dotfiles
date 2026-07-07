@@ -14,6 +14,8 @@ If suspend misbehaves (won't suspend, hangs on resume, ghostty windows wedge aft
 - 2026-06-24: first new suspend hang. Kernel got `PM: suspend entry (deep)` and nothing else — wedged in the device-suspend phase. `systemd-inhibit` showed no inhibitors held.
 - 2026-06-25: hang recurred. `pm_debug_messages` had been added but turned out to be the wrong knob — it gates higher-level PM lifecycle pr_dbg messages, not per-device `calling X+` traces.
 - 2026-06-26: confirmed `/sys/power/pm_print_times = 1` is the correct knob (344 per-device "calling" lines on a test cycle). Switched to a `systemd.tmpfiles` rule to enable it at boot.
+- 2026-07-02 to 07-03: hang recurred on ghostty and again after switching to kitty (both GPU-accelerated OpenGL terminals). Hypothesis narrowed: it's the GL-terminal-class + i915 + this specific hardware, not ghostty-specific.
+- 2026-07-03: switched trantor to gnome-terminal via `i3-sensible-terminal` (VTE + cairo, no OpenGL). Kitty/ghostty still installed for easy swap-back. If suspends stay clean on gnome-terminal, hypothesis is confirmed and next step is either an i915 workaround or trying a newer kernel.
 
 Current hypothesis: ghostty's EGL/GPU usage on `i915` triggers a driver suspend hang (no userspace inhibitor involved, which is why `systemd-inhibit --list` shows nothing). `pm_print_times` should name the offending driver on the next hang.
 
