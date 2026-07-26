@@ -38,6 +38,7 @@ in {
       pkgsUnstable.keepassxc
       pkgsUnstable.picotool
       pkgsUnstable.rpi-imager
+      pkgs.silver-searcher
       pkgs.xclip
       pkgs.dconf
       pkgs.keychain
