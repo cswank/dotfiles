@@ -129,6 +129,9 @@ in {
       pkgsUnstable.emacsPackages.vterm
       pkgsUnstable.mermaid-cli
       pkgsUnstable.postgresql_15
+      pkgsUnstable.nodejs
+      pkgsUnstable.yarn
+      pkgsUnstable.youplot
       pkgs.aws-vault
       pkgs.cifs-utils
       pkgs.direnv
