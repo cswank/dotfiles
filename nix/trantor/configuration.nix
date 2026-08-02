@@ -40,6 +40,26 @@
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 
+  nix = {
+    # Expire system/root profile generations, then collect. Note this does NOT
+    # touch ~/.local/state/nix/profiles (home-manager + user profile) -- those
+    # are handled by nix.gc in home.nix.
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+      persistent = true;
+    };
+
+    # Hardlink identical files across store paths. Uses the periodic optimiser
+    # rather than settings.auto-optimise-store, which dedupes on write but has
+    # a history of lock contention during large builds.
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
+  };
+
   systemd.services.NetworkManager-wait-online.enable = false;
 
   systemd.services.bluetooth-suspend = {

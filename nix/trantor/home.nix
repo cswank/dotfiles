@@ -73,6 +73,33 @@ in {
     config.allowUnfree = true;
   };
 
+  # Expire this user's generations. NixOS's nix.gc only covers the system and
+  # root profiles, so without this the per-user profiles under
+  # ~/.local/state/nix/profiles (profile, home-manager, channels) accumulate
+  # indefinitely and pin their whole closures -- that is what grew /nix/store
+  # to 125GB against a 25GB live set.
+  #
+  # home-manager's own nix.gc module would express this, but it only exists in
+  # 24.05+ and programs.home-manager.path above pins 23.11.
+  systemd.user.services.nix-gc = {
+    Unit.Description = "Expire old Nix user generations and collect garbage";
+    Service = {
+      Type = "oneshot";
+      # System nix, not pkgs.nix, to stay on the same version as the daemon.
+      ExecStart = "/run/current-system/sw/bin/nix-collect-garbage --delete-older-than 7d";
+    };
+  };
+
+  systemd.user.timers.nix-gc = {
+    Unit.Description = "Weekly Nix user garbage collection";
+    Timer = {
+      OnCalendar = "weekly";
+      Persistent = true;
+      RandomizedDelaySec = 1800;
+    };
+    Install.WantedBy = [ "timers.target" ];
+  };
+
   home = {    
     username = "craig";
     homeDirectory = "/home/craig";
@@ -106,8 +133,6 @@ in {
       pkgsUnstable.pico-sdk
       pkgsUnstable.picotool
       pkgsUnstable.plantuml
-      pkgsUnstable.qemu
-      pkgsUnstable.quickemu
       pkgsUnstable.rpi-imager
       pkgsUnstable.signal-desktop
       pkgsUnstable.simplescreenrecorder
