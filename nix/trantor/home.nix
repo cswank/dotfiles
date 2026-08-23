@@ -133,7 +133,6 @@ in {
       pkgsUnstable.pico-sdk
       pkgsUnstable.picotool
       pkgsUnstable.plantuml
-      pkgsUnstable.rpi-imager
       pkgsUnstable.signal-desktop
       pkgsUnstable.simplescreenrecorder
       (pkgsUnstable.slack.overrideAttrs (old: {
@@ -157,6 +156,7 @@ in {
       pkgsUnstable.nodejs
       pkgsUnstable.yarn
       pkgsUnstable.youplot
+      pkgs.rpi-imager
       pkgs.aws-vault
       pkgs.cifs-utils
       pkgs.direnv
