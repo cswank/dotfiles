@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: nil; -*-
 ;;; color-theme-tango-2.el
 ;;; -*- mode: elisp -*-
 ;;; Copyright (c) 2008-2009 Will Farrington <wcfarrington@gmail.com>

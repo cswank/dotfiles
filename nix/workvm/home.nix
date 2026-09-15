@@ -78,7 +78,7 @@ in
       pkgs.claude-code
       pkgs.keepassxc
       pkgs.guake
-      pkgs.silver-searcher
+      pkgs.silver-searcher-ng
       pkgs.xclip
       pkgs.gh
       pkgs.gcc
@@ -99,6 +99,8 @@ in
       pkgs.graphviz
       pkgs.emacsPackages.vterm
       pkgs.postgresql_18
+      pkgs.yarn
+      pkgs.nodejs
     ];
 
     file = {

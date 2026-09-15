@@ -1,4 +1,4 @@
-;;; my-c --- Summary
+;;; my-c --- Summary  -*- lexical-binding: t; -*-
 ;;; setup c development
 ;;; Commentary:
 

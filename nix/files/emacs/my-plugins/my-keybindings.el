@@ -1,4 +1,4 @@
-;;; my-keybindings --- Summary
+;;; my-keybindings --- Summary  -*- lexical-binding: t; -*-
 ;;; setup keybindings
 ;;; Commentary:
 ;;; Code:

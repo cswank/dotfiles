@@ -1,4 +1,4 @@
-;;; my-javascript --- Summary
+;;; my-javascript --- Summary  -*- lexical-binding: t; -*-
 ;;; setup for email via mu4e
 ;;; Commentary:
 

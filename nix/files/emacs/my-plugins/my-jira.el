@@ -1,4 +1,4 @@
-;;; my-jira --- Summary
+;;; my-jira --- Summary  -*- lexical-binding: t; -*-
 ;;; setup org-jira stuff
 ;;; Commentary:
 

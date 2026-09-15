@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: nil; -*-
 ;; SCCS I.D.  %W%  delta: %G% %U%  date: %H% %T%
 
 ;;;;; tablature-mode.el -- modes for editing guitar tablature in GNU emacs

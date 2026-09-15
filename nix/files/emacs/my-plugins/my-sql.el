@@ -1,4 +1,4 @@
-;;; my-sql --- Summary
+;;; my-sql --- Summary  -*- lexical-binding: t; -*-
 ;;; setup sql-mode stuff
 ;;; Commentary:
 

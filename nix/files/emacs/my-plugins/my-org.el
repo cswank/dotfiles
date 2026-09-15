@@ -1,4 +1,4 @@
-;;; my-org --- Summary
+;;; my-org --- Summary  -*- lexical-binding: t; -*-
 ;;; setup vars for org-mode
 ;;; Commentary:
 ;;; Code:

@@ -1,4 +1,4 @@
-;;; my-weather --- Summary
+;;; my-weather --- Summary  -*- lexical-binding: t; -*-
 ;;; setup vars for 'forecast' package
 ;;; Commentary:
 ;;; Code:

@@ -1,4 +1,4 @@
-;;; my-slack --- Summary
+;;; my-slack --- Summary  -*- lexical-binding: t; -*-
 ;;; setup slack client
 ;;; Commentary:
 

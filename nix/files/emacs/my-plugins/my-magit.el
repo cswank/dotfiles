@@ -1,4 +1,4 @@
-;;; my-magit --- Summary
+;;; my-magit --- Summary  -*- lexical-binding: t; -*-
 ;;; setup magit stuff
 ;;; Commentary:
 

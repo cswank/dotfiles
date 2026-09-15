@@ -1,4 +1,4 @@
-;;; my-go --- Summary
+;;; my-go --- Summary  -*- lexical-binding: t; -*-
 ;;; setup go development
 ;;; Commentary:
 

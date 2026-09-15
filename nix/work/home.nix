@@ -29,14 +29,14 @@ in {
     packages = [
       pkgsUnstable.tfswitch
       pkgsUnstable.emacs
-      pkgsUnstable.silver-searcher
+      pkgsUnstable.silver-searcher-ng
       pkgsUnstable.keychain
       pkgsUnstable.gnupg
       pkgsUnstable.mosh
       pkgsUnstable.go
       pkgsUnstable.awscli2
       pkgsUnstable.postgresql
-      pkgsUnstable.jq
+      pkgsUnstable.jq      
       pkgs.direnv
     ];
 

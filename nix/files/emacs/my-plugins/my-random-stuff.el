@@ -1,4 +1,4 @@
-;;; my-random-stuff --- Summary
+;;; my-random-stuff --- Summary  -*- lexical-binding: t; -*-
 ;;; 
 ;;; Commentary:
 

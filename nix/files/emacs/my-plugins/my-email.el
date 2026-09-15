@@ -1,4 +1,4 @@
-;;; my-email --- Summary
+;;; my-email --- Summary  -*- lexical-binding: t; -*-
 ;;; setup for email via mu4e
 ;;; Commentary:
 

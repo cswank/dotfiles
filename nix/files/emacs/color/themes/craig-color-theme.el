@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: nil; -*-
 (eval-when-compile    (require 'color-theme))
 (defun color-theme-ryan ()
   "Color theme by ryan, created 2007-04-19."

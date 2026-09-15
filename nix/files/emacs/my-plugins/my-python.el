@@ -1,4 +1,4 @@
-;;; my-python --- Summary
+;;; my-python --- Summary  -*- lexical-binding: t; -*-
 ;;; setup stuff for python developing
 ;;; Commentary:
 ;;; Blah Blah Blah

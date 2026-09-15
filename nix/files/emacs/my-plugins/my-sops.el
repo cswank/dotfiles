@@ -1,4 +1,4 @@
-;;; my-sops --- Summary
+;;; my-sops --- Summary  -*- lexical-binding: t; -*-
 ;;; setup sops (https://github.com/getsops/sops)
 ;;; Commentary:
 

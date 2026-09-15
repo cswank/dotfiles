@@ -1,4 +1,4 @@
-;;; my-terraform --- Summary
+;;; my-terraform --- Summary  -*- lexical-binding: t; -*-
 ;;; start terraform-ls
 ;;; Commentary:
 ;;; Code:

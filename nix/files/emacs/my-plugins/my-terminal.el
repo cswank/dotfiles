@@ -1,4 +1,4 @@
-;;; my-terminal --- Summary
+;;; my-terminal --- Summary  -*- lexical-binding: t; -*-
 ;;; 
 ;;; Commentary:
 

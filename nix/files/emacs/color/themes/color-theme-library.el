@@ -1,4 +1,4 @@
-;;; color-theme-library.el --- The real color theme functions
+;;; color-theme-library.el --- The real color theme functions  -*- lexical-binding: nil; -*-
 
 ;; Copyright (C) 2005, 2006  Xavier Maillard <zedek@gnu.org>
 ;; Copyright (C) 2005, 2006  Brian Palmer <bpalmer@gmail.com>

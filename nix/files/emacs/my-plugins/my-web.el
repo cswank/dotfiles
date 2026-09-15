@@ -1,4 +1,4 @@
-;;; my-web --- Summary
+;;; my-web --- Summary  -*- lexical-binding: t; -*-
 ;;; setup web development
 ;;; Commentary:
 

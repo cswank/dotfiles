@@ -1,4 +1,4 @@
-;;; color-theme.el --- install color themes
+;;; color-theme.el --- install color themes  -*- lexical-binding: nil; -*-
 
 ;; Copyright (C) 1999, 2000  Jonadab the Unsightly One <jonadab@bright.net>
 ;; Copyright (C) 2000, 2001, 2002, 2003  Alex Schroeder <alex@gnu.org>

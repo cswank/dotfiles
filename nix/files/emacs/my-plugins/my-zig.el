@@ -1,4 +1,4 @@
-;;; my-zig --- Summary
+;;; my-zig --- Summary  -*- lexical-binding: t; -*-
 ;;; setup zig development
 ;;; Commentary:
 
