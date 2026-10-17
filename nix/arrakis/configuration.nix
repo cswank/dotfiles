@@ -55,6 +55,8 @@ in
        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKl0QUrClfkHvvN4HQIHH7KjgshLVCBQZnfoJKtGov/i craig@trantor"
        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAtQEzzTxy/ay4aZlZDnjXcj6xSElp4WhhL9Zc6a8pau craig@terminus"
        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8bzpDmgoIgDQCI6UFPW0DG7jMnwuL6bBxMAyjPCWMR craig@Craigs-MBP.localdomain"
+       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII5lmDgl/c8lSdGLLz4umHD52n+ry8QGrmeAlM/wXsqh craig@aurora.local"
+       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJLzd+pCkalkN3qTivzIgoZTdvAotTp3FPLs/pBt0uQW craig@yavin"
      ];
   };
 
@@ -100,6 +102,58 @@ in
       addresses = true;
       workstation = true;
       userServices = true;
+    };
+    # Advertise the Samba share so it shows up in the macOS Finder sidebar
+    extraServiceFiles.smb = ''
+      <?xml version="1.0" standalone='no'?>
+      <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+      <service-group>
+        <name replace-wildcards="yes">%h</name>
+        <service>
+          <type>_smb._tcp</type>
+          <port>445</port>
+        </service>
+        <service>
+          <type>_device-info._tcp</type>
+          <port>0</port>
+          <txt-record>model=RackMac</txt-record>
+        </service>
+      </service-group>
+    '';
+  };
+
+  # SMB share of /mnt/music for the Macs (Logic, Transcribe).
+  # Set the share password once with: sudo smbpasswd -a craig
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        "server string" = "arrakis";
+        "server min protocol" = "SMB3";
+        "security" = "user";
+        "map to guest" = "never";
+        "hosts allow" = "192.168.88. 127.0.0.1 ::1 fdf9:1a93:5ec1:425b::/64 fe80::/10";
+        "hosts deny" = "ALL";
+        # macOS interoperability: store Finder metadata and resource forks
+        # in xattrs and map characters that are illegal on SMB
+        "vfs objects" = "catia fruit streams_xattr";
+        "fruit:metadata" = "stream";
+        "fruit:model" = "MacSamba";
+        "fruit:posix_rename" = "yes";
+        "fruit:veto_appledouble" = "no";
+        "fruit:nfs_aces" = "no";
+        "fruit:wipe_intentionally_left_blank_rfork" = "yes";
+        "fruit:delete_empty_adfiles" = "yes";
+      };
+      music = {
+        path = "/mnt/music";
+        browseable = "yes";
+        "read only" = "no";
+        "valid users" = "craig";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+      };
     };
   };
 
