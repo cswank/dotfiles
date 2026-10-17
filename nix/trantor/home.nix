@@ -1,7 +1,21 @@
 { config, pkgs, lib, ... }:
 
 let
-  pkgsUnstable = import <unstable> {};
+  # Temporary override: pin claude-code to 2.1.280 (first release with Opus 5.5).
+  # nixpkgs-unstable is still on 2.1.278 as of 2026-09-23; drop this overlay and
+  # the manifest file once the channel catches up to >= 2.1.280.
+  #
+  # The nixpkgs package takes `manifest` as a top-level arg and derives version +
+  # src (url + sha256) entirely from it, so `.override` with a newer manifest is
+  # all that's needed -- the manifest's per-platform `checksum` is the fetchurl
+  # hash, so no separate prefetch is required.
+  claudeCodeOverlay = final: prev: {
+    claude-code = prev.claude-code.override {
+      manifest = builtins.fromJSON (builtins.readFile ./files/claude-code-manifest.json);
+    };
+  };
+
+  pkgsUnstable = import <unstable> { overlays = [ claudeCodeOverlay ]; };
 
   inherit (lib.generators) toINI;
 
