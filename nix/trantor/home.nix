@@ -119,7 +119,7 @@ in {
     homeDirectory = "/home/craig";
     sessionVariables = {
       MOZ_X11_EGL = "1";
-      LIBVA_DRIVER_NAME = "i965";
+      LIBVA_DRIVER_NAME = "iHD";
     };
     packages = [
       pkgsUnstable._1password-cli
