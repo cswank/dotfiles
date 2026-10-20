@@ -15,9 +15,25 @@ let
     };
   };
 
-  pkgsUnstable = import <unstable> { overlays = [ claudeCodeOverlay ]; };
+  pkgsUnstable = import <unstable> {
+    overlays = [ claudeCodeOverlay ];
+    config.allowUnfree = true;
+  };
 
   inherit (lib.generators) toINI;
+
+  # xscreensaver's default hack list minus the OpenGL ones ("GL:" entries).
+  # GL clients on i915 are the suspected trigger for trantor's suspend hangs
+  # (see README.md), and auto-suspend fires while the saver is running. The
+  # result keeps the app-defaults' "\n\" line-continuation format so it can be
+  # dropped straight into ~/.Xresources; the last continuation is stripped so
+  # it doesn't swallow the next resource.
+  xscreensaverNonGlPrograms = lib.removeSuffix "\n" (builtins.readFile
+    (pkgs.runCommand "xscreensaver-non-gl-programs" { } ''
+      awk '/^\*programs:/ { p = 1; next } p { print; if (!/\\$/) exit }' \
+        ${pkgs.xscreensaver}/share/xscreensaver/app-defaults/XScreenSaver \
+        | grep -v 'GL:' | sed '$ s/\\$//' > $out
+    ''));
 
   greet = pkgs.writeShellScriptBin "greeter" ''
   # Some bash script
@@ -65,6 +81,29 @@ in {
   };
 
   services.dunst.enable = true;
+
+  # Screensaver + lock after 10 minutes idle. xscreensaver turns off the X
+  # server's built-in saver timer, so it owns idle locking now (xss-lock in
+  # i3.nix just forwards lock requests to it). Settings go through
+  # ~/.Xresources; running xscreensaver-settings writes a ~/.xscreensaver that
+  # overrides all of this, so delete that file if one shows up.
+  services.xscreensaver = {
+    enable = true;
+    settings = {
+      timeout = "0:10:00";
+      lock = true;
+      lockTimeout = "0:00:00";
+      mode = "random";
+      programs = xscreensaverNonGlPrograms;
+      # DPMS used to blank at 10 minutes too, which would hide the saver.
+      # Auto-suspend (configuration.nix) normally beats this at 30 minutes;
+      # it only matters when an ssh/mosh session blocks suspend.
+      dpmsEnabled = true;
+      dpmsStandby = "0:30:00";
+      dpmsSuspend = "0:30:00";
+      dpmsOff = "0:30:00";
+    };
+  };
 
   systemd.user.services.stomach-reminder = {
     Unit.Description = "Hourly stomach exercise reminder";
@@ -119,7 +158,7 @@ in {
     homeDirectory = "/home/craig";
     sessionVariables = {
       MOZ_X11_EGL = "1";
-      LIBVA_DRIVER_NAME = "iHD";
+      LIBVA_DRIVER_NAME = "i965";
     };
     packages = [
       pkgsUnstable._1password-cli

@@ -160,7 +160,7 @@
       };
 
       # Suspend after 30 minutes without keyboard/mouse input, unless someone
-      # is connected over ssh or mosh. xss-lock (i3.nix) locks the screen on
+      # is connected over ssh or mosh. xscreensaver (home.nix) locks the screen on
       # the way down.
       xautolock = {
         enable = true;
