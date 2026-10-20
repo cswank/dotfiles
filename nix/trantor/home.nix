@@ -82,6 +82,10 @@ in {
 
   services.dunst.enable = true;
 
+  # Start/stop/restart user services on `home-manager switch` instead of only
+  # printing suggestions, so newly added services run without a re-login.
+  systemd.user.startServices = "sd-switch";
+
   # Screensaver + lock after 10 minutes idle. xscreensaver turns off the X
   # server's built-in saver timer, so it owns idle locking now (xss-lock in
   # i3.nix just forwards lock requests to it). Settings go through
