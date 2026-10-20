@@ -111,7 +111,7 @@ in {
     Unit.Description = "Hourly stomach exercise reminder";
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Stomach exercises' 'Time to do your stomach exercises'";
+      ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Stomach exercises' 'Time to do your exercises'";
     };
   };
 
