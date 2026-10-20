@@ -2,6 +2,20 @@
 
 NixOS configuration for the `trantor` workstation.
 
+## Rebuilding
+
+trantor is built from `flake.nix` in this directory. home-manager runs as a NixOS module, so one command applies both `configuration.nix` and `home.nix` (there is no standalone `home-manager` CLI):
+
+```
+nixos-rebuild switch --flake ~/Projects/dotfiles/nix/trantor#trantor --use-remote-sudo
+```
+
+`--use-remote-sudo` evaluates as your user and only uses sudo to activate. Running the whole thing under sudo makes git refuse the repo (owned by craig, not root).
+
+- Flakes only see files git tracks. `git add` a new file before rebuilding or the build won't find it. Git submodules (e.g. `files/emacs/plugins/vue-ts-mode`) are excluded too.
+- Versions are pinned in `flake.lock`. Update everything with `nix flake update`, or a single input with `nix flake lock --update-input nixpkgs-unstable`, then rebuild and commit the lock file.
+- `/etc/nixos/*` still symlinks here, but plain `nixos-rebuild` (no `--flake`) no longer works because `configuration.nix` takes `inputs` from the flake.
+
 ## Suspend debugging
 
 If suspend misbehaves (won't suspend, hangs on resume, ghostty windows wedge after wake), the config includes hooks that capture state around every sleep cycle.

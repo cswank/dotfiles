@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   # Temporary override: pin claude-code to 2.1.280 (first release with Opus 5.5).
@@ -15,7 +15,8 @@ let
     };
   };
 
-  pkgsUnstable = import <unstable> {
+  pkgsUnstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs) system;
     overlays = [ claudeCodeOverlay ];
     config.allowUnfree = true;
   };
@@ -52,12 +53,9 @@ in {
 
   imports = [ ../files/dconf.nix ];
 
+  # home-manager runs as a NixOS module (see flake.nix), so there is no
+  # standalone `home-manager` CLI; `nixos-rebuild switch` applies this file.
   programs = {
-    home-manager = {
-      enable = true;
-      path = https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz;
-    };
-
     # gnome-terminal is configured via dconf (see ../files/dconf.nix).
     # Do not also use `programs.gnome-terminal` here: both write the same
     # profile keys and home-manager errors out on the conflict.
@@ -126,10 +124,6 @@ in {
     Install.WantedBy = [ "timers.target" ];
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-  };
-
   # Expire this user's generations. NixOS's nix.gc only covers the system and
   # root profiles, so without this the per-user profiles under
   # ~/.local/state/nix/profiles (profile, home-manager, channels) accumulate
@@ -137,7 +131,7 @@ in {
   # to 125GB against a 25GB live set.
   #
   # home-manager's own nix.gc module would express this, but it only exists in
-  # 24.05+ and programs.home-manager.path above pins 23.11.
+  # 24.05+ and flake.nix pins home-manager to release-23.11.
   systemd.user.services.nix-gc = {
     Unit.Description = "Expire old Nix user generations and collect garbage";
     Service = {

@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -41,6 +41,15 @@
   };
 
   nix = {
+    # Built from flake.nix: `nixos-rebuild switch --flake .#trantor`.
+    # Enabled system-wide so root (sudo nixos-rebuild) can evaluate flakes too.
+    settings.experimental-features = [ "nix-command" "flakes" ];
+
+    # Point `nix shell nixpkgs#...` and legacy `<nixpkgs>` lookups (nix-shell
+    # -p) at the same nixpkgs the system is built from, instead of channels.
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+
     # Expire system/root profile generations, then collect. Note this does NOT
     # touch ~/.local/state/nix/profiles (home-manager + user profile) -- those
     # are handled by nix.gc in home.nix.
