@@ -1,9 +1,40 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
-  pkgsUnstable = import <unstable> {};
+  # Temporary override: pin claude-code to 2.1.280 (first release with Opus 5.5).
+  # nixpkgs-unstable is still on 2.1.278 as of 2026-09-23; drop this overlay and
+  # the manifest file once the channel catches up to >= 2.1.280.
+  #
+  # The nixpkgs package takes `manifest` as a top-level arg and derives version +
+  # src (url + sha256) entirely from it, so `.override` with a newer manifest is
+  # all that's needed -- the manifest's per-platform `checksum` is the fetchurl
+  # hash, so no separate prefetch is required.
+  claudeCodeOverlay = final: prev: {
+    claude-code = prev.claude-code.override {
+      manifest = builtins.fromJSON (builtins.readFile ./files/claude-code-manifest.json);
+    };
+  };
+
+  pkgsUnstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs) system;
+    overlays = [ claudeCodeOverlay ];
+    config.allowUnfree = true;
+  };
 
   inherit (lib.generators) toINI;
+
+  # xscreensaver's default hack list minus the OpenGL ones ("GL:" entries).
+  # GL clients on i915 are the suspected trigger for trantor's suspend hangs
+  # (see README.md), and auto-suspend fires while the saver is running. The
+  # result keeps the app-defaults' "\n\" line-continuation format so it can be
+  # dropped straight into ~/.Xresources; the last continuation is stripped so
+  # it doesn't swallow the next resource.
+  xscreensaverNonGlPrograms = lib.removeSuffix "\n" (builtins.readFile
+    (pkgs.runCommand "xscreensaver-non-gl-programs" { } ''
+      awk '/^\*programs:/ { p = 1; next } p { print; if (!/\\$/) exit }' \
+        ${pkgs.xscreensaver}/share/xscreensaver/app-defaults/XScreenSaver \
+        | grep -v 'GL:' | sed '$ s/\\$//' > $out
+    ''));
 
   greet = pkgs.writeShellScriptBin "greeter" ''
   # Some bash script
@@ -22,12 +53,9 @@ in {
 
   imports = [ ../files/dconf.nix ];
 
+  # home-manager runs as a NixOS module (see flake.nix), so there is no
+  # standalone `home-manager` CLI; `nixos-rebuild switch` applies this file.
   programs = {
-    home-manager = {
-      enable = true;
-      path = https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz;
-    };
-
     # gnome-terminal is configured via dconf (see ../files/dconf.nix).
     # Do not also use `programs.gnome-terminal` here: both write the same
     # profile keys and home-manager errors out on the conflict.
@@ -52,11 +80,38 @@ in {
 
   services.dunst.enable = true;
 
+  # Start/stop/restart user services on `home-manager switch` instead of only
+  # printing suggestions, so newly added services run without a re-login.
+  systemd.user.startServices = "sd-switch";
+
+  # Screensaver + lock after 10 minutes idle. xscreensaver turns off the X
+  # server's built-in saver timer, so it owns idle locking now (xss-lock in
+  # i3.nix just forwards lock requests to it). Settings go through
+  # ~/.Xresources; running xscreensaver-settings writes a ~/.xscreensaver that
+  # overrides all of this, so delete that file if one shows up.
+  services.xscreensaver = {
+    enable = true;
+    settings = {
+      timeout = "0:10:00";
+      lock = true;
+      lockTimeout = "0:00:00";
+      mode = "random";
+      programs = xscreensaverNonGlPrograms;
+      # DPMS used to blank at 10 minutes too, which would hide the saver.
+      # Auto-suspend (configuration.nix) normally beats this at 30 minutes;
+      # it only matters when an ssh/mosh session blocks suspend.
+      dpmsEnabled = true;
+      dpmsStandby = "0:30:00";
+      dpmsSuspend = "0:30:00";
+      dpmsOff = "0:30:00";
+    };
+  };
+
   systemd.user.services.stomach-reminder = {
     Unit.Description = "Hourly stomach exercise reminder";
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Stomach exercises' 'Time to do your stomach exercises'";
+      ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Stomach exercises' 'Time to do your exercises'";
     };
   };
 
@@ -69,10 +124,6 @@ in {
     Install.WantedBy = [ "timers.target" ];
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-  };
-
   # Expire this user's generations. NixOS's nix.gc only covers the system and
   # root profiles, so without this the per-user profiles under
   # ~/.local/state/nix/profiles (profile, home-manager, channels) accumulate
@@ -80,7 +131,7 @@ in {
   # to 125GB against a 25GB live set.
   #
   # home-manager's own nix.gc module would express this, but it only exists in
-  # 24.05+ and programs.home-manager.path above pins 23.11.
+  # 24.05+ and flake.nix pins home-manager to release-23.11.
   systemd.user.services.nix-gc = {
     Unit.Description = "Expire old Nix user generations and collect garbage";
     Service = {

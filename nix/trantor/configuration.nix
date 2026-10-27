@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -41,6 +41,15 @@
   };
 
   nix = {
+    # Built from flake.nix: `nixos-rebuild switch --flake .#trantor`.
+    # Enabled system-wide so root (sudo nixos-rebuild) can evaluate flakes too.
+    settings.experimental-features = [ "nix-command" "flakes" ];
+
+    # Point `nix shell nixpkgs#...` and legacy `<nixpkgs>` lookups (nix-shell
+    # -p) at the same nixpkgs the system is built from, instead of channels.
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+
     # Expire system/root profile generations, then collect. Note this does NOT
     # touch ~/.local/state/nix/profiles (home-manager + user profile) -- those
     # are handled by nix.gc in home.nix.
@@ -157,6 +166,23 @@
         sessionCommands = ''
         xsetroot -solid '#07422f'
         '';
+      };
+
+      # Suspend after 30 minutes without keyboard/mouse input, unless someone
+      # is connected over ssh or mosh. xscreensaver (home.nix) locks the screen on
+      # the way down.
+      xautolock = {
+        enable = true;
+        time = 30;
+        locker = toString (pkgs.writeShellScript "idle-suspend" ''
+          if ${pkgs.procps}/bin/pgrep -f '^sshd: [^ ]+@' >/dev/null \
+             || ${pkgs.procps}/bin/pgrep -x mosh-server >/dev/null; then
+            ${pkgs.util-linux}/bin/logger -t idle-suspend "idle, but remote session active; not suspending"
+            exit 0
+          fi
+          ${pkgs.util-linux}/bin/logger -t idle-suspend "idle for 30 minutes; suspending"
+          exec ${pkgs.systemd}/bin/systemctl suspend
+        '');
       };
 
       windowManager.i3 = {
