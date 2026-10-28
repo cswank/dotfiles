@@ -182,6 +182,7 @@ in {
       pkgsUnstable.zig
       pkgsUnstable.zls
       pkgsUnstable.emacsPackages.vterm
+      pkgsUnstable.emacsPackages.ghostel
       pkgsUnstable.mermaid-cli
       pkgsUnstable.postgresql_15
       pkgsUnstable.nodejs
