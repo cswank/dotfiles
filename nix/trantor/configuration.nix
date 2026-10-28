@@ -165,11 +165,16 @@
         defaultSession = "none+i3";
         sessionCommands = ''
         xsetroot -solid '#07422f'
+        # Lock (via xss-lock + i3lock) and blank after 10 minutes idle. These
+        # match the X server defaults, but are set explicitly so the timing
+        # is visible here and survives anything that changed them.
+        xset s 600 600
+        xset dpms 600 600 600
         '';
       };
 
       # Suspend after 30 minutes without keyboard/mouse input, unless someone
-      # is connected over ssh or mosh. xscreensaver (home.nix) locks the screen on
+      # is connected over ssh or mosh. xss-lock (i3.nix) locks the screen on
       # the way down.
       xautolock = {
         enable = true;

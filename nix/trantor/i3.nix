@@ -28,9 +28,15 @@ font pango:${variables.font.name} ${variables.font.size}
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
-# xscreensaver (home.nix) handles idle locking and locks before suspend.
-# xss-lock forwards loginctl lock-session and sleep events to it as well.
-exec --no-startup-id xss-lock -- xscreensaver-command -lock
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+# It also locks when the X server's screensaver timer fires (10 minutes idle,
+# set by `xset s` in configuration.nix).
+#
+# Don't swap this for xscreensaver: its fade/hacks are still drawing when
+# suspend runs, and that wedged trantor's i915 suspend (2026-10-20, see
+# README.md).
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -186,7 +192,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $Locker xscreensaver-command -lock && sleep 1
+set $Locker i3lock && sleep 1
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {

@@ -30,6 +30,9 @@ If suspend misbehaves (won't suspend, hangs on resume, ghostty windows wedge aft
 - 2026-06-26: confirmed `/sys/power/pm_print_times = 1` is the correct knob (344 per-device "calling" lines on a test cycle). Switched to a `systemd.tmpfiles` rule to enable it at boot.
 - 2026-07-02 to 07-03: hang recurred on ghostty and again after switching to kitty (both GPU-accelerated OpenGL terminals). Hypothesis narrowed: it's the GL-terminal-class + i915 + this specific hardware, not ghostty-specific.
 - 2026-07-03: switched trantor to gnome-terminal via `i3-sensible-terminal` (VTE + cairo, no OpenGL). Kitty/ghostty still installed for easy swap-back. If suspends stay clean on gnome-terminal, hypothesis is confirmed and next step is either an i915 workaround or trying a newer kernel.
+- 2026-07-06 to 10-19: 194 clean suspends on gnome-terminal, with `LIBVA_DRIVER_NAME=i965` (which fails to initialise on this chip, so Firefox has no VA-API).
+- 2026-10-19 (8244efc): `LIBVA_DRIVER_NAME=iHD` gave Firefox working VA-API; the next two suspends hung. Reverted to `i965`, which is deliberately kept as a "no VA-API" switch.
+- 2026-10-20: added xscreensaver (non-GL hacks, lock + fade). The first suspend after that hung, right as the lock fade was drawing (the lock binding runs `xscreensaver-command -lock && sleep 1 && systemctl suspend`). Removed it the next day and went back to xss-lock + i3lock.
 
 Current hypothesis: ghostty's EGL/GPU usage on `i915` triggers a driver suspend hang (no userspace inhibitor involved, which is why `systemd-inhibit --list` shows nothing). `pm_print_times` should name the offending driver on the next hang.
 

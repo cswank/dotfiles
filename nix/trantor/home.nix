@@ -15,26 +15,29 @@ let
     };
   };
 
+  # Temporary override: rpi-imager 2.0.12 (released 2026-10-08). nixpkgs is
+  # still on 2.0.11.1 as of 2026-10-26; drop this overlay once it catches up.
+  # The package's fake-git and version strings derive from finalAttrs.version,
+  # so bumping version + src is enough.
+  rpiImagerOverlay = final: prev: {
+    rpi-imager = prev.rpi-imager.overrideAttrs (finalAttrs: old: {
+      version = "2.0.12";
+      src = prev.fetchFromGitHub {
+        owner = "raspberrypi";
+        repo = "rpi-imager";
+        tag = "v${finalAttrs.version}";
+        hash = "sha256-oIq7+NxTh/IQH78xSfXLZeKx7uMJ3T7THychdb3QcZg=";
+      };
+    });
+  };
+
   pkgsUnstable = import inputs.nixpkgs-unstable {
     inherit (pkgs) system;
-    overlays = [ claudeCodeOverlay ];
+    overlays = [ claudeCodeOverlay rpiImagerOverlay ];
     config.allowUnfree = true;
   };
 
   inherit (lib.generators) toINI;
-
-  # xscreensaver's default hack list minus the OpenGL ones ("GL:" entries).
-  # GL clients on i915 are the suspected trigger for trantor's suspend hangs
-  # (see README.md), and auto-suspend fires while the saver is running. The
-  # result keeps the app-defaults' "\n\" line-continuation format so it can be
-  # dropped straight into ~/.Xresources; the last continuation is stripped so
-  # it doesn't swallow the next resource.
-  xscreensaverNonGlPrograms = lib.removeSuffix "\n" (builtins.readFile
-    (pkgs.runCommand "xscreensaver-non-gl-programs" { } ''
-      awk '/^\*programs:/ { p = 1; next } p { print; if (!/\\$/) exit }' \
-        ${pkgs.xscreensaver}/share/xscreensaver/app-defaults/XScreenSaver \
-        | grep -v 'GL:' | sed '$ s/\\$//' > $out
-    ''));
 
   greet = pkgs.writeShellScriptBin "greeter" ''
   # Some bash script
@@ -80,32 +83,9 @@ in {
 
   services.dunst.enable = true;
 
-  # Start/stop/restart user services on `home-manager switch` instead of only
+  # Start/stop/restart user services on activation instead of only
   # printing suggestions, so newly added services run without a re-login.
   systemd.user.startServices = "sd-switch";
-
-  # Screensaver + lock after 10 minutes idle. xscreensaver turns off the X
-  # server's built-in saver timer, so it owns idle locking now (xss-lock in
-  # i3.nix just forwards lock requests to it). Settings go through
-  # ~/.Xresources; running xscreensaver-settings writes a ~/.xscreensaver that
-  # overrides all of this, so delete that file if one shows up.
-  services.xscreensaver = {
-    enable = true;
-    settings = {
-      timeout = "0:10:00";
-      lock = true;
-      lockTimeout = "0:00:00";
-      mode = "random";
-      programs = xscreensaverNonGlPrograms;
-      # DPMS used to blank at 10 minutes too, which would hide the saver.
-      # Auto-suspend (configuration.nix) normally beats this at 30 minutes;
-      # it only matters when an ssh/mosh session blocks suspend.
-      dpmsEnabled = true;
-      dpmsStandby = "0:30:00";
-      dpmsSuspend = "0:30:00";
-      dpmsOff = "0:30:00";
-    };
-  };
 
   systemd.user.services.stomach-reminder = {
     Unit.Description = "Hourly stomach exercise reminder";
@@ -207,7 +187,7 @@ in {
       pkgsUnstable.nodejs
       pkgsUnstable.yarn
       pkgsUnstable.youplot
-      pkgs.rpi-imager
+      pkgsUnstable.rpi-imager
       pkgs.aws-vault
       pkgs.cifs-utils
       pkgs.direnv

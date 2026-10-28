@@ -19,6 +19,40 @@ Goal: move `aurora.local:~/Music` (Intel MacBook, low on disk) onto arrakis's
   the **TRENDnet TE100** switch it's plugged into (10/100 only). trantor
   (gigabit, not on that switch) measured only 10.9 MB/s to arrakis.
   A gigabit switch has been ordered.
+- 2026-10-23: gigabit switch (**TRENDnet TEG-S50g**, 5-port, unmanaged)
+  installed. arrakis `enp1s0` now links at 1000 Mb/s full duplex, and
+  `ethtool` shows the switch port advertising `1000baseT/Full`. trantor (then
+  plugged straight into the router) -> arrakis was **still ~11.5 MB/s**. The
+  cause turned out to be the router's ether4 port (see the uplink entry below).
+- 2026-10-23: aurora put on Ethernet (`en0`, 1000baseT full duplex, used for
+  the route to arrakis). Raw TCP with netcat, 500 MB arrakis -> aurora:
+  **~50-60 MB/s** (arrakis's `dd` reported 59.6 MB/s, aurora's 49.7 MB/s), so
+  the aurora <-> arrakis path is no longer limited to 100 Mbps. The opposite
+  direction wasn't tested because arrakis's firewall blocks the netcat port.
+  Neither machine has an ssh key the other accepts.
+- 2026-10-23: copied `~/Music/Logic` (11 GB) from aurora to the share with
+  `ditto ~/Music/Logic /Volumes/music/Logic` (the system `rsync` on macOS 15 is
+  openrsync, which doesn't copy extended attributes), and watched it with
+  `netstat -I en0 -w 1`. Sustained **~100-110 MB/s** out of aurora over SMB,
+  close to gigabit line rate, with zero errors. It dropped to ~42-44 MB/s on
+  stretches that were probably many small files (per-file SMB round trips).
+  That's about twice the netcat result, which ran in the other direction as a
+  single raw stream and probably hit a limit on aurora's receiving end.
+- 2026-10-23: found and fixed the 100 Mbps uplink. The router is a MikroTik
+  (RouterOS, 192.168.88.1). `/interface ethernet monitor [find] once` showed
+  ether1-3 at 1 Gbps but **ether4 at 100 Mbps**, with the link partner
+  advertising only up to 100M. `/interface bridge host print where
+  interface=ether4` listed arrakis's MAC (and aurora, a Raspberry Pi, a Sony
+  device), so the TEG-S50g was on ether4. Replacing the router <-> switch
+  cable didn't help (still 100M). With trantor moved onto the TEG-S50g:
+  trantor -> arrakis **104 MB/s**, but internet dropped from ~78 MB/s
+  (~620 Mbps) to ~11 MB/s, which isolated the problem to the switch uplink.
+  Moving the uplink to **ether5** fixed it: internet ~78 MB/s down,
+  ~60-80 MB/s up, from trantor through the TEG-S50g. The new cable was used on
+  both ports, so the **router's ether4 port is probably faulty**. Don't use it
+  for anything that needs gigabit.
+  The 2026-10-17 slowness (trantor -> arrakis 10.9 MB/s) may also have been
+  partly ether4, not just the TE100.
 - The work happened in a Claude Code session in `~/Projects/demucs-rs` on
   trantor (`cd ~/Projects/demucs-rs && claude --resume` to find it).
 
@@ -44,9 +78,10 @@ Goal: move `aurora.local:~/Music` (Intel MacBook, low on disk) onto arrakis's
 3. On aurora: Finder -> Cmd-K -> `smb://arrakis.local/music`, save the
    password in the keychain, and add the mounted share to
    System Settings -> General -> Login Items to remount at login.
-4. Copy a large file over SMB from aurora to see real-world speed. aurora is on
-   **Wi-Fi only** (5 GHz 802.11ac, ~405 Mbps link, en0 Ethernet unplugged), so
-   expect roughly 20-35 MB/s regardless of the switch.
+4. Copy a large file over SMB from aurora to see real-world speed. aurora is
+   now on Ethernet, and a `ditto` copy to the share ran at ~100-110 MB/s
+   (see History). (On Wi-Fi only, 5 GHz 802.11ac at ~405 Mbps, expect
+   roughly 20-35 MB/s.)
 5. Move data with rsync, dry run first, and verify projects open in Logic
    before deleting anything on aurora.
 
