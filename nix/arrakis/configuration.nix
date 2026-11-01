@@ -162,19 +162,26 @@ in
     systemCronJobs = [
       "0 2 15 Aug,Nov,Feb,May *	root	/root/bin/certs.sh >> /var/log/certs.log 2>&1"
       "0 * * * *	craig	/home/craig/bin/dyn.sh"
-      "0 1 * * *	root	systemctl restart quimby"
     ];
   };
 
   systemd.services.quimby = {
     description = "quimby";
 
+    # homekit's mDNS announcement fails if quimby starts before the
+    # network is up, so wait for it.
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+
     serviceConfig = {
       User = "quimby";
       EnvironmentFile=/home/quimby/env;
       WorkingDirectory=/home/quimby;
       ExecStart = "/usr/local/bin/quimby serve";
+      # quimby exits when the homekit server fails (e.g. mDNS responder
+      # stopped), which replaces the old nightly restart cron job.
       Restart = "on-failure";
+      RestartSec = 10;
     };
 
     wantedBy = [ "default.target" ];
