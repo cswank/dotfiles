@@ -21,10 +21,10 @@
       argsOverride = rec {
         src = pkgs.fetchurl {
           url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-          sha256 = "1ajzby6isqji1xlp660m4qj2i2xs003vsjp1jspziwl7hrzhqadb";
+          sha256 = "19cgdg23hdhg9i4kyybp33qg4wq63jgd4n1pl3s8apfs8ir741kj";
         };
-        version = "6.6.15";
-        modDirVersion = "6.6.15";
+        version = "6.6.159";
+        modDirVersion = "6.6.159";
       };
     });
     resumeDevice = "/dev/nvme0n1p2";
