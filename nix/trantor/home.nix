@@ -164,6 +164,7 @@ in {
       pkgsUnstable.pico-sdk
       pkgsUnstable.picotool
       pkgsUnstable.plantuml
+      pkgsUnstable.pnpm
       pkgsUnstable.signal-desktop
       pkgsUnstable.simplescreenrecorder
       (pkgsUnstable.slack.overrideAttrs (old: {
