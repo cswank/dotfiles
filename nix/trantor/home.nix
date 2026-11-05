@@ -143,6 +143,7 @@ in {
       pkgsUnstable.acme-sh
       pkgsUnstable.asciinema
       pkgsUnstable.awscli2
+      pkgsUnstable.ssm-session-manager-plugin
       pkgsUnstable.claude-code
       pkgsUnstable.cloc
       pkgsUnstable.cryptsetup
