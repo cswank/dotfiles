@@ -197,6 +197,20 @@ in
     wantedBy = [ "default.target" ];
   };
 
+  systemd.services.granny = {
+    description = "granny";
+    
+    serviceConfig = {
+      User = "proxy";
+      WorkingDirectory=/home/proxy/granny;
+      ExecStart = "/usr/local/bin/granny";
+      Restart = "on-failure";
+      AmbientCapabilities="CAP_NET_BIND_SERVICE";
+    };
+
+    wantedBy = [ "default.target" ];
+  };
+
   systemd.services.astronomy = {
     description = "astronomy";
 
