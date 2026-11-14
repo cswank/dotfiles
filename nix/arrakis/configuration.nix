@@ -160,7 +160,7 @@ in
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "0 2 15 Aug,Nov,Feb,May *	root	/root/bin/certs.sh >> /var/log/certs.log 2>&1"
+      "0 2 1 * *	root	/root/bin/certs.sh >> /var/log/certs.log 2>&1"
       "0 * * * *	craig	/home/craig/bin/dyn.sh"
     ];
   };
