@@ -143,6 +143,7 @@ in {
       pkgsUnstable.acme-sh
       pkgsUnstable.asciinema
       pkgsUnstable.awscli2
+      pkgsUnstable.ssm-session-manager-plugin
       pkgsUnstable.claude-code
       pkgsUnstable.cloc
       pkgsUnstable.cryptsetup
@@ -164,6 +165,7 @@ in {
       pkgsUnstable.pico-sdk
       pkgsUnstable.picotool
       pkgsUnstable.plantuml
+      pkgsUnstable.pnpm
       pkgsUnstable.signal-desktop
       pkgsUnstable.simplescreenrecorder
       (pkgsUnstable.slack.overrideAttrs (old: {

@@ -51,6 +51,8 @@
       echo "Xft.dpi: 220" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
     '';
     xkb.layout = "us";
+    autoRepeatDelay = 200;
+    autoRepeatInterval = 25;
 
     # macOS-style "natural" scrolling. UTM routes the Mac trackpad through the
     # absolute spice/QEMU *tablet* device, which MatchIsPointer does not catch,

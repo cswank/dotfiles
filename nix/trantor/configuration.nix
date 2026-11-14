@@ -21,10 +21,10 @@
       argsOverride = rec {
         src = pkgs.fetchurl {
           url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-          sha256 = "1ajzby6isqji1xlp660m4qj2i2xs003vsjp1jspziwl7hrzhqadb";
+          sha256 = "19cgdg23hdhg9i4kyybp33qg4wq63jgd4n1pl3s8apfs8ir741kj";
         };
-        version = "6.6.15";
-        modDirVersion = "6.6.15";
+        version = "6.6.159";
+        modDirVersion = "6.6.159";
       };
     });
     resumeDevice = "/dev/nvme0n1p2";
@@ -171,23 +171,6 @@
         xset s 600 600
         xset dpms 600 600 600
         '';
-      };
-
-      # Suspend after 30 minutes without keyboard/mouse input, unless someone
-      # is connected over ssh or mosh. xss-lock (i3.nix) locks the screen on
-      # the way down.
-      xautolock = {
-        enable = true;
-        time = 30;
-        locker = toString (pkgs.writeShellScript "idle-suspend" ''
-          if ${pkgs.procps}/bin/pgrep -f '^sshd: [^ ]+@' >/dev/null \
-             || ${pkgs.procps}/bin/pgrep -x mosh-server >/dev/null; then
-            ${pkgs.util-linux}/bin/logger -t idle-suspend "idle, but remote session active; not suspending"
-            exit 0
-          fi
-          ${pkgs.util-linux}/bin/logger -t idle-suspend "idle for 30 minutes; suspending"
-          exec ${pkgs.systemd}/bin/systemctl suspend
-        '');
       };
 
       windowManager.i3 = {
