@@ -220,6 +220,69 @@ function ins-token () {
     export AUTH="Authorization: $TOKEN"
 }
 
+function devdb() {
+    ins-db "$1" 'dev'
+}
+
+function testdb() {
+    ins-db "$1" 'test'
+}
+
+function proddb() {
+    ins-db "$1" 'prod'
+}
+
+# Open an SSM tunnel through the bastion and start psql over it.
+# Config comes from ~/.parsyl/database/<name>-<env>.env. The tunnel is torn
+# down when psql exits.
+# Usage: ins-db <name> <env>   e.g. ins-db pas dev
+function ins-db() {
+    emulate -L zsh
+    setopt no_monitor no_notify
+
+    local conf="$HOME/.parsyl/database/$1-$2.env"
+    if [[ -z $1 || -z $2 || ! -r $conf ]]; then
+        print -u2 "usage: ins-db <name> <env>  (no config at $conf)"
+        return 1
+    fi
+
+    local PROFILE REGION=us-east-1 DB_HOST DB_NAME DB_USER LOCAL_PORT=15432
+    . $conf
+
+    pg_isready -q -h localhost -p $LOCAL_PORT
+    if (( $? != 2 )); then
+        print -u2 "ins-db: localhost:$LOCAL_PORT is already in use"
+        return 1
+    fi
+
+    local target
+    target=$(aws ec2 describe-instances --profile $PROFILE --region $REGION \
+        --filters Name=tag:Name,Values=SSHBastion Name=instance-state-name,Values=running \
+        --query 'Reservations[0].Instances[0].InstanceId' --output text) || return 1
+
+    local log=$(mktemp)
+    aws ssm start-session --profile $PROFILE --region $REGION --target $target \
+        --document-name AWS-StartPortForwardingSessionToRemoteHost \
+        --parameters "{\"host\":[\"$DB_HOST\"],\"portNumber\":[\"5432\"],\"localPortNumber\":[\"$LOCAL_PORT\"]}" \
+        >$log 2>&1 &
+    local pid=$!
+    trap "pkill -P $pid 2>/dev/null; kill $pid 2>/dev/null; rm -f $log" EXIT
+
+    local i
+    for i in {1..40}; do
+        pg_isready -q -h localhost -p $LOCAL_PORT
+        (( $? != 2 )) && break
+        if ! kill -0 $pid 2>/dev/null || (( i == 40 )); then
+            print -u2 "ins-db: tunnel failed to start"
+            cat $log >&2
+            return 1
+        fi
+        sleep 0.5
+    done
+
+    psql "host=localhost port=$LOCAL_PORT dbname=$DB_NAME user=$DB_USER sslmode=require"
+}
+
 function dev-token() {
     use-env 'dev' $1
 }
