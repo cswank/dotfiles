@@ -11,6 +11,9 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Not following nixpkgs: sops-install-secrets needs a newer Go than 23.11
+    # has, so home.nix uses the package sops-nix builds with its own nixpkgs.
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs: {

@@ -1,0 +1,7 @@
+keys:
+  - &craig age1lvyvwawkr0mcnnnncaghunadrqkmuf9e6507x9y920xxpp866cnql7dp2z
+creation_rules:
+  - path_regex: secrets/.*
+    key_groups:
+      - age:
+          - *craig
