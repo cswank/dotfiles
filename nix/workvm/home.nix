@@ -3,6 +3,13 @@
 let
   pkgs = import <nixpkgs-unstable> { config.allowUnfree = true; };
 
+  # Same revision as trantor's flake.lock. workvm uses channels, not a flake,
+  # so it's pinned here instead.
+  sopsNix = builtins.fetchTarball {
+    url = "https://github.com/Mic92/sops-nix/archive/d5abe5e53200ad48254e8e6bd95e6cef94e66577.tar.gz";
+    sha256 = "0ih5smbbw9b0qkx2169xqaq7brdbx7xayj5zcwv7aq0df713z7ys";
+  };
+
   inherit (lib.generators) toINI;
 
   greet = pkgs.writeShellScriptBin "greeter" ''
@@ -22,7 +29,20 @@ in
   # changes in each release.
   home.stateVersion = "26.05";
 
-  imports = [ ./dconf.nix ];
+  imports = [ ./dconf.nix "${sopsNix}/modules/home-manager/sops.nix" ];
+
+  # Secrets are encrypted to this machine's age key and trantor's (see
+  # ../.sops.yaml); edit one with `sops nix/secrets/<name>`. A systemd user
+  # service decrypts them into $XDG_RUNTIME_DIR and symlinks each to its
+  # `path`, so no plaintext reaches the nix store.
+  sops = {
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    secrets.pgpass = {
+      sopsFile = ../secrets/pgpass;
+      format = "binary";
+      path = "${config.home.homeDirectory}/.pgpass";
+    };
+  };
 
   programs = {
     home-manager = {

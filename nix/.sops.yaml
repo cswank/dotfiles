@@ -1,7 +1,9 @@
 keys:
   - &craig age1lvyvwawkr0mcnnnncaghunadrqkmuf9e6507x9y920xxpp866cnql7dp2z
+  - &workvm age18luwtkfnrmf82tkvtymyxawjmf4nesuwqqx7ym0zjn96wgvjz4qq4xn28z
 creation_rules:
   - path_regex: secrets/.*
     key_groups:
       - age:
           - *craig
+          - *workvm

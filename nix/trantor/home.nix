@@ -56,15 +56,15 @@ in {
 
   imports = [ ../files/dconf.nix inputs.sops-nix.homeManagerModules.sops ];
 
-  # Secrets are encrypted to the age key below (see .sops.yaml); edit one with
-  # `sops secrets/<name>`. A systemd user service decrypts them into
+  # Secrets are encrypted to the age key below (see ../.sops.yaml); edit one with
+  # `sops nix/secrets/<name>`. A systemd user service decrypts them into
   # $XDG_RUNTIME_DIR and symlinks each to its `path`, so no plaintext reaches
   # the nix store.
   sops = {
     package = inputs.sops-nix.packages.${pkgs.system}.sops-install-secrets;
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
     secrets.pgpass = {
-      sopsFile = ./secrets/pgpass;
+      sopsFile = ../secrets/pgpass;
       format = "binary";
       path = "${config.home.homeDirectory}/.pgpass";
     };
